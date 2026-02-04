@@ -329,7 +329,7 @@ We didn't review the *`srv6-pytorch`* yaml in detail, but if you take a look at 
     ping fcbb:0:800:2::10 -i .5
     ```
 
-3. While the ping is running start an Edgeshark capture on **leaf00's** Ethernet16 interface - *`Note: it appears as eth5 in Visual Code`*). The capture should show the pings as SRv6 encapsulated packets with the uSID stack programmed by the SRv6 PyTorch plugin. 
+3. While the ping is running start an Edgeshark capture on **leaf00's** Ethernet16 interface - *`Note: it appears as eth5 in Visual Code`*. The capture should show the pings as SRv6 encapsulated packets with the uSID stack programmed by the SRv6 PyTorch plugin. 
 
 Feel free to Edgeshark capture other interfaces in the fabric. 
 
@@ -345,7 +345,7 @@ The **SRv6 PyTorch pods** are connected to both the backend SONiC fabric and the
 <img src="../topo_drawings/lab5-backend-frontend.png" width="800" />
 
 
-1. Run a ping from the *`srv6-pytorch-0`* worker pod to the remote Rome container in *VRF carrots*
+1. Run a *frontend* ping from the *`srv6-pytorch-0`* worker pod to the remote **Rome** container in *VRF carrots*
    
    If your terminal session is still *exec'd* into the pod run the ping directly
    ```
