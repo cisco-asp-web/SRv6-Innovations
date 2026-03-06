@@ -47,14 +47,10 @@ SONiC is Linux plus a microservices-style architecture with modules running as D
 For a deep dive on SONiC architecture and containers please see: https://sonicfoundation.dev/deep-dive-into-sonic-architecture-design/
 
 
-1. ssh to **leaf00** in our topology using the visual code extension
+1. Using the containerlab vscode extension, ssh to **sonic-leaf-00**.
   
   > [!NOTE]
   >user/password is **admin/admin**)
-
-   ```
-   ssh admin@clab-cleu26-sonic-leaf-00
-   ```
 
 2. List SONiC's docker containers.
     ```
@@ -295,6 +291,11 @@ We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco
     spine01  : ok=18   changed=14   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
     spine02  : ok=18   changed=14   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ``` 
+
+> [!IMPORTANT]
+> Not all truths are found at the edge.
+> Sometimes, the center of the fabric knows more than the leaves.
+> Some secrets only reveal themselves **after an SSH login** — choose the node that binds the fabric together.
 
 **Verify Configuration of FRR in Leaf00**
 

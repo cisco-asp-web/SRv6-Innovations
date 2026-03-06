@@ -85,7 +85,7 @@ Before we get into PyTorch and AI Backend fabrics, let's manually add a Linux ro
    
    - The uSID shift-and-forward at **leaf00** and **spine01** will result in an ipv6 destination address of *`fcbb:1006:fe06::`* when the packet arrives at **leaf02**. 
    
-   - **leaf02** recognizes itself and its local uDT6 entry *`fc06`* in the destination address and will proceed to pop the outer IPv6 header and do a lookup on the inner destination address *`fcbb:0:0800:2::/64`*. 
+   - **leaf02** recognizes itself and its local uDT6 entry *`fe06`* in the destination address and will proceed to pop the outer IPv6 header and do a lookup on the inner destination address *`fcbb:0:0800:2::/64`*. 
    
    - **leaf02** will then forward the traffic to **london-vm-02**
 
@@ -124,11 +124,17 @@ segment-routing
  srv6
  ```
 
-4. Optional: run a ping from **london-vm-00** to **london-vm-02** and capture the traffic with an Edgshark session on **leaf00** Ethernet16
+4. Optional: run a ping from **london-vm-00** to **london-vm-02** and capture the traffic with an Edgshark session on the interface connected to the **leaf00** bridge: 
 
     ```
     ping fcbb:0:800:2::2 -i .5
     ```
+
+<img src="../topo_drawings/lab5-edgeshark.png " width="800" />
+
+<img src="../topo_drawings/lab5-edgeshark-bridge.png " width="800" />
+
+<img src="../topo_drawings/lab5-edgeshark-capture.png " width="800" />
 
 Or for a quick validation of the packet encap open a new terminal session to **topology-host** and run a tcpdump on the underlying connection between **london-vm-00** and **leaf00**:
 
@@ -149,7 +155,7 @@ Expected output will be something like:
 > [!NOTE]
 > We only specified an encapsulated route in the outbound direction, so the return traffic is not encapsulated
 
-5. Delete the route as we don't want to confuse an SRv6 route on the **london-vm** with the SRv6 routes our K8s pods will be running later in the lab
+1. Delete the route as we don't want to confuse an SRv6 route on the **london-vm-00** with the SRv6 routes our K8s pods will be running later in the lab
 
     ```
     sudo ip -6 route del fcbb:0:0800:2::/64
@@ -331,6 +337,10 @@ We didn't review the *`srv6-pytorch`* yaml in detail, but if you take a look at 
 
 3. While the ping is running start an Edgeshark capture on **leaf00's** Ethernet16 interface - *`Note: it appears as eth5 in Visual Code`*. The capture should show the pings as SRv6 encapsulated packets with the uSID stack programmed by the SRv6 PyTorch plugin. 
 
+
+<img src="../topo_drawings/lab5-edgeshark-capture-leaf00-eth5.png" width="800" />
+
+
 Feel free to Edgeshark capture other interfaces in the fabric. 
 
 - If the 2nd uSID in the route entry is "1000" capture **spine00** eth1
@@ -358,6 +368,10 @@ The **SRv6 PyTorch pods** are connected to both the backend SONiC fabric and the
    ```
 
 2. While the ping is running start an Edgeshark capture on **london-xrd01** Gi0-0-0-3. The capture should show the pings as SRv6 encapsulated packets with the uSID stack programmed by the SRv6 PyTorch plugin. 
+
+<img src="../topo_drawings/lab5-edgeshark-capture-london-gi3.png" width="800" />
+
+
 
 **Congratulations, you have reached the end of Cisco Live Lab LTRSPG-2212, hurray!!**
 
