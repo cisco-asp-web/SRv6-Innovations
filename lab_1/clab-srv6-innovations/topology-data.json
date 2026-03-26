@@ -1,0 +1,1243 @@
+{
+    "name": "srv6-innovations",
+    "type": "clab",
+    "clab": {
+        "config": {
+            "prefix": "clab",
+            "mgmt": {
+                "network": "mgt-network",
+                "bridge": "br-d9b5fb8fa9a6",
+                "ipv4-subnet": "172.20.6.0/24",
+                "ipv4-gw": "172.20.6.1",
+                "external-access": true
+            }
+        }
+    },
+    "ssh-pub-keys": [],
+    "nodes": {
+        "app-container-01": {
+            "index": "0",
+            "shortname": "app-container-01",
+            "longname": "clab-srv6-innovations-app-container-01",
+            "fqdn": "app-container-01.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/app-container-01",
+            "kind": "linux",
+            "image": "net-tools:latest",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.108",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/app-container-01",
+                "clab-node-longname": "clab-srv6-innovations-app-container-01",
+                "clab-node-name": "app-container-01",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "0.0.0.0",
+                    "host-port": 22222,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "::",
+                    "host-port": 22222,
+                    "port": 22,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "app-container-07": {
+            "index": "1",
+            "shortname": "app-container-07",
+            "longname": "clab-srv6-innovations-app-container-07",
+            "fqdn": "app-container-07.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/app-container-07",
+            "kind": "linux",
+            "image": "net-tools:latest",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.109",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/app-container-07",
+                "clab-node-longname": "clab-srv6-innovations-app-container-07",
+                "clab-node-name": "app-container-07",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "0.0.0.0",
+                    "host-port": 2222,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "::",
+                    "host-port": 2222,
+                    "port": 22,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "dc01-vm-00-be": {
+            "index": "2",
+            "shortname": "dc01-vm-00-be",
+            "longname": "clab-srv6-innovations-dc01-vm-00-be",
+            "fqdn": "dc01-vm-00-be.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-00-be",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-00-be",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-00-be",
+                "clab-node-name": "dc01-vm-00-be",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "dc01-vm-00-fe": {
+            "index": "3",
+            "shortname": "dc01-vm-00-fe",
+            "longname": "clab-srv6-innovations-dc01-vm-00-fe",
+            "fqdn": "dc01-vm-00-fe.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-00-fe",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-00-fe",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-00-fe",
+                "clab-node-name": "dc01-vm-00-fe",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "dc01-vm-01-be": {
+            "index": "4",
+            "shortname": "dc01-vm-01-be",
+            "longname": "clab-srv6-innovations-dc01-vm-01-be",
+            "fqdn": "dc01-vm-01-be.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-01-be",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-01-be",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-01-be",
+                "clab-node-name": "dc01-vm-01-be",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "dc01-vm-01-fe": {
+            "index": "5",
+            "shortname": "dc01-vm-01-fe",
+            "longname": "clab-srv6-innovations-dc01-vm-01-fe",
+            "fqdn": "dc01-vm-01-fe.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-01-fe",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-01-fe",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-01-fe",
+                "clab-node-name": "dc01-vm-01-fe",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "dc01-vm-02-be": {
+            "index": "6",
+            "shortname": "dc01-vm-02-be",
+            "longname": "clab-srv6-innovations-dc01-vm-02-be",
+            "fqdn": "dc01-vm-02-be.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-02-be",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-02-be",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-02-be",
+                "clab-node-name": "dc01-vm-02-be",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "dc01-vm-02-fe": {
+            "index": "7",
+            "shortname": "dc01-vm-02-fe",
+            "longname": "clab-srv6-innovations-dc01-vm-02-fe",
+            "fqdn": "dc01-vm-02-fe.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-02-fe",
+            "kind": "bridge",
+            "image": "",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "",
+            "mgmt-ipv4-prefix-length": 0,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "bridge",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/dc01-vm-02-fe",
+                "clab-node-longname": "clab-srv6-innovations-dc01-vm-02-fe",
+                "clab-node-name": "dc01-vm-02-fe",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "sonic-leaf-00": {
+            "index": "8",
+            "shortname": "sonic-leaf-00",
+            "longname": "clab-srv6-innovations-sonic-leaf-00",
+            "fqdn": "sonic-leaf-00.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-00",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.128",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-00",
+                "clab-node-longname": "clab-srv6-innovations-sonic-leaf-00",
+                "clab-node-name": "sonic-leaf-00",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "sonic-leaf-01": {
+            "index": "9",
+            "shortname": "sonic-leaf-01",
+            "longname": "clab-srv6-innovations-sonic-leaf-01",
+            "fqdn": "sonic-leaf-01.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-01",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.129",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-01",
+                "clab-node-longname": "clab-srv6-innovations-sonic-leaf-01",
+                "clab-node-name": "sonic-leaf-01",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "sonic-leaf-02": {
+            "index": "10",
+            "shortname": "sonic-leaf-02",
+            "longname": "clab-srv6-innovations-sonic-leaf-02",
+            "fqdn": "sonic-leaf-02.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-02",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.130",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-leaf-02",
+                "clab-node-longname": "clab-srv6-innovations-sonic-leaf-02",
+                "clab-node-name": "sonic-leaf-02",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "sonic-spine-00": {
+            "index": "11",
+            "shortname": "sonic-spine-00",
+            "longname": "clab-srv6-innovations-sonic-spine-00",
+            "fqdn": "sonic-spine-00.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-00",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.192",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-00",
+                "clab-node-longname": "clab-srv6-innovations-sonic-spine-00",
+                "clab-node-name": "sonic-spine-00",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "sonic-spine-01": {
+            "index": "12",
+            "shortname": "sonic-spine-01",
+            "longname": "clab-srv6-innovations-sonic-spine-01",
+            "fqdn": "sonic-spine-01.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-01",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.193",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-01",
+                "clab-node-longname": "clab-srv6-innovations-sonic-spine-01",
+                "clab-node-name": "sonic-spine-01",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "sonic-spine-02": {
+            "index": "13",
+            "shortname": "sonic-spine-02",
+            "longname": "clab-srv6-innovations-sonic-spine-02",
+            "fqdn": "sonic-spine-02.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-02",
+            "kind": "linux",
+            "image": "vrnetlab/sonic_sonic-vs:vpp20250422",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.194",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "linux",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/sonic-spine-02",
+                "clab-node-longname": "clab-srv6-innovations-sonic-spine-02",
+                "clab-node-name": "sonic-spine-02",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": [
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 443,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 5000,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 8080,
+                    "protocol": "tcp"
+                },
+                {
+                    "host-ip": "",
+                    "host-port": 0,
+                    "port": 22,
+                    "protocol": "tcp"
+                }
+            ]
+        },
+        "xrd01": {
+            "index": "14",
+            "shortname": "xrd01",
+            "longname": "clab-srv6-innovations-xrd01",
+            "fqdn": "xrd01.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd01",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.101",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd01",
+                "clab-node-longname": "clab-srv6-innovations-xrd01",
+                "clab-node-name": "xrd01",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd02": {
+            "index": "15",
+            "shortname": "xrd02",
+            "longname": "clab-srv6-innovations-xrd02",
+            "fqdn": "xrd02.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd02",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.102",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd02",
+                "clab-node-longname": "clab-srv6-innovations-xrd02",
+                "clab-node-name": "xrd02",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd03": {
+            "index": "16",
+            "shortname": "xrd03",
+            "longname": "clab-srv6-innovations-xrd03",
+            "fqdn": "xrd03.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd03",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.103",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd03",
+                "clab-node-longname": "clab-srv6-innovations-xrd03",
+                "clab-node-name": "xrd03",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd04": {
+            "index": "17",
+            "shortname": "xrd04",
+            "longname": "clab-srv6-innovations-xrd04",
+            "fqdn": "xrd04.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd04",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.104",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd04",
+                "clab-node-longname": "clab-srv6-innovations-xrd04",
+                "clab-node-name": "xrd04",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd05": {
+            "index": "18",
+            "shortname": "xrd05",
+            "longname": "clab-srv6-innovations-xrd05",
+            "fqdn": "xrd05.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd05",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.105",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd05",
+                "clab-node-longname": "clab-srv6-innovations-xrd05",
+                "clab-node-name": "xrd05",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd06": {
+            "index": "19",
+            "shortname": "xrd06",
+            "longname": "clab-srv6-innovations-xrd06",
+            "fqdn": "xrd06.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd06",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.106",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd06",
+                "clab-node-longname": "clab-srv6-innovations-xrd06",
+                "clab-node-name": "xrd06",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        },
+        "xrd07": {
+            "index": "20",
+            "shortname": "xrd07",
+            "longname": "clab-srv6-innovations-xrd07",
+            "fqdn": "xrd07.srv6-innovations.io",
+            "group": "",
+            "labdir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd07",
+            "kind": "cisco_xrd",
+            "image": "cisco-xrd-control-plane:24.4.1",
+            "mgmt-net": "",
+            "mgmt-intf": "",
+            "mgmt-ipv4-address": "172.20.6.107",
+            "mgmt-ipv4-prefix-length": 24,
+            "mgmt-ipv6-address": "",
+            "mgmt-ipv6-prefix-length": 0,
+            "mac-address": "",
+            "labels": {
+                "clab-mgmt-net-bridge": "br-d9b5fb8fa9a6",
+                "clab-node-group": "",
+                "clab-node-kind": "cisco_xrd",
+                "clab-node-lab-dir": "/home/cisco/SRv6-Innovations/lab_1/clab-srv6-innovations/xrd07",
+                "clab-node-longname": "clab-srv6-innovations-xrd07",
+                "clab-node-name": "xrd07",
+                "clab-node-type": "",
+                "clab-owner": "cisco",
+                "clab-topo-file": "/home/cisco/SRv6-Innovations/lab_1/lab_1-topology.clab.yaml",
+                "containerlab": "srv6-innovations"
+            },
+            "port-bindings": []
+        }
+    },
+    "links": [
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:1f:fd:c8",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "app-container-01",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:cf:9c:25",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:30:da:29",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd02",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:0a:3a:66",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:35:45:1f",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd05",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:d1:44:83",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd02",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:f9:ea:92",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd03",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:3a:a9:fd",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd02",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:9d:fc:34",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd06",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:b8:a7:03",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd03",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:f1:75:58",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd04",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:da:2b:20",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd04",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:68:ea:68",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd07",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:d7:e6:af",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd05",
+                    "interface": "Gi0-0-0-1",
+                    "mac": "aa:c1:ab:2f:f5:f5",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd04",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:cb:cd:69",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd05",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:98:ce:7a",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd06",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:8a:d2:25",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd06",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:29:97:42",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "xrd07",
+                    "interface": "Gi0-0-0-2",
+                    "mac": "aa:c1:ab:dd:41:da",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd07",
+                    "interface": "Gi0-0-0-0",
+                    "mac": "aa:c1:ab:8b:69:51",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "app-container-07",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:02:2a:6d",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-00",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:f9:14:7f",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-00",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:6c:41:2a",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-00",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:af:b6:09",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-01",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:1f:d8:9b",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-00",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:3d:40:59",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-02",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:80:f8:ed",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-01",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:7d:43:ee",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-00",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:df:b5:45",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-01",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:fd:d5:9b",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-01",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:b5:b2:21",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-01",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:80:39:88",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-02",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:15:3e:a6",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-02",
+                    "interface": "eth1",
+                    "mac": "aa:c1:ab:f5:5b:09",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-00",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:e1:3c:b4",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-02",
+                    "interface": "eth2",
+                    "mac": "aa:c1:ab:64:95:dd",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-01",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:9a:c4:dd",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-02",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:be:f8:25",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "sonic-spine-02",
+                    "interface": "eth3",
+                    "mac": "aa:c1:ab:87:b4:8d",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-00",
+                    "interface": "eth5",
+                    "mac": "aa:c1:ab:38:77:b3",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-00-be",
+                    "interface": "sonic-leaf00-eth5",
+                    "mac": "aa:c1:ab:eb:04:09",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-01",
+                    "interface": "eth5",
+                    "mac": "aa:c1:ab:e5:a3:d5",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-01-be",
+                    "interface": "sonic-leaf01-eth5",
+                    "mac": "aa:c1:ab:e4:8d:9d",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "sonic-leaf-02",
+                    "interface": "eth5",
+                    "mac": "aa:c1:ab:ab:4b:32",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-02-be",
+                    "interface": "sonic-leaf02-eth5",
+                    "mac": "aa:c1:ab:73:3b:d0",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-3",
+                    "mac": "aa:c1:ab:f9:e2:58",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-00-fe",
+                    "interface": "xrd01:Gi0-0-0-3",
+                    "mac": "aa:c1:ab:a3:7b:d0",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-4",
+                    "mac": "aa:c1:ab:ba:39:ec",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-01-fe",
+                    "interface": "xrd01:Gi0-0-0-4",
+                    "mac": "aa:c1:ab:e0:89:e1",
+                    "peer": "a"
+                }
+            }
+        },
+        {
+            "endpoints": {
+                "a": {
+                    "node": "xrd01",
+                    "interface": "Gi0-0-0-5",
+                    "mac": "aa:c1:ab:df:f2:5e",
+                    "peer": "z"
+                },
+                "z": {
+                    "node": "dc01-vm-02-fe",
+                    "interface": "xrd01:Gi0-0-0-5",
+                    "mac": "aa:c1:ab:d9:61:31",
+                    "peer": "a"
+                }
+            }
+        }
+    ]
+}
