@@ -79,6 +79,7 @@
 - [x] `infrastructure/ansible/files/vm_virsh.yaml`
 
 #### Host Setup & Libvirt VM Services (Applied directly on the Host)
+- [x] Automated and fixed the git pull issues
 - [x] Repointed git to clone/pull from `https://github.com/cisco-asp-web/SRv6-Innovations.git` on boot via `update_repo.sh`
 - [x] Created systemd `update-srv6-repo.service` to automatically refresh lab repository upon host startup
 - [x] Cleaned up legacy services and timers (`ciscolive-ltrspg2212-update-lab-repo`, `ciscolive-ltrspg2212-london-bridges`, `start-berlin-vm`, `create-berlin-net`, `srv6-innovations-xrd01-bridges`)
