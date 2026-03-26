@@ -149,7 +149,7 @@ We can also verify the containerlab logs in the visual code output window. Trunc
 ```
 [DEBUG] Containerlab extension activated.
  00:13:37 INFO Created link: sonic-leaf-02:eth3 ▪┄┄▪ sonic-spine-02:eth3
- 00:13:37 INFO Created link: sonic-leaf-02:eth5 ▪┄┄▪ vm-02-be:sonic-leaf02-eth5
+ 00:13:37 INFO Created link: sonic-leaf-02:eth5 ▪┄┄▪ dc01-vm-02-be:sonic-leaf02-eth5
  00:13:37 INFO Adding host entries path=/etc/hosts
  00:13:37 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-cleu26.conf
  ╭──────────────────────────────────┬─────────────────────────────────────┬────────────────────┬────────────────╮
@@ -224,12 +224,12 @@ The same credentials used for the IOS-XRd routers apply.
 The three **K8s VMs** have been preconfigured as a Kubernetes cluster running the **Cilium** Container Network Interface (CNI). All three VMs connect to **xrd01**.
 
 
-1. **From the topology host terminal** in visual code, SSH to *vm-00* 
+1. **From the topology host terminal** in visual code, SSH to *dc01-vm-00* 
     ```
-    ssh cisco@vm-00
+    ssh cisco@dc01-vm-00
     ```
    
-2. Optional: check IPv6 connectivity from **vm-00** to **xrd01**
+2. Optional: check IPv6 connectivity from **dc01-vm-00** to **xrd01**
 
     ![xrd01](../topo_drawings/lab1-xrd01.png)
 

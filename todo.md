@@ -4,7 +4,7 @@
 
 ## Initiative #0: Generic Topology Cleanup (Rename City-Based Names) ✅ COMPLETE
 
-> **Value:** The current topology uses European city names (london, amsterdam, berlin, zurich, paris, barcelona, rome) throughout every layer of the lab — router configs, VM definitions, container directories, Ansible playbooks, Kubernetes manifests, and all documentation. This creates two problems: it implies a specific geographic narrative that may not resonate with every audience, and it makes the lab harder to reuse or adapt for other events. Renaming to neutral numbered identifiers (xrd01–xrd07, vm-00–vm-02, etc.) makes the topology generic, professional, and immediately reusable as a base for any future lab or customer demonstration.
+> **Value:** The current topology uses European city names (london, amsterdam, berlin, zurich, paris, barcelona, rome) throughout every layer of the lab — router configs, VM definitions, container directories, Ansible playbooks, Kubernetes manifests, and all documentation. This creates two problems: it implies a specific geographic narrative that may not resonate with every audience, and it makes the lab harder to reuse or adapt for other events. Renaming to neutral numbered identifiers (xrd01–xrd07, dc01-vm-00–dc01-vm-02, etc.) makes the topology generic, professional, and immediately reusable as a base for any future lab or customer demonstration.
 
 ### Renaming Map (applied)
 
@@ -19,9 +19,9 @@
 | xrd-rome             | xrd07               | PE / Edge             |
 | app-container-london | app-container-01    | Edge host (xrd01 side)|
 | app-container-rome   | app-container-07    | Edge host (xrd07 side)|
-| london-vm-00         | vm-00               | K8s control plane     |
-| london-vm-01         | vm-01               | K8s worker            |
-| london-vm-02         | vm-02               | K8s worker            |
+| dc01-vm-00         | dc01-vm-00               | K8s control plane     |
+| dc01-vm-01         | dc01-vm-01               | K8s worker            |
+| dc01-vm-02         | dc01-vm-02               | K8s worker            |
 
 > SONiC nodes (sonic-leaf-00/01/02, sonic-spine-00/01/02) were already generic — no change needed.
 
@@ -82,18 +82,18 @@
 - [x] Repointed git to clone/pull from `https://github.com/cisco-asp-web/SRv6-Innovations.git` on boot via `update_repo.sh`
 - [x] Created systemd `update-srv6-repo.service` to automatically refresh lab repository upon host startup
 - [x] Cleaned up legacy services and timers (`ciscolive-ltrspg2212-update-lab-repo`, `ciscolive-ltrspg2212-london-bridges`, `start-berlin-vm`, `create-berlin-net`, `srv6-innovations-xrd01-bridges`)
-- [x] Renamed primary KVM domains via `virsh domrename`: `london-vm-00/01/02` → `dc01-vm-00/01/02`
+- [x] Renamed primary KVM domains via `virsh domrename`: `dc01-vm-00/01/02` → `dc01-vm-00/01/02`
 - [x] Renamed backend KVM disk images: `london-vm-*.qcow2` → `dc01-vm-*.qcow2`
-- [x] Migrated libvirt networks via `virsh net-dumpxml / net-define`: `london-vm-00/01/02-fe/be` → `dc01-vm-*.xml`
+- [x] Migrated libvirt networks via `virsh net-dumpxml / net-define`: `dc01-vm-00/01/02-fe/be` → `dc01-vm-*.xml`
 - [x] Created `srv6-innovations-create-dc01-bridges.sh` and `srv6-innovations-dc01-bridges.service` to initialize bridges and boot `dc01` VMs on startup
 
 #### Infrastructure — VM Definitions
 - [x] `london-bridges.sh` → `bridges.sh`
 - [x] `london-bridges.service` → `bridges.service`
-- [x] `london-vm-00/` → `vm-00/` — directory + all 5 files inside renamed and updated
-- [x] `london-vm-01/` → `vm-01/` — directory + all 5 files inside renamed and updated
-- [x] `london-vm-02/` → `vm-02/` — directory + all 5 files inside renamed and updated
-- [x] `vm-00/k8s/multus-test.yaml` and `test-host-srv6-pod.yaml` — nodeName fields updated
+- [x] `dc01-vm-00/` → `dc01-vm-00/` — directory + all 5 files inside renamed and updated
+- [x] `dc01-vm-01/` → `dc01-vm-01/` — directory + all 5 files inside renamed and updated
+- [x] `dc01-vm-02/` → `dc01-vm-02/` — directory + all 5 files inside renamed and updated
+- [x] `dc01-vm-00/k8s/multus-test.yaml` and `test-host-srv6-pod.yaml` — nodeName fields updated
 
 #### Infrastructure — Containers
 - [x] `infrastructure/containers/london/` → `app-container-01/`
@@ -122,7 +122,7 @@
 
 #### xarchive/
 - [x] `xarchive/debug-pods.yaml` — nodeName fields updated
-- [x] `xarchive/berlin-history.md` — london-vm-00 references updated; filename kept as-is (historical shell log)
+- [x] `xarchive/berlin-history.md` — dc01-vm-00 references updated; filename kept as-is (historical shell log)
 
 ---
 
@@ -210,7 +210,7 @@
 ### Lab 3
 - [ ] Add `cilium hubble enable` step and port-forward instructions to lab guide
 - [ ] `lab_3/validate_lab3.sh` — verify Cilium BGP peers + pod-to-pod ping in VRF
-- [ ] Add SRv6 SID pool panel to webapp (vm-00/01/02 → SID mapping)
+- [ ] Add SRv6 SID pool panel to webapp (dc01-vm-00/01/02 → SID mapping)
 
 ### Lab 4
 - [ ] Refactor Ansible playbook to use `community.network.sonic_*` modules where available
@@ -280,7 +280,7 @@ SRv6-Innovations/
 │   └── vms/
 │       ├── bridges.sh
 │       ├── bridges.service
-│       ├── vm-00/, vm-01/, vm-02/
+│       ├── dc01-vm-00/, dc01-vm-01/, dc01-vm-02/
 ├── webapp/
 │   ├── backend/
 │   │   ├── main.py

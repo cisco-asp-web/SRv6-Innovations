@@ -76,11 +76,11 @@ CLEU topology host history:
  1922  docker save pytorch-srv6-demo:latest > pytorch-srv6-demo.tar
 
 
-CLEU vm-00 history:
+CLEU dc01-vm-00 history:
 
-  335  sudo hostnamectl hostname vm-00
+  335  sudo hostnamectl hostname dc01-vm-00
   336  sudo vi /etc/hosts
-  337  sudo vi /etc/netplan/10-vm-00.yaml
+  337  sudo vi /etc/netplan/10-dc01-vm-00.yaml
   338  exit
   339  ip route
   340  sudo ip route del default via 198.18.4.3 dev ens4

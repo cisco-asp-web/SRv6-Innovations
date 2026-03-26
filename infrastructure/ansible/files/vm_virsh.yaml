@@ -1,59 +1,59 @@
 
 
-- name: vm-00
+- name: dc01-vm-00
   hosts: localhost
   become: true
   tasks:
 
-    - name: define virsh network vm-00-fe
-      command: virsh net-define ../../vms/vm-00/vm-00-fe.xml
+    - name: define virsh network dc01-vm-00-fe
+      command: virsh net-define ../../vms/dc01-vm-00/dc01-vm-00-fe.xml
       ignore_errors: yes
 
-    - name: start virsh network vm-00-fe
-      command: virsh net-start vm-00-fe
+    - name: start virsh network dc01-vm-00-fe
+      command: virsh net-start dc01-vm-00-fe
       ignore_errors: yes
 
-    - name: define virsh network vm-00-be
-      command: virsh net-define ../../vms/vm-00/vm-00-be.xml
+    - name: define virsh network dc01-vm-00-be
+      command: virsh net-define ../../vms/dc01-vm-00/dc01-vm-00-be.xml
       ignore_errors: yes
 
-    - name: start virsh network vm-00-be
-      command: virsh net-start vm-00-be
+    - name: start virsh network dc01-vm-00-be
+      command: virsh net-start dc01-vm-00-be
       ignore_errors: yes
 
-    - name: add vm-00-fe bridge
-      command: brctl addbr vm-00-fe
+    - name: add dc01-vm-00-fe bridge
+      command: brctl addbr dc01-vm-00-fe
       ignore_errors: yes
 
-    - name: vm-00-fe link up
-      command: ip link set vm-00-fe up
+    - name: dc01-vm-00-fe link up
+      command: ip link set dc01-vm-00-fe up
       ignore_errors: yes
 
-    - name: vm-00-fe ip address
-      command: ip addr add 10.8.0.3/24 dev vm-00-fe
+    - name: dc01-vm-00-fe ip address
+      command: ip addr add 10.8.0.3/24 dev dc01-vm-00-fe
       ignore_errors: yes
 
     - name: berlin1-fe masquerade
       command: iptables -t nat -A POSTROUTING -o ens160 -j MASQUERADE
       ignore_errors: yes
 
-    - name: add vm-00-be bridge
-      command: brctl addbr vm-00-be
+    - name: add dc01-vm-00-be bridge
+      command: brctl addbr dc01-vm-00-be
       ignore_errors: yes
 
-    - name: vm-00-be link up
-      command: ip link set vm-00-be up
+    - name: dc01-vm-00-be link up
+      command: ip link set dc01-vm-00-be up
       ignore_errors: yes
 
     - name: define virsh domain
-      command: virsh define ../../vms/vm-00/vm-00.xml
+      command: virsh define ../../vms/dc01-vm-00/dc01-vm-00.xml
       ignore_errors: yes
 
-    - name: start vm-00 VM
-      command: virsh start vm-00
+    - name: start dc01-vm-00 VM
+      command: virsh start dc01-vm-00
       ignore_errors: yes
 
-- name: vm-01
+- name: dc01-vm-01
   hosts: localhost
   become: true
   tasks:

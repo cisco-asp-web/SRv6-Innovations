@@ -56,7 +56,7 @@ metadata:
     vrf: carrots
   name: carrots0
 spec:
-  nodeName: vm-02
+  nodeName: dc01-vm-02
   containers:
   - image: alpine:latest
     imagePullPolicy: IfNotPresent

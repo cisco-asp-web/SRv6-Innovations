@@ -198,15 +198,15 @@
       debug:
         msg: "kubelet status: {{ kubelet_status.stdout }}"
 
-# Initialize vm-00 as k8s control plane
-- name: initialize vm-00 as k8s control plane
+# Initialize dc01-vm-00 as k8s control plane
+- name: initialize dc01-vm-00 as k8s control plane
   hosts: k8s_cp
   become: true
   tasks:
 
-    - name: copy k8s-cp-init.yaml for vm-00
+    - name: copy k8s-cp-init.yaml for dc01-vm-00
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-00/k8s/k8s-cp-init.yaml
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-00/k8s/k8s-cp-init.yaml
         dest: /tmp/k8s-cp-init.yaml
       ignore_errors: yes
 

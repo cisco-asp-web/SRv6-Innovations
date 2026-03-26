@@ -11,49 +11,49 @@
         chdir: /home/cisco/LTRSPG-2212
       ignore_errors: yes
 
-- name: vm-00 setup
+- name: dc01-vm-00 setup
   hosts: vm_00
   become: true
   tasks:
 
-    - name: copy hosts file for vm-00
+    - name: copy hosts file for dc01-vm-00
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-00/hosts
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-00/hosts
         dest: /etc/hosts
       ignore_errors: yes
 
-    - name: hostnamectl set vm-00
-      command: hostnamectl hostname vm-00
+    - name: hostnamectl set dc01-vm-00
+      command: hostnamectl hostname dc01-vm-00
       ignore_errors: yes
 
-- name: vm-01 setup
+- name: dc01-vm-01 setup
   hosts: vm_01
   become: true
   tasks:
 
-    - name: copy hosts file for vm-01
+    - name: copy hosts file for dc01-vm-01
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-01/hosts
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-01/hosts
         dest: /etc/hosts
       ignore_errors: yes
 
-    - name: hostnamectl set vm-01
-      command: hostnamectl hostname vm-01
+    - name: hostnamectl set dc01-vm-01
+      command: hostnamectl hostname dc01-vm-01
       ignore_errors: yes
 
-- name: vm-02 setup
+- name: dc01-vm-02 setup
   hosts: vm_02
   become: true
   tasks:
 
-    - name: copy hosts file for vm-02
+    - name: copy hosts file for dc01-vm-02
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-02/hosts
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-02/hosts
         dest: /etc/hosts
       ignore_errors: yes
 
-    - name: hostnamectl set vm-02
-      command: hostnamectl hostname vm-02
+    - name: hostnamectl set dc01-vm-02
+      command: hostnamectl hostname dc01-vm-02
       ignore_errors: yes
 
 # Import the k8s installation playbook

@@ -62,13 +62,13 @@ Cisco doesn't currently have a controller product for host-based SRv6 and the Hy
 
 Before we get into PyTorch and AI Backend fabrics, let's manually add a Linux route with SRv6 encapsulation:
 
-1. Return to your ssh session on **vm-00** and add a Linux SRv6 route to **vm-02** that will take the path **leaf00** -> **spine01** -> **leaf02**:
+1. Return to your ssh session on **dc01-vm-00** and add a Linux SRv6 route to **dc01-vm-02** that will take the path **leaf00** -> **spine01** -> **leaf02**:
 
    ```
    sudo ip -6 route add fcbb:0:0800:2::/64 encap seg6 mode encap segs fcbb:0:1004:1001:1006:fe06:: dev ens5
    ```
 
-2. Display the Linux route on **vm-00**:
+2. Display the Linux route on **dc01-vm-00**:
    ```
    ip -6 route show fcbb:0:0800:2::/64
    ```
@@ -79,19 +79,19 @@ Before we get into PyTorch and AI Backend fabrics, let's manually add a Linux ro
    fcbb:0:800:2::/64  encap seg6 mode encap segs 1 [ fcbb:0:1004:1001:1006:fe06:: ] dev ens5 metric 1024 pref medium
    ```
 
-   - The SRv6 uSID combination in the above will route traffic from **vm-00** to **vm-02** via **leaf00**, **spine01**, and **leaf02**.
+   - The SRv6 uSID combination in the above will route traffic from **dc01-vm-00** to **dc01-vm-02** via **leaf00**, **spine01**, and **leaf02**.
      
-   - The packet that egresses from vm-00 will have an outer IPv6 destination header of *`fcbb:1004:1001:1006:fe06::`* and an inner packet header destination of *`fcbb:0:0800:2::2/128`*. 
+   - The packet that egresses from dc01-vm-00 will have an outer IPv6 destination header of *`fcbb:1004:1001:1006:fe06::`* and an inner packet header destination of *`fcbb:0:0800:2::2/128`*. 
    
    - The uSID shift-and-forward at **leaf00** and **spine01** will result in an ipv6 destination address of *`fcbb:1006:fe06::`* when the packet arrives at **leaf02**. 
    
    - **leaf02** recognizes itself and its local uDT6 entry *`fe06`* in the destination address and will proceed to pop the outer IPv6 header and do a lookup on the inner destination address *`fcbb:0:0800:2::/64`*. 
    
-   - **leaf02** will then forward the traffic to **vm-02**
+   - **leaf02** will then forward the traffic to **dc01-vm-02**
 
    <img src="../topo_drawings/lab5-host00-host02-static-route.png" width="800" />
 
-3. Using the visual code containerlab extension, connect to SONiC **leaf02**, invoke FRR vtysh and 'show run' to see the SRv6 local SID entries, including the uDT6 entry for decapsulating and forwarding traffic to **vm-02**:
+3. Using the visual code containerlab extension, connect to SONiC **leaf02**, invoke FRR vtysh and 'show run' to see the SRv6 local SID entries, including the uDT6 entry for decapsulating and forwarding traffic to **dc01-vm-02**:
    
    **leaf02**
    ```
@@ -124,7 +124,7 @@ segment-routing
  srv6
  ```
 
-4. Optional: run a ping from **vm-00** to **vm-02** and capture the traffic with an Edgshark session on the interface connected to the **leaf00** bridge: 
+4. Optional: run a ping from **dc01-vm-00** to **dc01-vm-02** and capture the traffic with an Edgshark session on the interface connected to the **leaf00** bridge: 
 
     ```
     ping fcbb:0:800:2::2 -i .5
@@ -136,18 +136,18 @@ segment-routing
 
 <img src="../topo_drawings/lab5-edgeshark-capture.png " width="800" />
 
-Or for a quick validation of the packet encap open a new terminal session to **topology-host** and run a tcpdump on the underlying connection between **vm-00** and **leaf00**:
+Or for a quick validation of the packet encap open a new terminal session to **topology-host** and run a tcpdump on the underlying connection between **dc01-vm-00** and **leaf00**:
 
    ```
-   sudo tcpdump -ni vm-00-be
+   sudo tcpdump -ni dc01-vm-00-be
    ```
 
 Expected output will be something like:
 
    ```diff
-   cisco@topology-host:~$ sudo tcpdump -ni vm-00-be
+   cisco@topology-host:~$ sudo tcpdump -ni dc01-vm-00-be
    tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
-   listening on vm-00-be, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+   listening on dc01-vm-00-be, link-type EN10MB (Ethernet), snapshot length 262144 bytes
    +23:18:42.196845 IP6 fcbb:0:800::2 > fcbb:0:1004:1001:1006:fe06::: RT6 (len=2, type=4, segleft=0, last-entry=0, tag=0, [0]fcbb:0:1004:1001:1006:fe06::) IP6 fcbb:0:800::2 > fcbb:0:800:2::2: ICMP6, echo request, id 28522, seq 136, length 64
    23:18:42.197926 IP6 fcbb:0:800:2::2 > fcbb:0:800::2: ICMP6, echo reply, id 28522, seq 136, length 64
    ```
@@ -155,7 +155,7 @@ Expected output will be something like:
 > [!NOTE]
 > We only specified an encapsulated route in the outbound direction, so the return traffic is not encapsulated
 
-1. Delete the route as we don't want to confuse an SRv6 route on the **vm-00** with the SRv6 routes our K8s pods will be running later in the lab
+1. Delete the route as we don't want to confuse an SRv6 route on the **dc01-vm-00** with the SRv6 routes our K8s pods will be running later in the lab
 
     ```
     sudo ip -6 route del fcbb:0:0800:2::/64
@@ -200,7 +200,7 @@ In a few moments we'll launch a PyTorch test in our K8s cluster. Immediately aft
   - Get the list of nodes from the distributed workload setup
   - Query the Jalapeno API for a shortest-path (lowest *`load`* metric) for each *source/destination* pair
   - The API returns an SRv6 uSID encapsulation instruction for each *source/destination* pair that will pin traffic to a specific path in the fabric
-  - The *`srv6 plugin`* then programs Linux SRv6 routes on the *container*, similar to the route we manually programmed earlier on **vm-00**. 
+  - The *`srv6 plugin`* then programs Linux SRv6 routes on the *container*, similar to the route we manually programmed earlier on **dc01-vm-00**. 
   - The distributed workload's traffic is SRv6 encapsulated as it egresses the source *container*
 
 The effect is the workload's traffic is intelligently load balanced across the fabric and no longer subject to the potential imbalances and congestion associated with ECMP
@@ -235,7 +235,7 @@ The plugin includes a simple demo that uses a *`gloo`* backend because *`gloo`* 
 
 Upon deployment the nodes will perform all the PyTorch ML setup steps, including SRv6 plugin functionality, but will not perform actual ML training...in a future version of this lab we'll try and integrate a small dataset to train on.
 
-1. Return to your ssh session to the **vm-00** Kubernetes control plane node and cd into the lab_5/srv6-pytorch/ directory
+1. Return to your ssh session to the **dc01-vm-00** Kubernetes control plane node and cd into the lab_5/srv6-pytorch/ directory
 
    ```
    cd ~/LTRSPG-2212/lab_5/srv6-pytorch/
@@ -362,7 +362,7 @@ The **SRv6 PyTorch pods** are connected to both the backend SONiC fabric and the
    ping 10.107.1.2 -i .5
    ```
 
-   If you had exited the pod and are at the **vm-00** shell you can run the ping from there:
+   If you had exited the pod and are at the **dc01-vm-00** shell you can run the ping from there:
    ```
    kubectl exec -it srv6-pytorch-0 -- ping 10.107.1.2 -i .5
    ```

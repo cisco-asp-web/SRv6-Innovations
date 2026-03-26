@@ -468,10 +468,10 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
 
 ### Verify VM backend network reachability
 
-1. SSH to the **vm-00** from the **topology-host**
+1. SSH to the **dc01-vm-00** from the **topology-host**
    
     ```
-    ssh vm-00
+    ssh dc01-vm-00
     ```
     
 2. Disply the VM's ipv6 routing table:
@@ -493,7 +493,7 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
     fe80::/64 dev ens5 proto kernel metric 256 pref medium
     ```
 
-3. Ping **vm-01** and **vm-02** over the *`Backend/SONiC`* network:
+3. Ping **dc01-vm-01** and **dc01-vm-02** over the *`Backend/SONiC`* network:
 
     ```
     ping fcbb:0:800:1::2 -i .3 -c 3

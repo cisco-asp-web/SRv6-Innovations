@@ -104,18 +104,18 @@ topology:
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.194
 
-    vm-00-fe:
+    dc01-vm-00-fe:
       kind: bridge
-    vm-01-fe:
+    dc01-vm-01-fe:
       kind: bridge
-    vm-02-fe:
+    dc01-vm-02-fe:
       kind: bridge
 
-    vm-00-be:
+    dc01-vm-00-be:
       kind: bridge
-    vm-01-be:
+    dc01-vm-01-be:
       kind: bridge
-    vm-02-be:
+    dc01-vm-02-be:
       kind: bridge
 
 
@@ -148,15 +148,15 @@ topology:
 
 
     # DC SONiC Network Links to VMs
-    - endpoints: ["sonic-leaf-00:eth5", "vm-00-be:sonic-leaf00-eth5"]
-    - endpoints: ["sonic-leaf-01:eth5", "vm-01-be:sonic-leaf01-eth5"]
-    - endpoints: ["sonic-leaf-02:eth5", "vm-02-be:sonic-leaf02-eth5"]
+    - endpoints: ["sonic-leaf-00:eth5", "dc01-vm-00-be:sonic-leaf00-eth5"]
+    - endpoints: ["sonic-leaf-01:eth5", "dc01-vm-01-be:sonic-leaf01-eth5"]
+    - endpoints: ["sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5"]
 
 
     # DC SONiC Front End Network Links between VMs (bridges) and XRd
-    - endpoints: ["xrd01:Gi0-0-0-3", "vm-00-fe:xrd01:Gi0-0-0-3"]
-    - endpoints: ["xrd01:Gi0-0-0-4", "vm-01-fe:xrd01:Gi0-0-0-4"]
-    - endpoints: ["xrd01:Gi0-0-0-5", "vm-02-fe:xrd01:Gi0-0-0-5"]
+    - endpoints: ["xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01:Gi0-0-0-3"]
+    - endpoints: ["xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01:Gi0-0-0-4"]
+    - endpoints: ["xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01:Gi0-0-0-5"]
 
 
 

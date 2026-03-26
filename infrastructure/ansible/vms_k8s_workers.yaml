@@ -1,13 +1,13 @@
 # ansible-playbook -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -i hosts vms_k8s_workers.yaml -vv
 
-- name: join vm-01 to cluster
+- name: join dc01-vm-01 to cluster
   hosts: 192.168.122.101
   become: true
   tasks:
 
-    - name: copy k8s-join.yaml for vm-01
+    - name: copy k8s-join.yaml for dc01-vm-01
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-01/vm-01-k8s-join.yaml
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-01/dc01-vm-01-k8s-join.yaml
         dest: /tmp/k8s-join.yaml
       ignore_errors: yes
 
@@ -15,14 +15,14 @@
       command: kubeadm join --config /tmp/k8s-join.yaml --v=5
       ignore_errors: yes
 
-- name: join vm-02 to cluster
+- name: join dc01-vm-02 to cluster
   hosts: 192.168.122.102
   become: true
   tasks:
 
-    - name: copy k8s-join.yaml for vm-02
+    - name: copy k8s-join.yaml for dc01-vm-02
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/vm-02/vm-02-k8s-join.yaml
+        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-02/dc01-vm-02-k8s-join.yaml
         dest: /tmp/k8s-join.yaml
       ignore_errors: yes
 
