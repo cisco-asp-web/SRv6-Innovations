@@ -78,7 +78,7 @@ sudo cp containerd-config.toml /etc/containerd/config.toml
 
 ## Appendix
 
-Kubeadm Join if we want to add a worker node to Berlin cluster:
+Kubeadm Join if we want to add a worker node to xrd03 cluster:
 ```
 kubeadm join 198.18.4.2:6443 --token cecn5b.n5m612yx1ou17mvz \
 	--discovery-token-ca-cert-hash sha256:2c0445b6f4f80069221f666677d43273719533073bf19207395ccd7123531ff8
@@ -91,5 +91,5 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 Annotate (if needed)
 ```
-kubectl annotate node berlin cilium.io/bgp-virtual-router.65000="router-id=198.18.4.2"
+kubectl annotate node xrd03 cilium.io/bgp-virtual-router.65000="router-id=198.18.4.2"
 ```

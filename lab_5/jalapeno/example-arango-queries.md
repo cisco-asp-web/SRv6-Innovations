@@ -140,10 +140,10 @@ for v, e, p in 1..6 outbound 'ibgp_prefix_v4/20.0.0.0_24' ipv4_graph options {un
 ```
 
 #### Shortest path from host to host
-Next we can expand the diameter of our query. In this case its no longer just ingress router to egress router, its a shortest path query from source prefix (Amsterdam VM) to destination prefix (Rome VM). This example query also includes hop by hop latency:
+Next we can expand the diameter of our query. In this case its no longer just ingress router to egress router, its a shortest path query from source prefix (xrd02 VM) to destination prefix (xrd07 VM). This example query also includes hop by hop latency:
 ```
-for v, e in outbound shortest_path 'hosts/amsterdam' 
-    TO 'hosts/rome' ipv4_graph 
+for v, e in outbound shortest_path 'hosts/xrd02' 
+    TO 'hosts/xrd07' ipv4_graph 
     return  { node: v.name, location: v.location_id, address: v.address, 
     srv6sid: v.sids[*].srv6_sid, latency: e.latency }
 ```
@@ -151,8 +151,8 @@ for v, e in outbound shortest_path 'hosts/amsterdam'
 #### Data Sovereignty query
 A query
 ```
-for p in outbound k_shortest_paths  'hosts/amsterdam' 
-          TO 'hosts/rome' ipv4_graph 
+for p in outbound k_shortest_paths  'hosts/xrd02' 
+          TO 'hosts/xrd07' ipv4_graph 
             options {uniqueVertices: "path", bfs: true} 
             filter p.edges[*].country_codes !like "FRA" limit 1 
                 return { path: p.vertices[*].name, sid: p.vertices[*].sids[*].srv6_sid, 

@@ -18,12 +18,12 @@ https://containerlab.dev/
   - [Lab Repository Update (Required)](#lab-repository-update-required)
   - [Launch and Validate XRD Topology](#launch-and-validate-xrd-topology)
     - [Connect to the Topology Host and SSH to Containers.](#connect-to-the-topology-host-and-ssh-to-containers)
-    - [Accessing the London K8s Control Plane VM](#accessing-the-london-k8s-control-plane-vm)
+    - [Accessing the K8s Control Plane VM](#accessing-the-k8s-control-plane-vm)
   - [Validate ISIS Topology](#validate-isis-topology)
     - [Add Synthetic Latency to the Links](#add-synthetic-latency-to-the-links)
   - [Validate BGP Peering](#validate-bgp-peering)
   - [Configure and Validate SRv6](#configure-and-validate-srv6)
-    - [Configure SRv6 on London xrd01](#configure-srv6-on-london-xrd01)
+    - [Configure SRv6 on xrd01](#configure-srv6-on-xrd01)
     - [Configure SRv6 on xrd07](#configure-srv6-on-xrd07)
     - [Validate SRv6 configuration and reachability](#validate-srv6-configuration-and-reachability)
   - [Edgeshark introduction](#edgeshark-introduction)
@@ -41,7 +41,7 @@ We will have achieved the following objectives upon completion of Lab 1:
 
 ## Topology 
 
-Our network consists of a frontend/WAN with 7 XRd routers providing SRv6 transport services and a 6-node SONiC fabric to simulate an AI/ML backend network. We have a pair of Ubuntu containers (London and Rome) connected to the XRd network, and three Ubuntu VMs (London) running as a Kubernetes cluster and connected to both XRd frontend and SONiC backend networks.
+Our network consists of a frontend/WAN with 7 XRd routers providing SRv6 transport services and a 6-node SONiC fabric to simulate an AI/ML backend network. We have a pair of Ubuntu containers (app-container-01 and app-container-07) connected to the XRd network, and three Ubuntu VMs running as a Kubernetes cluster and connected to both XRd frontend and SONiC backend networks.
 
 ![Lab Topology](../topo_drawings/overview-topology-large.png)
 
@@ -149,16 +149,16 @@ We can also verify the containerlab logs in the visual code output window. Trunc
 ```
 [DEBUG] Containerlab extension activated.
  00:13:37 INFO Created link: sonic-leaf-02:eth3 ▪┄┄▪ sonic-spine-02:eth3
- 00:13:37 INFO Created link: sonic-leaf-02:eth5 ▪┄┄▪ london-vm-02-be:sonic-leaf02-eth5
+ 00:13:37 INFO Created link: sonic-leaf-02:eth5 ▪┄┄▪ vm-02-be:sonic-leaf02-eth5
  00:13:37 INFO Adding host entries path=/etc/hosts
  00:13:37 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-cleu26.conf
  ╭──────────────────────────────────┬─────────────────────────────────────┬────────────────────┬────────────────╮
  │               Name               │              Kind/Image             │        State       │ IPv4/6 Address │
  ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-app-container-london │ linux                               │ running            │ 172.20.6.108   │
+ │ clab-cleu26-app-container-01 │ linux                               │ running            │ 172.20.6.108   │
  │                                  │ cl-london-container:latest          │                    │ N/A            │
  ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-app-container-rome   │ linux                               │ running            │ 172.20.6.109   │
+ │ clab-cleu26-app-container-07   │ linux                               │ running            │ 172.20.6.109   │
  │                                  │ cl-rome-container:latest            │                    │ N/A            │
  ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
  │ clab-cleu26-sonic-leaf-00        │ linux                               │ running            │ 172.20.6.128   │
@@ -173,10 +173,10 @@ We can also verify the containerlab logs in the visual code output window. Trunc
  │ clab-cleu26-sonic-spine-01       │ linux                               │ running            │ 172.20.6.193   │
  │                                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
  ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-xrd-amsterdam        │ cisco_xrd                           │ running            │ 172.20.6.102   │
+ │ clab-cleu26-xrd02        │ cisco_xrd                           │ running            │ 172.20.6.102   │
  │                                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A            │
  ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-xrd-barcelona        │ cisco_xrd                           │ running            │ 172.20.6.106   │
+ │ clab-cleu26-xrd06        │ cisco_xrd                           │ running            │ 172.20.6.106   │
  │                                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A            │
 
 
@@ -213,25 +213,25 @@ To establish an SSH session to an IOS-XRd router, use the Containerlab Visual St
 ![ssh into xrd01](../topo_drawings/lab1-ssh-xrd01.png)
 
 
-The London and Rome Linux containers will be used to run validation tests throughout the lab. To access these containers, use the same method as for an IOS-XRd router: right-click on the container in the Containerlab VS Code extension, select SSH, and repeat the same procedure.
+The app-container-01 and app-container-07 will be used to run validation tests throughout the lab. To access these containers, use the same method as for an IOS-XRd router: right-click on the container in the Containerlab VS Code extension, select SSH, and repeat the same procedure.
 The same credentials used for the IOS-XRd routers apply.
 
 ![Attach terminal](../topo_drawings/lab1-attach-terminal.png)
 
 
-### Accessing the London K8s Control Plane VM
+### Accessing the K8s Control Plane VM
 
-The three **London VMs** have been preconfigured as a Kubernetes cluster running the **Cilium** Container Network Interface (CNI). All three VMs connect to the **London** XRd router.
+The three **K8s VMs** have been preconfigured as a Kubernetes cluster running the **Cilium** Container Network Interface (CNI). All three VMs connect to **xrd01**.
 
 
-1. **From the topology host terminal** in visual code, SSH to *London-vm-00* 
+1. **From the topology host terminal** in visual code, SSH to *vm-00* 
     ```
-    ssh cisco@london-vm-00
+    ssh cisco@vm-00
     ```
    
-2. Optional: check IPv6 connectivity from **london-vm-00** to **london xrd01**
+2. Optional: check IPv6 connectivity from **vm-00** to **xrd01**
 
-    ![London xrd01](../topo_drawings/lab1-london-xrd01.png)
+    ![xrd01](../topo_drawings/lab1-xrd01.png)
 
     ```
     ping fc00:0:800::1 -c 2
@@ -239,7 +239,7 @@ The three **London VMs** have been preconfigured as a Kubernetes cluster running
 
     Visual representation:
 
-    ![berlin connectivity](../topo_drawings/lab1-london-connectivity.png)
+    ![xrd01 connectivity](../topo_drawings/lab1-xrd01-connectivity.png)
 
 
 ## Validate ISIS Topology
@@ -258,34 +258,34 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
     show isis topology
     ```
 
-    You should expect to see an entry for each xrd router 01 (London) -> 07 (Rome)
+    You should expect to see an entry for each xrd router xrd01 -> xrd07
     ```
-      RP/0/RP0/CPU0:london#show isis topology 
+      RP/0/RP0/CPU0:xrd01#show isis topology 
       Thu Jan  8 04:38:00.817 UTC
 
       IS-IS 100 paths to IPv4 Unicast (Level-1) routers
       System Id          Metric    Next-Hop           Interface       SNPA          
-      london             --      
+      xrd01              --      
 
       IS-IS 100 paths to IPv4 Unicast (Level-2) routers
       System Id          Metric    Next-Hop           Interface       SNPA          
-      london             --      
-      amsterdam          1         amsterdam          Gi0/0/0/1       *PtoP*        
-      berlin             2         amsterdam          Gi0/0/0/1       *PtoP*        
-      zurich             2         paris              Gi0/0/0/2       *PtoP*        
-      paris              1         paris              Gi0/0/0/2       *PtoP*        
-      barcelona          2         paris              Gi0/0/0/2       *PtoP*        
-      barcelona          2         amsterdam          Gi0/0/0/1       *PtoP*        
-      rome               3         paris              Gi0/0/0/2       *PtoP*        
-      rome               3         amsterdam          Gi0/0/0/1       *PtoP*        
-      RP/0/RP0/CPU0:london#
+      xrd01              --      
+      xrd02              1         xrd02              Gi0/0/0/1       *PtoP*        
+      xrd03              2         xrd02              Gi0/0/0/1       *PtoP*        
+      xrd04              2         xrd05              Gi0/0/0/2       *PtoP*        
+      xrd05              1         xrd05              Gi0/0/0/2       *PtoP*        
+      xrd06              2         xrd05              Gi0/0/0/2       *PtoP*        
+      xrd06              2         xrd02              Gi0/0/0/1       *PtoP*        
+      xrd07              3         xrd05              Gi0/0/0/2       *PtoP*        
+      xrd07              3         xrd02              Gi0/0/0/1       *PtoP*        
+      RP/0/RP0/CPU0:xrd01#
 
     ```
 
-    From London’s perspective, the IS-IS topology shows a Level-2-only network design and reachability achieved through L2 SPF computation. 
+    From xrd01’s perspective, the IS-IS topology shows a Level-2-only network design and reachability achieved through L2 SPF computation. 
 
 
-2. On **London-xrd01** validate end-to-end ISIS reachability by pinging **Rome-xrd07**:
+2. On **xrd01** validate end-to-end ISIS reachability by pinging **xrd07**:
    ```
    ping 10.0.0.7 source lo0
    ping fc00:0000:7777::1 source lo0
@@ -312,12 +312,12 @@ In the XRd network we are running a single BGP ASN 65000. Routers **xrd05** and 
 
 For full size image see [LINK](../topo_drawings/bgp-topology-large.png)
 
-1. SSH into **London-xrd01** using the visual code extension and verify its neighbor state
+1. SSH into **xrd01** using the visual code extension and verify its neighbor state
     ```
     show ip bgp neighbors brief
     ```
     ```
-      RP/0/RP0/CPU0:london#show ip bgp neighbors brief 
+      RP/0/RP0/CPU0:xrd01#show ip bgp neighbors brief 
       Thu Jan  8 05:12:54.585 UTC
 
       Neighbor         Spk    AS  Description                         Up/Down  NBRState
@@ -325,16 +325,16 @@ For full size image see [LINK](../topo_drawings/bgp-topology-large.png)
       10.0.0.6          0 65000 iBGP to xrd06 RR                     01:13:09 Established 
       fc00:0:5555::1    0 65000 iBGPv6 to xrd05 RR                   01:13:10 Established 
       fc00:0:6666::1    0 65000 iBGPv6 to xrd06 RR                   01:13:05 Established 
-      RP/0/RP0/CPU0:london#
+      RP/0/RP0/CPU0:xrd01#
     ``` 
 
-2. Verify that router **london-xrd01** is advertising the attached ipv6 network ```fc00:0:1111::1/128``` 
+2. Verify that router **xrd01** is advertising the attached ipv6 network ```fc00:0:1111::1/128``` 
     ```
     show bgp ipv6 unicast advertised summary
     ```
 
     ```
-    RP/0/RP0/CPU0:london#show bgp ipv6 unicast advertised summary 
+    RP/0/RP0/CPU0:xrd01#show bgp ipv6 unicast advertised summary 
     Thu Jan  8 16:03:29.698 UTC
     Network            Next Hop        From            Advertised to
     fc00:0:1111::1/128 fc00:0:1111::1  Local           fc00:0:5555::1
@@ -343,13 +343,13 @@ For full size image see [LINK](../topo_drawings/bgp-topology-large.png)
     Processed 1 prefixes, 2 paths
     ```
 
-3. Verify that router **London-xrd01** has received route ```fc00:0:7777::1/128``` from the route reflectors **Paris-xrd05** and **Barcelona-xrd06**. Look for ```Paths: (2 available)```. (fc00:0:7777::1/128 is the loopback interface of the **Rome-xrd07 router**)
+3. Verify that router **xrd01** has received route ```fc00:0:7777::1/128``` from the route reflectors **xrd05** and **xrd06**. Look for ```Paths: (2 available)```. (fc00:0:7777::1/128 is the loopback interface of the **xrd07 router**)
     ```
     show bgp ipv6 unicast fc00:0:7777::1/128
     ```
 
     ```diff
-    RP/0/RP0/CPU0:london#show bgp ipv6 unicast fc00:0:7777::1/128
+    RP/0/RP0/CPU0:xrd01#show bgp ipv6 unicast fc00:0:7777::1/128
     Thu Jan 29 05:10:12.500 UTC
     BGP routing table entry for fc00:0:7777::1/128
     Versions:
@@ -390,20 +390,20 @@ SRv6 uSID locator and source address information for nodes in the lab:
 
 | Router Name | Loopback Int|    Locator Prefix    |  Source-address     |                                           
 |:------------|:-----------:|:--------------------:|:--------------------:|                          
-| london-xrd01     | loopback 0  | fc00:0000:1111::/48  | fc00:0000:1111::1    |
-| amsterdam-xrd02  | loopback 0  | fc00:0000:2222::/48  | fc00:0000:2222::1    |
-| berlin-xrd03     | loopback 0  | fc00:0000:3333::/48  | fc00:0000:3333::1    |
-| zurich-xrd04     | loopback 0  | fc00:0000:4444::/48  | fc00:0000:4444::1    |
-| paris-xrd05      | loopback 0  | fc00:0000:5555::/48  | fc00:0000:5555::1    |
-| barcelona-xrd06  | loopback 0  | fc00:0000:6666::/48  | fc00:0000:6666::1    |
-| rome-xrd07       | loopback 0  | fc00:0000:7777::/48  | fc00:0000:7777::1    |
+| xrd01       | loopback 0  | fc00:0000:1111::/48  | fc00:0000:1111::1    |
+| xrd02       | loopback 0  | fc00:0000:2222::/48  | fc00:0000:2222::1    |
+| xrd03       | loopback 0  | fc00:0000:3333::/48  | fc00:0000:3333::1    |
+| xrd04       | loopback 0  | fc00:0000:4444::/48  | fc00:0000:4444::1    |
+| xrd05       | loopback 0  | fc00:0000:5555::/48  | fc00:0000:5555::1    |
+| xrd06       | loopback 0  | fc00:0000:6666::/48  | fc00:0000:6666::1    |
+| xrd07       | loopback 0  | fc00:0000:7777::/48  | fc00:0000:7777::1    |
 
 
 > [!NOTE]
 > We've preconfigured SRv6 on **xrd02** thru **xrd06**, so you'll only need to configure **xrd01** and **xrd07**
 
-### Configure SRv6 on London xrd01
-1. SSH to **London-xrd01** and enable SRv6 globally and define SRv6 locator and source address for outbound encapsulation 
+### Configure SRv6 on xrd01
+1. SSH to **xrd01** and enable SRv6 globally and define SRv6 locator and source address for outbound encapsulation 
 
 
     ```
@@ -448,7 +448,7 @@ SRv6 uSID locator and source address information for nodes in the lab:
 ### Configure SRv6 on xrd07
 
 
-1. Using the Visual Code extension ssh to **Rome-xrd07** and apply the below config in a single shot:
+1. Using the Visual Code extension ssh to **xrd07** and apply the below config in a single shot:
 
 ![ssh into xrd07](../topo_drawings/lab1-ssh-xrd07.png)
 
@@ -489,12 +489,12 @@ SRv6 uSID locator and source address information for nodes in the lab:
 
 ### Validate SRv6 configuration and reachability
 
-1. On **London-xrd01** run validation commands
+1. On **xrd01** run validation commands
     ```
     show segment-routing srv6 sid
     ```
     ```diff
-    RP/0/RP0/CPU0:london#show segment-routing srv6 sid
+    RP/0/RP0/CPU0:xrd01#show segment-routing srv6 sid
     Fri Jan  9 04:18:55.955 UTC
 
     *** Locator: 'MyLocator' *** 
@@ -513,12 +513,12 @@ SRv6 uSID locator and source address information for nodes in the lab:
 > [!NOTE]
 > The bottom two entries. These SIDs belong to BGP and represent End.DT behaviors. Normally these would be associated with VRFs, but we wanted to show that SRv6 and SRv6-TE capabilities can apply to global table traffic as well. Any packet arriving with either of these SIDs as the outer IPv6 destination address will be decapsulated and then an LPM lookup in the global/default routing table will be performed on the inner destination address. 
 
-2. Validate the SRv6 prefix-SID configuration. As example for **London-xrd01** look for *SID value: fc00:0000:1111::*
+2. Validate the SRv6 prefix-SID configuration. As example for **xrd01** look for *SID value: fc00:0000:1111::*
     ```
     show isis segment-routing srv6 locator detail 
     ```
     ```diff
-    RP/0/RP0/CPU0:london#show isis segment-routing srv6 locators detail  
+    RP/0/RP0/CPU0:xrd01#show isis segment-routing srv6 locators detail  
     Fri Jan  9 04:28:37.293 UTC
 
     IS-IS 100 SRv6 Locators
@@ -544,7 +544,7 @@ EdgeShark is a browser-based packet capture and analysis tool built into Contain
 
 We will use this tool within the labs to allow the students to see actual SRv6 packets on the wire.
 
-To launch EdgeShark and inspect traffic, simply click on the interface you want to capture packets from in the Containerlab tab within Visual Studio Code. In this case, we want to capture traffic on interface Gi0/0/0/1 of *London-xrd01*.
+To launch EdgeShark and inspect traffic, simply click on the interface you want to capture packets from in the Containerlab tab within Visual Studio Code. In this case, we want to capture traffic on interface Gi0/0/0/1 of *xrd01*.
 
 ![Edgeshark launch](../topo_drawings/lab1-edgeshark-launch.png)
 

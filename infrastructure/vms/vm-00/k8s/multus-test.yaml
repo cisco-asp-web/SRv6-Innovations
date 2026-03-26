@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multus-test-00
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [{
+        "name": "backend-network",
+        "ips": ["fcbb:0:800:0::10/64"]
+      }]
+spec:
+  nodeName: vm-00
+  containers:
+  - name: multus-test-00
+    command: ["/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait"]
+    image: alpine
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multus-test-01
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [{
+        "name": "backend-network",
+        "ips": ["fcbb:0:800:1::10/64"]
+      }]
+spec:
+  nodeName: vm-01
+  containers:
+  - name: multus-test-01
+    command: ["/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait"]
+    image: alpine
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multus-test-02
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [{
+        "name": "backend-network",
+        "ips": ["fcbb:0:800:2::10/64"]
+      }]
+spec:
+  nodeName: vm-02
+  containers:
+  - name: multus-test-02
+    command: ["/bin/ash", "-c", "trap : TERM INT; sleep infinity & wait"]
+    image: alpine

@@ -33,7 +33,7 @@ The Jalapeno package is preinstalled and running on the **Jalapeno** VM (198.18.
     ```
     kubectl get pods -A
     ```
-    Note that the Jalapeno VM is also using Cilium as its CNI, and that all of the Jalapeno pods/microservices are running in the **jalapeno** namespace.  Also, the Jalapeno K8s cluster is completely independent of the K8s cluster on the Berlin VM. In our simulation the Berlin VM is a consumer of services on our SRv6 network, which may include services that are accessed by interacting with Jalapeno.
+    Note that the Jalapeno VM is also using Cilium as its CNI, and that all of the Jalapeno pods/microservices are running in the **jalapeno** namespace.  Also, the Jalapeno K8s cluster is completely independent of the K8s cluster on the xrd03 VM. In our simulation the xrd03 VM is a consumer of services on our SRv6 network, which may include services that are accessed by interacting with Jalapeno.
 
 
 ### Arango Graph Database
@@ -124,7 +124,7 @@ In *Topology Viewer* mode you get a dropdown of all the known *graphs* in the DB
 
  - Click *Topology Viewer*
  - Select either *ipv4 graph* or *ipv6 graph* from the dropdown
- - In the visual pane click on two of the green nodes (Amsterdam & Rome or Berlin and Rome are a good choice)
+ - In the visual pane click on two of the green nodes (xrd02 & xrd07 or xrd03 and xrd07 are a good choice)
  - Once the endpoints are highlighted select a constraint from the *path constraint* dropdown
 
 As you complete the workflow the UI calls the API and feeds it the source/destination pair and constraint. The backend performs a shortest-path calculation based on the selected constraint (leveraging the synthetic meta data we added earlier) and returns a path highlighted in the UI and SID info in a popup.

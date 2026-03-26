@@ -1,10 +1,10 @@
 ## Contents
 - [Contents](#contents)
-- [london](#london)
-- [rome](#rome)
+- [xrd01](#xrd01)
+- [xrd07](#xrd07)
 - [Back to Lab 1 Guide](#back-to-lab-1-guide)
 
-## london
+## xrd01
 ```
 conf t
 
@@ -21,7 +21,7 @@ router bgp 65000
   segment-routing srv6
   locator MyLocator
   !
- ! 
+ !
  address-family ipv6 unicast
   segment-routing srv6
   locator MyLocator
@@ -30,12 +30,12 @@ router bgp 65000
  neighbor-group xrd-ipv4-peer
   address-family ipv4 unicast
   !
- ! 
+ !
  neighbor-group xrd-ipv6-peer
   address-family ipv6 unicast
   !
  !
-!  
+!
 segment-routing
  srv6
   encapsulation
@@ -49,10 +49,10 @@ segment-routing
   !
  !
  commit
- 
+
 ```
 
-## rome
+## xrd07
 ```
 conf t
 
@@ -69,7 +69,7 @@ router bgp 65000
   segment-routing srv6
   locator MyLocator
   !
- ! 
+ !
  address-family ipv6 unicast
   segment-routing srv6
   locator MyLocator
@@ -78,7 +78,7 @@ router bgp 65000
  neighbor-group xrd-ipv4-peer
   address-family ipv4 unicast
   !
- ! 
+ !
  neighbor-group xrd-ipv6-peer
   address-family ipv6 unicast
   !

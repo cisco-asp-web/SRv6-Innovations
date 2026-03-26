@@ -9,9 +9,9 @@ spec:
     - key: kubernetes.io/hostname
       operator: In
       values:
-      - london-vm-00
-      - london-vm-01
-      - london-vm-02
+      - vm-00
+      - vm-01
+      - vm-02
   bgpInstances:
   - name: "asn65000"
     localASN: 65000
@@ -54,7 +54,7 @@ spec:
 apiVersion: isovalent.com/v1alpha1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
-  name: london-vm-00
+  name: vm-00
 spec:
   bgpInstances:
     - name: "asn65000"
@@ -69,7 +69,7 @@ spec:
 apiVersion: isovalent.com/v1alpha1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
-  name: london-vm-01
+  name: vm-01
 spec:
   bgpInstances:
     - name: "asn65000"
@@ -84,7 +84,7 @@ spec:
 apiVersion: isovalent.com/v1alpha1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
-  name: london-vm-02
+  name: vm-02
 spec:
   bgpInstances:
     - name: "asn65000"

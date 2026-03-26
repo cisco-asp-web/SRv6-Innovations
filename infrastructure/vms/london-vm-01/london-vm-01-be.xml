@@ -1,5 +1,0 @@
-<network>
-  <name>london-vm-01-be</name>
-  <forward mode="bridge"/>
-  <bridge name="london-vm-01-be"/>
-</network>

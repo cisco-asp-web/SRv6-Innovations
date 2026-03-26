@@ -3,9 +3,9 @@
 > Tip: Attention to detail matters—sometimes the data plane hides more than just packets.
 
 ### Description
-In Lab 2 we will establish an SRv6 Layer-3 VPN named *`carrots`*.  The *carrots* vrf will include the *London "storage"* and *Rome* containers connected to **london-xrd01** and **rome-xrd07**.  
+In Lab 2 we will establish an SRv6 Layer-3 VPN named *`carrots`*.  The *carrots* vrf will include the *xrd01 "storage"* and *xrd07* containers connected to **xrd01** and **xrd07**.  
 
-Once the L3VPN is established we will then setup SRv6-TE traffic steering from *London* such that traffic to *Rome* prefix *`40.0.0.0/24`* will take a different path than traffic to Rome prefix *`50.0.0.0/24`*.
+Once the L3VPN is established we will then setup SRv6-TE traffic steering from *xrd01* such that traffic to *xrd07* prefix *`40.0.0.0/24`* will take a different path than traffic to xrd07 prefix *`50.0.0.0/24`*.
 
 ## Contents
 - [Lab 2: Configure SRv6 L3VPN and SRv6-TE \[20 Min\]](#lab-2-configure-srv6-l3vpn-and-srv6-te-20-min)
@@ -14,7 +14,7 @@ Once the L3VPN is established we will then setup SRv6-TE traffic steering from *
   - [Lab Objectives](#lab-objectives)
   - [Topology](#topology)
   - [Configure SRv6 L3VPN](#configure-srv6-l3vpn)
-    - [Configure SRv6 L3VPN on rome-xrd07](#configure-srv6-l3vpn-on-rome-xrd07)
+    - [Configure SRv6 L3VPN on xrd07](#configure-srv6-l3vpn-on-xrd07)
     - [Validate SRv6 L3VPN](#validate-srv6-l3vpn)
   - [Configure SRv6-TE steering for L3VPN](#configure-srv6-te-steering-for-l3vpn)
     - [Create SRv6-TE steering policy](#create-srv6-te-steering-policy)
@@ -46,29 +46,29 @@ For more details on SRv6 network programming Endpoint Behavior functionality ple
 
 BGP encodes the SRv6 SID in the prefix-SID attribute of the IPv4/6 L3VPN Network Layer Reachability Information (NLRI) and advertises it via it's MP-BGP peers. The Ingress PE (provider edge) router encapsulates the VRF IPv4/6 traffic with the SRv6 VPN SID and sends it over the SRv6 network.
 
-The *carrots* VRFs is setup on the two edge routers in our SP network: **london-xrd01** and **rome-xrd07**. Intermediate routers do not need to be VRF aware and are instead forwarding on the SRv6 data plane. *(technically the intermediate routers don't need to be SRv6 aware and could simply perform IPv6 forwarding based on the outer IPv6 header)*.  
+The *carrots* VRFs is setup on the two edge routers in our SP network: **xrd01** and **xrd07**. Intermediate routers do not need to be VRF aware and are instead forwarding on the SRv6 data plane. *(technically the intermediate routers don't need to be SRv6 aware and could simply perform IPv6 forwarding based on the outer IPv6 header)*.  
 
 The VRF instances and their interfaces have been preconfigured, allowing us to focus on the SRv6 BGP configuration. 
 
-Optional: if you wish to see the existing VRF configuration run these commands on *rome-xrd07*:
+Optional: if you wish to see the existing VRF configuration run these commands on *xrd07*:
 ```
 show run vrf
 show run interface GigabitEthernet 0/0/0/0
 ```
 
-### Configure SRv6 L3VPN on rome-xrd07
+### Configure SRv6 L3VPN on xrd07
 
-We'll start with **rome-xrd07** as it will need a pair of static routes for reachability to the  **Rome container's** "40" and "50" network prefixes (loopback interfaces). Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
+We'll start with **xrd07** as it will need a pair of static routes for reachability to the  **app-container-07's** "40" and "50" network prefixes (loopback interfaces). Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
 
 > [!NOTE]
 > All of the below commands are also available in the *`quick config doc.`*. Be aware that the quick config document contains both the L3VPN configuration as well as the L3VPN TE configuration. [HERE](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2_quick_config.md) 
 
    
-1. **rome-xrd07** vrf static route configuration
+1. **xrd07** vrf static route configuration
    
-   SSH into rome-xrd07 and copy/paste the static route config below the image:
+   SSH into xrd07 and copy/paste the static route config below the image:
 
-   **rome-xrd07**
+   **xrd07**
    ```yaml
       conf t
       
@@ -79,8 +79,8 @@ We'll start with **rome-xrd07** as it will need a pair of static routes for reac
             50.0.0.0/24 10.107.1.2
           commit
     ```
-2. Verify **Rome** VRF prefix reachability  
-    Ping check from Rome-xrd07 gi 0/0/0/0 to Rome's Container NIC:  
+2. Verify **xrd07** VRF prefix reachability  
+    Ping check from xrd07 gi 0/0/0/0 to app-container-07 NIC:  
     ```
     ping vrf carrots 10.107.1.1
     ping vrf carrots 40.0.0.1
@@ -88,11 +88,11 @@ We'll start with **rome-xrd07** as it will need a pair of static routes for reac
     ping vrf carrots fc00:0:107:1::2
     ```
 
-3. Enable BGP L3VPN on **rome-xrd07**
+3. Enable BGP L3VPN on **xrd07**
    
      The *carrots* L3VPN is dual-stack so we will be adding both vpnv4 and vpnv6 address-families to the BGP neighbor-group for ipv6 peers. For example you will enable L3VPN in the neighbor-group template by issuing the *address-family vpnv4/6 unicast* command. 
 
-    **Rome-xrd07**
+    **xrd07**
     ```yaml
     conf t
     router bgp 65000
@@ -109,9 +109,9 @@ We'll start with **rome-xrd07** as it will need a pair of static routes for reac
    
     Next we add VRF *carrots* into BGP and enable SRv6 to the IPv4 and IPv6 address family with the command *`segment-routing srv6`*. In addition we will tie the VRF to the SRv6 locator *`MyLocator`* configured in Lab 1.
 
-    On **rome-xrd07** we will need to redistribute both the connected and static routes to provide reachability to Rome and its additional prefixes. Therefore, we will add *`redistribute static`* for VRF *carrots*.
+    On **xrd07** we will need to redistribute both the connected and static routes to provide reachability to xrd07 and its additional prefixes (app-container-07). Therefore, we will add *`redistribute static`* for VRF *carrots*.
 
-    **rome-xrd07**  
+    **xrd07**  
     ```yaml
     conf t
     router bgp 65000
@@ -134,7 +134,7 @@ We'll start with **rome-xrd07** as it will need a pair of static routes for reac
       ```
 ### Configure SRv6 L3VPN on xrd01 and RR xrd05
 
-1. Using the visual code extension, ssh to **london-xrd01** and apply the configuration in a single step:
+1. Using the visual code extension, ssh to **xrd01** and apply the configuration in a single step:
 
     ```yaml
     conf t
@@ -165,7 +165,7 @@ We'll start with **rome-xrd07** as it will need a pair of static routes for reac
 
 #### Route Reflectors Configuration 
    
-The BGP route reflectors **paris-xrd05** and **barcelona-xrd06** also need L3VPN configuration added to their peering group. In order to save some time we've preconfigured both with this:
+The BGP route reflectors **xrd05** and **xrd06** also need L3VPN configuration added to their peering group. In order to save some time we've preconfigured both with this:
 
 ```yaml
     conf t
@@ -189,7 +189,7 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
 
 
 > [!IMPORTANT]
-> From **london-xrd01** run the following set of validation commands (for the sake of time you can paste them in as a group, or spot check some subset of commands). 
+> From **xrd01** run the following set of validation commands (for the sake of time you can paste them in as a group, or spot check some subset of commands). 
 
    ```
    show segment-routing srv6 sid
@@ -202,7 +202,7 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
    
    Example validation for vpnv4 route
    ```diff
-   RP/0/RP0/CPU0:london#show bgp vrf carrots 40.0.0.0/24   
+   RP/0/RP0/CPU0:xrd01#show bgp vrf carrots 40.0.0.0/24   
    Tue Jan 31 23:36:41.390 UTC
    +BGP routing table entry for 40.0.0.0/24, Route Distinguisher: 10.0.0.7:1   <--- WE HAVE A ROUTE. YAH
    Versions:
@@ -229,7 +229,7 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
    ```
 
 ## Configure SRv6-TE steering for L3VPN
-**Rome's** L3VPN IPv4 prefixes are associated with two classes of traffic:
+**xrd07's** L3VPN IPv4 prefixes are associated with two classes of traffic:
 
 * The **"40"** destination (40.0.0.0/24) is bulk transport destination (content replication or data backups) and thus latency and loss tolerant. 
   
@@ -240,23 +240,23 @@ We will use the below diagram for reference:
 <img src="../topo_drawings/lab2-l3vpn-policy.png" width="800" />
 
 > [!IMPORTANT]
-> A subsequent section of this lab will validate end-to-end connectivity between the London and Rome containers, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
+> A subsequent section of this lab will validate end-to-end connectivity between the and app-container-07s, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
 
 ### Create SRv6-TE steering policy
 For our SRv6-TE purposes we'll leverage the on-demand nexthop (ODN) feature set. Here is a nice example and explanation of ODN: [HERE](https://xrdocs.io/design/blogs/latest-converged-sdn-transport-ig)
 
-In our lab we will configure **rome-xrd07** as the egress PE router with the ODN method. This will trigger **rome-xrd07** to advertise its L3VPN routes with *`color extended communities`*. We'll do this by first defining the *`extcomms`*, then setting up route-policies to match on destination prefixes and set the *`extcomm`* values.
+In our lab we will configure **xrd07** as the egress PE router with the ODN method. This will trigger **xrd07** to advertise its L3VPN routes with *`color extended communities`*. We'll do this by first defining the *`extcomms`*, then setting up route-policies to match on destination prefixes and set the *`extcomm`* values.
 
-The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-lists and SRv6 ODN steering policies that match routes with the respective color and apply the appropriate SID stack on outbound traffic.
+The ingress PE, **xrd01**, will then be configured with SRv6 segment-lists and SRv6 ODN steering policies that match routes with the respective color and apply the appropriate SID stack on outbound traffic.
 
-1. Prior to configuring SRv6-TE policy lets get a baseline look at our vpvn4 route as viewed from **london-xrd01**
+1. Prior to configuring SRv6-TE policy lets get a baseline look at our vpvn4 route as viewed from **xrd01**
    Run the following command:
    ```
    show bgp vpnv4 uni vrf carrots 40.0.0.0/24
    ```
 
    ```diff
-   RP/0/RP0/CPU0:london#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
+   RP/0/RP0/CPU0:xrd01#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
    <snip> 
      Local
        fc00:0:7777::1 (metric 3) from fc00:0:5555::1 (10.0.0.7)
@@ -273,9 +273,9 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
          Source AFI: VPNv4 Unicast, Source VRF: default, Source Route Distinguisher: 10.0.0.7:1
    ```
       
-2. On **rome-xrd07** configure ext-comms, route-policies, and BGP such that *rome-xrd07* advertises Rome's "40" and "50" prefixes with their respective color extended communities:
+2. On **xrd07** configure ext-comms, route-policies, and BGP such that *xrd07* advertises xrd07's "40" and "50" prefixes with their respective color extended communities:
 
-   Using the visual code extension, SSH into *rome-xrd07* and paste the following commands:
+   Using the visual code extension, SSH into *xrd07* and paste the following commands:
 
    ```yaml
    conf t
@@ -307,7 +307,7 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
    commit
    ```
 
-3. Validate vpnv4 prefixes are received at **london-xrd01** and that they have their color extcomms:
+3. Validate vpnv4 prefixes are received at **xrd01** and that they have their color extcomms:
    
 
    Using the visual code extension, SSH into xrd01 and paste the following commands:
@@ -320,7 +320,7 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
    
    Example:
    ```diff
-   RP/0/RP0/CPU0:london#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
+   RP/0/RP0/CPU0:xrd01#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
     <snip>
      Local
        fc00:0:7777::1 (metric 3) from fc00:0:5555::1 (10.0.0.7)
@@ -337,11 +337,11 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
          Source AFI: VPNv4 Unicast, Source VRF: default, Source Route Distinguisher: 10.0.0.7:1
    ```
 
-4. On **london-xrd01** configure a pair of SRv6-TE segment lists for steering traffic over these specific paths through the network: 
+4. On **xrd01** configure a pair of SRv6-TE segment lists for steering traffic over these specific paths through the network: 
     - Segment list *xrd2347* will execute the explicit path: xrd01 -> 02 -> 03 -> 04 -> 07
     - Segment list *xrd567* will execute the explicit path: xrd01 -> 05 -> 06 -> 07
 
-   **london-xrd01**
+   **xrd01**
    ```yaml
    conf t
    segment-routing
@@ -363,9 +363,9 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
      commit
    ```
 
-5. On **london-xrd01** configure our bulk transport and low latency SRv6 steering policies. Low latency traffic will be forced over the *xrd01-05-06-07* path, and bulk transport traffic will take the longer *xrd01-02-03-04-07* path:
+5. On **xrd01** configure our bulk transport and low latency SRv6 steering policies. Low latency traffic will be forced over the *xrd01-05-06-07* path, and bulk transport traffic will take the longer *xrd01-02-03-04-07* path:
   
-   **london-xrd01**
+   **xrd01**
    ```yaml
    conf t
    segment-routing
@@ -391,14 +391,14 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
      commit
    ```
 
-6. Validate **london-xrd01's** SRv6-TE SID policy is enabled and up:
+6. Validate **xrd01's** SRv6-TE SID policy is enabled and up:
    ```
     show segment-routing srv6 sid
    ```
    
    Example output, note the additional uDT VRF carrots and SRv6-TE **uB6 Insert.Red** SIDs added to the list:
    ```diff
-   RP/0/RP0/CPU0:london#  show segment-routing srv6 sid
+   RP/0/RP0/CPU0:xrd01#  show segment-routing srv6 sid
    Sat Dec 16 02:45:31.772 UTC
  
    *** Locator: 'MyLocator' *** 
@@ -426,7 +426,7 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
    
    Example output:
    ```diff
-   RP/0/RP0/CPU0:london#show segment-routing traffic-eng policy color 40
+   RP/0/RP0/CPU0:xrd01#show segment-routing traffic-eng policy color 40
    SR-TE policy database
    ---------------------
 
@@ -474,7 +474,7 @@ The ingress PE, **london-xrd01**, will then be configured with SRv6 segment-list
 
    Example output:
    ```diff
-   RP/0/RP0/CPU0:london#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
+   RP/0/RP0/CPU0:xrd01#show bgp vpnv4 uni vrf carrots 40.0.0.0/24
     <snip>
      Local
        fc00:0:7777::1 (metric 3) from fc00:0:5555::1 (10.0.0.7)

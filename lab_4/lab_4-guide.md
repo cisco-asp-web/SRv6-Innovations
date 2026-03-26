@@ -21,7 +21,7 @@ In lab 4 we'll work with our small SONiC CLOS topology; we'll explore the SONiC/
   - [Fabric Config Automation with Ansible](#fabric-config-automation-with-ansible)
     - [Verify SONiC BGP peering](#verify-sonic-bgp-peering)
     - [SONiC SRv6 configuration](#sonic-srv6-configuration)
-    - [Verify London VM backend network reachability](#verify-london-vm-backend-network-reachability)
+    - [Verify VM backend network reachability](#verify-vm-backend-network-reachability)
   - [End of lab 4](#end-of-lab-4)
 
 ## Lab Objectives
@@ -34,7 +34,7 @@ We will have achieved the following objectives upon completion of Lab 4:
 
 ## Containerlab SONiC topology
 
-In lab 1 our containerlab script deployed both the XRd topology and the SONiC nodes in our London AI/ML backend data center. 
+In lab 1 our containerlab script deployed both the XRd topology and the SONiC nodes in our AI/ML backend data center. 
 
 Our SONiC ML Training Fabric topology looks like this:
 
@@ -222,7 +222,7 @@ Before we proceed with applying full fabric configurations via Ansible, we wante
 > [!NOTE]
 > Logout and log back in to *leaf00* to see the hostname change take effect
 
-Our SONiC fabric will use IPv6 link local addresses for the BGP underlay, so we only need to configure IPv6 addresses for the London VM facing interface Ethernet16. Note: the backend network will be IPv6 only.
+Our SONiC fabric will use IPv6 link local addresses for the BGP underlay, so we only need to configure IPv6 addresses for the VM facing interface Ethernet16. Note: the backend network will be IPv6 only.
 
 3. Configure interface Ethernet16 IPv6 address
    ```
@@ -466,12 +466,12 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
     Note how the entry has the notation *`proto bgp src`* which indicates the route was learned from BGP. The route also has 3 ECMP paths via the BGP unnumbered / IPv6 link-local sessions.
 
 
-### Verify London VM backend network reachability
+### Verify VM backend network reachability
 
-1. SSH to the **london-vm-00** from the **topology-host**
+1. SSH to the **vm-00** from the **topology-host**
    
     ```
-    ssh london-vm-00
+    ssh vm-00
     ```
     
 2. Disply the VM's ipv6 routing table:
@@ -493,7 +493,7 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
     fe80::/64 dev ens5 proto kernel metric 256 pref medium
     ```
 
-3. Ping **london-vm-01** and **london-vm-02** over the *`Backend/SONiC`* network:
+3. Ping **vm-01** and **vm-02** over the *`Backend/SONiC`* network:
 
     ```
     ping fcbb:0:800:1::2 -i .3 -c 3

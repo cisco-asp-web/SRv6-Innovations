@@ -1,0 +1,5 @@
+<network>
+  <name>vm-02-fe</name>
+  <forward mode="bridge"/>
+  <bridge name="vm-02-fe"/>
+</network>

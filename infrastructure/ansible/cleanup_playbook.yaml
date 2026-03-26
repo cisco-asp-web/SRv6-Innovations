@@ -14,7 +14,7 @@
       ignore_errors: yes
 
 - name: cleanup K8s
-  hosts: london_k8s_cp
+  hosts: k8s_cp
   become: false
   tasks:
 
@@ -67,21 +67,21 @@
         chdir: /home/cisco/LTRSPG-2212/lab_4
       ignore_errors: yes
 
-- name: virsh shutdown london VMs
+- name: virsh shutdown VMs
   hosts: topology-host
   tasks:
 
-    - name: shutdown london-vm-00
+    - name: shutdown vm-00
       community.libvirt.virt:
-        name: london-vm-00
+        name: vm-00
         state: shutdown
 
-    - name: shutdown london-vm-01
+    - name: shutdown vm-01
       community.libvirt.virt:
-        name: london-vm-01
+        name: vm-01
         state: shutdown
 
-    - name: shutdown london-vm-02
+    - name: shutdown vm-02
       community.libvirt.virt:
-        name: london-vm-02
+        name: vm-02
         state: shutdown

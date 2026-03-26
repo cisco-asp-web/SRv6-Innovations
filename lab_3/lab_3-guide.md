@@ -1,7 +1,7 @@
 # Lab 3: SRv6 for Kubernetes with Cilium [30 Min]
 
 ### Description
-Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The London VMs have Kubernetes pre-installed and are running the *Cilium CNI* (Container Network Interface). In this lab we'll review some basic Kubernetes commands (kubectl) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our London K8s cluster and join them to the carrots VRF.
+Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The the K8s VMs have Kubernetes pre-installed and are running the *Cilium CNI* (Container Network Interface). In this lab we'll review some basic Kubernetes commands (kubectl) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our K8s cluster and join them to the carrots VRF.
 
 > [!NOTE]
 > This portion of the lab makes use of Cilium Enterprise as the SRv6 features not available in the open source version. If you are interested in SRv6 on Cilium or other Enterprise features, please contact the relevant Cisco Isovalent sales team.  
@@ -41,11 +41,11 @@ We will have achieved the following objectives upon completion of Lab 3:
   
 ## Verify pre-installed Kubernetes and Cilium are running
 
-The **london-vm-00** is our Kubernetes control plane node.  All of the following steps are to be performed on **london-vm-00**   unless otherwise specified.
+The **vm-00** is our Kubernetes control plane node.  All of the following steps are to be performed on **vm-00**   unless otherwise specified.
 
-1. Open a terminal session on the **topology-host** and SSH to **london-vm-00**
+1. Open a terminal session on the **topology-host** and SSH to **vm-00**
    ```
-   ssh cisco@london-vm-00
+   ssh cisco@vm-00
    ```
 
 2. Run a couple commands to verify the K8s cluster and the Cilium Installation
@@ -59,9 +59,9 @@ The **london-vm-00** is our Kubernetes control plane node.  All of the following
    ```yaml
    $ kubectl get nodes -o wide
    NAME           STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
-   london-vm-00   Ready    control-plane   6d      v1.35.0   10.8.0.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
-   london-vm-01   Ready    <none>          2d23h   v1.31.8   10.8.1.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
-   london-vm-02   Ready    <none>          2d23h   v1.31.8   10.8.2.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
+   vm-00   Ready    control-plane   6d      v1.35.0   10.8.0.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
+   vm-01   Ready    <none>          2d23h   v1.31.8   10.8.1.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
+   vm-02   Ready    <none>          2d23h   v1.31.8   10.8.2.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
    ```
 
    Display Cilium pods:
@@ -124,7 +124,7 @@ One of the great things about CRDs is you can combine all the configuration elem
    * [02-cilium-srv6.yaml](cilium/02-cilium-srv6.yaml) - Cilium SRv6 SID manager and Locator pool configuration
    * [03-carrots-vrf.yaml](cilium/07-vrf-carrots.yaml) - Cilium BGP and K8s VRF 'carrots' configuration and deployment of test pod
 
-On **london-vm-00** change to the lab_3/cilium directory and check out the contents
+On **vm-00** change to the lab_3/cilium directory and check out the contents
    ```
    cd ~/LTRSPG-2212/lab_3/cilium/
    ll
@@ -135,7 +135,7 @@ The directory also contains [99-cilium-all.yaml](./cilium/99-cilium-all.yaml) wh
 
 ## Cilium BGP
 
-For the sake of simplicity we'll use iBGP peering between our London K8s nodes and our route reflectors **paris xrd05** and **barcelona xrd06**. 
+For the sake of simplicity we'll use iBGP peering between our K8s nodes and our route reflectors **xrd05** and **xrd06**. 
 
 ![Cilium SRv6 L3VPN](/topo_drawings/lab3-cilium-l3vpn-topology.png)
 
@@ -155,19 +155,19 @@ Our Cilium BGP configuration is broken into four CRDs:
        - key: kubernetes.io/hostname
          operator: In                      # apply config to all nodes in the values list
          values:
-         - london-vm-00
-         - london-vm-01
-         - london-vm-02   
+         - vm-00
+         - vm-01
+         - vm-02   
      bgpInstances:                         # the k8s cluster could have multiple BGP instances
      - name: "asn65000"                    # for simplicity we're using the same ASN as our XRd network
        localASN: 65000
        peers:
-       - name: "paris-rr"                  # base peering config
+       - name: "xrd05-rr"                  # base peering config
          peerASN: 65000                   
          peerAddress: fc00:0:5555::1       
          peerConfigRef:
            name: "cilium-peer"             # reference to additional peer config in another CRD
-       - name: "barcelona-rr"
+       - name: "xrd06-rr"
          peerASN: 65000
          peerAddress: fc00:0:6666::1
          peerConfigRef:
@@ -196,13 +196,13 @@ Our Cilium BGP configuration is broken into four CRDs:
    Here is a portion of the node override CRD with notes:
    ```yaml
     metadata:
-      name: london-vm-00     # this CRD will apply to the london-vm-00 node
+      name: vm-00     # this CRD will apply to the vm-00 node
     spec:
       bgpInstances:
         - name: "asn65000"        
           srv6Responder: true   # instructs BGP to advertise the node's SRv6 Locator (we'll create the locator a few steps after this)
           peers:
-            - name: "paris-rr"              # must match the name of the peer in the cluster config
+            - name: "xrd05-rr"              # must match the name of the peer in the cluster config
               localAddress: fc00:0:800::2   # the source address to use for the peering session
    ```
 
@@ -224,7 +224,7 @@ Our Cilium BGP configuration is broken into four CRDs:
    ```
 
 ### Configure Cilium BGP
-1. On **london-vm-00** apply the *Cilium BGP Config CRD*. This config establishes BGP peering on all three **london-vms** with the route reflectors **paris-xrd05** and **barcelona-xrd06**.
+1. On **vm-00** apply the *Cilium BGP Config CRD*. This config establishes BGP peering on all three **the K8s VMs** with the route reflectors **xrd05** and **xrd06**.
    ```
    kubectl apply -f 01-cilium-bgp.yaml
    ```
@@ -232,9 +232,9 @@ Our Cilium BGP configuration is broken into four CRDs:
    Expected output:
    ```
     isovalentbgppeerconfig.isovalent.com/cilium-peer created
-    isovalentbgpnodeconfigoverride.isovalent.com/london-vm-00 created
-    isovalentbgpnodeconfigoverride.isovalent.com/london-vm-01 created
-    isovalentbgpnodeconfigoverride.isovalent.com/london-vm-02 created
+    isovalentbgpnodeconfigoverride.isovalent.com/vm-00 created
+    isovalentbgpnodeconfigoverride.isovalent.com/vm-01 created
+    isovalentbgpnodeconfigoverride.isovalent.com/vm-02 created
     isovalentbgpadvertisement.isovalent.com/bgp-ipv6-unicast created
    ```
    
@@ -242,22 +242,22 @@ Our Cilium BGP configuration is broken into four CRDs:
 ### Verify Cilium BGP peering and prefix advertisement
 
 > [!NOTE]
-> the **paris** and **barcelona**' route-reflectors were preconfigured to peer with the Cilium nodes and inherited the vpnv4 address family configuration during Lab 2, so we don't need to update their configs. 
+> the xrd05 and xrd06 route-reflectors were preconfigured to peer with the Cilium nodes and inherited the vpnv4 address family configuration during Lab 2, so we don't need to update their configs. 
 
 
-1. Use the *`cilium bgp peers`* command to verify established peering sessions with **paris xrd05** and **barcelona xrd06**. Note, it may take a few seconds to a minute for the peering sessions and bgp table sync.
+1. Use the *`cilium bgp peers`* command to verify established peering sessions with **xrd05** and **xrd06**. Note, it may take a few seconds to a minute for the peering sessions and bgp table sync.
    
    ```
    cilium bgp peers
    ```
 
-   We expect each london VM to have two IPv6 BGP peering sessions established and receiving BGP NLRIs for IPv6 and IPv4/mpls_vpn (aka, SRv6 L3VPN). We also expect to be advertising an IPv6 unicast prefix, but not advertise VPN prefixes yet.
+   We expect each K8s VM to have two IPv6 BGP peering sessions established and receiving BGP NLRIs for IPv6 and IPv4/mpls_vpn (aka, SRv6 L3VPN). We also expect to be advertising an IPv6 unicast prefix, but not advertise VPN prefixes yet.
 
    Partial output:
    ```yaml
    $ cilium bgp peers
    Node          Local AS  Peer AS  Peer Address     Session State  Uptime  Family          Received  Advertised
-   london-vm-00  65000     65000    fc00:0:5555::1   established    25s     ipv6/unicast    6         1    
+   vm-00  65000     65000    fc00:0:5555::1   established    25s     ipv6/unicast    6         1    
                                                                             ipv4/mpls_vpn   4         0    
                  65000     65000    fc00:0:6666::1   established    30s     ipv6/unicast    6         1    
                                                                             ipv4/mpls_vpn   4         0
@@ -284,10 +284,10 @@ Our Cilium BGP configuration is broken into four CRDs:
    cilium bgp routes advertised ipv6 unicast
    ```
 
-   Example partial output showing **london-vm-00's** network-facing interface as the BGP NextHop
+   Example partial output showing **vm-00's** network-facing interface as the BGP NextHop
    ```yaml
    Node         VRouter  Peer            Prefix            NextHop        Age       Attrs
-   london-vm-00  65000    fc00:0:5555::1  2001:db8:42::/64  fc00:0:800::2  3h22m34s  [{Origin: i} {AsPath: } {LocalPref: 100} {MpReach(ipv6-unicast): {Nexthop: fc00:0:800::2, NLRIs: [2001:db8:42::/64]}}]       
+   vm-00  65000    fc00:0:5555::1  2001:db8:42::/64  fc00:0:800::2  3h22m34s  [{Origin: i} {AsPath: } {LocalPref: 100} {MpReach(ipv6-unicast): {Nexthop: fc00:0:800::2, NLRIs: [2001:db8:42::/64]}}]       
                  65000    fc00:0:6666::1  2001:db8:42::/64  fc00:0:800::2  3h22m34s  [{Origin: i} {AsPath: } {LocalPref: 100} {MpReach(ipv6-unicast): {Nexthop: fc00:0:800::2, NLRIs: [2001:db8:42::/64]}}]
    ```
 ## Cilium SRv6
@@ -296,7 +296,7 @@ Our Cilium BGP configuration is broken into four CRDs:
 Per Cilium Enterprise documentation:
 *The SID Manager manages a cluster-wide pool of SRv6 locator prefixes. You can define a prefix pool using the IsovalentSRv6LocatorPool CRD and the Cilium Operator will assign a locator for each node from this prefix.*
 
-In the next step we will configure a /40 range from which Cilium will allocate a /48 bit SRv6 locator to each node in the London K8s cluster.
+In the next step we will configure a /40 range from which Cilium will allocate a /48 bit SRv6 locator to each node in the K8s cluster.
 
 Cilium also supports /64 locators, but for simplicity and consistency with our *xrd* nodes we're going to use the very commonly deployed /48 bit locators. Here is the yaml file CRD with notes:
 
@@ -339,7 +339,7 @@ Cilium also supports /64 locators, but for simplicity and consistency with our *
    Example partial output, Cilium is now advertising the node's Locators as highlighted below. Also, due to the dynamic nature of the allocation your /48 values will differ from the example output:
    ```diff
    Node           VRouter   Peer             Prefix               NextHop           Age     Attrs
-   london-vm-00   65000     fc00:0:5555::1   2001:db8:42::/64     fc00:0:800::2           
+   vm-00   65000     fc00:0:5555::1   2001:db8:42::/64     fc00:0:800::2           
                   65000     fc00:0:6666::1   2001:db8:42::/64     fc00:0:800::2            
    +              65000     fc00:0:5555::1   fc00:0:88f7::/48     fc00:0:800::2           
    +              65000     fc00:0:6666::1   fc00:0:88f7::/48     fc00:0:800::2    
@@ -356,15 +356,15 @@ Cilium also supports /64 locators, but for simplicity and consistency with our *
    ```
 
    The truncated output below shows the Cilium uSID locator allocation for each node. Notice that we have the
-   same prefix as the previous command *fc00:0:88f7::/48* listed for **london-vm-00**.
+   same prefix as the previous command *fc00:0:88f7::/48* listed for **vm-00**.
 
    Example output:
 
    ```diff
    NAME           ALLOCATIONS
-   + london-vm-00   [map[locators:[map[behaviorType:uSID prefix:fc00:0:88f7::/48
-     london-vm-01   [map[locators:[map[behaviorType:uSID prefix:fc00:0:88f6::/48 
-     london-vm-02   [map[locators:[map[behaviorType:uSID prefix:fc00:0:8804::/48
+   + vm-00   [map[locators:[map[behaviorType:uSID prefix:fc00:0:88f7::/48
+     vm-01   [map[locators:[map[behaviorType:uSID prefix:fc00:0:88f6::/48 
+     vm-02   [map[locators:[map[behaviorType:uSID prefix:fc00:0:8804::/48
    ```
 
 ## Cilium VRF
@@ -441,7 +441,7 @@ metadata:
     vrf: carrots   # the pod is in the carrots VRF
   name: carrots0   # the pod's name
 spec:
-  nodeName: london-vm-02  # explicitly assign this pod to london-vm-02 (for later steps in the lab)
+  nodeName: vm-02  # explicitly assign this pod to vm-02 (for later steps in the lab)
   containers:
   - image: alpine:latest   # deploy the pod using a super lightweight container image
     imagePullPolicy: IfNotPresent
@@ -477,29 +477,29 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
    kubectl get pod -n veggies carrots0 -o jsonpath="Node: {.spec.nodeName} | IPs: {.status.podIPs[*].ip}" && echo
    ```
 
-   Expected output should look something like the below with the pod being deployed to **london-vm-02** with dynamically assigned IP addresses:
+   Expected output should look something like the below with the pod being deployed to **vm-02** with dynamically assigned IP addresses:
    ```
-   Node: london-vm-02 | IPs: 10.200.2.46 2001:db8:42:4::af86
+   Node: vm-02 | IPs: 10.200.2.46 2001:db8:42:4::af86
    ```
 
-3. Next we'll verify Cilium has allocated the carrots VRF a SRv6 L3VPN uDT4 SID on **london-vm-02**:
+3. Next we'll verify Cilium has allocated the carrots VRF a SRv6 L3VPN uDT4 SID on **vm-02**:
    ```
-   kubectl get sidmanager london-vm-02 -o yaml
+   kubectl get sidmanager vm-02 -o yaml
    ```
 
    Or a much longer command can give us clean abbreviated output:
    ```
-   echo && kubectl get sidmanager london-vm-02 -o jsonpath="Host: {.metadata.name} | VRF: {.status.sidAllocations[*].sids[*].metadata} | SID: {.status.sidAllocations[*].sids[*].sid.addr} | Behavior: {.status.sidAllocations[*].sids[*].behavior}" && echo
+   echo && kubectl get sidmanager vm-02 -o jsonpath="Host: {.metadata.name} | VRF: {.status.sidAllocations[*].sids[*].metadata} | SID: {.status.sidAllocations[*].sids[*].sid.addr} | Behavior: {.status.sidAllocations[*].sids[*].behavior}" && echo
    ```
 
    Example output:
    ```
-   Host: london-vm-02 | VRF: carrots | SID: fc00:0:88d2:1530:: | Behavior: uDT4
+   Host: vm-02 | VRF: carrots | SID: fc00:0:88d2:1530:: | Behavior: uDT4
    ```
 
 ## Verify Cilium advertised L3VPN prefixes in the lab
 
-1. Using the containerlab extension, ssh to **rome xrd07** and run some BGP verification commands.
+1. Using the containerlab extension, ssh to **xrd07** and run some BGP verification commands.
 
    ```
    show bgp vpnv4 unicast | include 10.200.
@@ -528,7 +528,7 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
           T:1(Sid structure):
    ```
 
-2. Back on **london-vm-00**, verify SRv6 Egress Policies. This command will give you a rough equivalent to the SRv6 L3VPN FIB table
+2. Back on **vm-00**, verify SRv6 Egress Policies. This command will give you a rough equivalent to the SRv6 L3VPN FIB table
    ```
    kubectl get IsovalentSRv6EgressPolicy -o yaml
    ```
@@ -558,7 +558,7 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
 
 ### Run a ping test!
 
-1. From **london-vm-00** exec into the *`carrots`* pod and ping Rome's interface in the carrots VRF:
+1. From **vm-00** exec into the *`carrots`* pod and ping xrd07's interface in the carrots VRF:
     ```
     kubectl exec -it -n veggies carrots0 -- sh
     ```
@@ -573,10 +573,10 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
 
 ### Optional - Traffic capture using Edgeshark
 
-The London VMs are connected to the Containerlab topology via Linux bridge instances. You can inspect traffic either at the source (on the bridge) or at the destination (Rome container’s eth1). We do recommend to inspect the traffic at the destination on Rome's container interface eth1
+The the K8s VMs are connected to the Containerlab topology via Linux bridge instances. You can inspect traffic either at the source (on the bridge) or at the destination (app-container-07’s eth1). We do recommend to inspect the traffic at the destination on xrd07's container interface eth1
 
 
-![Edgeshark on the rome container eth1 interface](../topo_drawings/lab3-rome-edgeshark-pcap.png)
+![Edgeshark on the app-container-07 eth1 interface](../topo_drawings/lab3-xrd07-edgeshark-pcap.png)
 
 
 

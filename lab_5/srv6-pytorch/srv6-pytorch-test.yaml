@@ -16,7 +16,7 @@ data:
   BACKEND_ROUTE_PREFIX: "fcbb:0:800::/48"
   SRV6_USID_BLOCK: "fcbb::/32"
 ---
-# Pod for rank 0 (master) on london-vm-00
+# Pod for rank 0 (master) on vm-00
 apiVersion: v1
 kind: Pod
 metadata:
@@ -32,7 +32,7 @@ metadata:
         "ips": ["fcbb:0:0800:0::10/64"]
       }]
 spec:
-  nodeName: london-vm-00
+  nodeName: vm-00
   containers:
   - name: pytorch
     image: docker.io/library/srv6-pytorch-plugin:latest
@@ -68,9 +68,9 @@ spec:
     - name: RANK
       value: "0"
     - name: MASTER_ADDR
-      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on london-vm-00
+      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on vm-00
     - name: BACKEND_GATEWAY
-      value: "fcbb:0:0800:0::1"  # Gateway for london-vm-00's backend network
+      value: "fcbb:0:0800:0::1"  # Gateway for vm-00's backend network
     securityContext:
       privileged: true  # Required for sysctl
     resources:
@@ -82,7 +82,7 @@ spec:
         cpu: "1"
   restartPolicy: Never
 ---
-# Pod for rank 1 (worker) on london-vm-01
+# Pod for rank 1 (worker) on vm-01
 apiVersion: v1
 kind: Pod
 metadata:
@@ -98,7 +98,7 @@ metadata:
         "ips": ["fcbb:0:0800:1::10/64"]
       }]
 spec:
-  nodeName: london-vm-01
+  nodeName: vm-01
   containers:
   - name: pytorch
     image: docker.io/library/srv6-pytorch-plugin:latest
@@ -134,9 +134,9 @@ spec:
     - name: RANK
       value: "1"
     - name: MASTER_ADDR
-      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on london-vm-00
+      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on vm-00
     - name: BACKEND_GATEWAY
-      value: "fcbb:0:0800:1::1"  # Gateway for london-vm-01's backend network
+      value: "fcbb:0:0800:1::1"  # Gateway for vm-01's backend network
     securityContext:
       privileged: true  # Required for sysctl
     resources:
@@ -149,7 +149,7 @@ spec:
   restartPolicy: Never
 
 ---
-# Pod for rank 2 (worker) on london-vm-02
+# Pod for rank 2 (worker) on vm-02
 apiVersion: v1
 kind: Pod
 metadata:
@@ -165,7 +165,7 @@ metadata:
         "ips": ["fcbb:0:0800:2::10/64"]
       }]
 spec:
-  nodeName: london-vm-02
+  nodeName: vm-02
   containers:
   - name: pytorch
     image: docker.io/library/srv6-pytorch-plugin:latest
@@ -201,9 +201,9 @@ spec:
     - name: RANK
       value: "2"
     - name: MASTER_ADDR
-      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on london-vm-00
+      value: "fcbb:0:0800:0::10"  # Static IPv6 address of master pod on vm-00
     - name: BACKEND_GATEWAY
-      value: "fcbb:0:0800:2::1"  # Gateway for london-vm-02's backend network
+      value: "fcbb:0:0800:2::1"  # Gateway for vm-02's backend network
     securityContext:
       privileged: true  # Required for sysctl
     resources:

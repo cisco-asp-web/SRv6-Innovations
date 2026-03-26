@@ -1,12 +1,12 @@
 ## Contents
 - [Contents](#contents)
-- [london](#london)
-- [paris](#paris)
-- [rome](#rome)
+- [xrd01](#xrd01)
+- [xrd05](#xrd05)
+- [xrd07](#xrd07)
 - [Example VRF and interface config:](#example-vrf-and-interface-config)
 - [Back to Lab 2 Guide](#back-to-lab-2-guide)
 
-## london
+## xrd01
 ```
 conf t
 
@@ -88,7 +88,7 @@ commit
 
 ```
 
-## paris
+## xrd05
 ```
 conf t
 
@@ -106,7 +106,7 @@ commit
 
 ```
 
-## rome
+## xrd07
 ```
 conf t
 
@@ -115,7 +115,7 @@ router static
   address-family ipv4 unicast
    40.0.0.0/24 10.107.2.2
    50.0.0.0/24 10.107.2.2
-  !       
+  !
   address-family ipv6 unicast
    fc00:0:40::/64 fc00:0:107:2::2
    fc00:0:50::/64 fc00:0:107:2::2
@@ -181,7 +181,7 @@ router bgp 65000
  neighbor-group xrd-ipv6-peer
   address-family vpnv4 unicast
    route-policy set-color out
-  !       
+  !
   address-family vpnv6 unicast
    route-policy set-color out
   !
@@ -210,7 +210,7 @@ vrf carrots
    9:9
   !
  !
-! 
+!
 interface Loopback100
  ipv4 address 100.0.7.1 255.255.255.0
  ipv6 address 2001:db8:100:7::1/64

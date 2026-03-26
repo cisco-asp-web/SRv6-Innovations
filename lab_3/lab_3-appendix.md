@@ -1,5 +1,5 @@
 ## Cilium Lab Appendix: Other Useful Commands
-The following commands can all be run from the rome:
+The following commands can all be run from xrd07:
 
 1. Self explanatory Cilium BGP commands:
 ```
@@ -27,12 +27,12 @@ cilium bgp routes available ipv4 mpls_vpn
 
   Get Cilium eBPF info for SID, VRF, and SRv6 Policy - note: first run kubectl get pods to get the cilium agent pod(s) name(s):
   ```
-  cisco@rome:~$ kubectl get pods -n kube-system
+  cisco@xrd07:~$ kubectl get pods -n kube-system
   NAME                                    READY   STATUS    RESTARTS      AGE
   cilium-zczvb                       1/1     Running   0          7h57m
   ```
 
-  Then run cilium-dbg ebpf commands (Note: the cilium agent pod name is dynamic so you'll need to replace *`cilium-zczvb`* with the pod name from your Berlin node):
+  Then run cilium-dbg ebpf commands (Note: the cilium agent pod name is dynamic so you'll need to replace *`cilium-zczvb`* with the pod name from your xrd03 node):
   The first command outputs the nodes' local SID table
   The second command outputs the nodes' local VRF table
   The third command outputs a summary of the nodes' srv6 l3vpn routing table
@@ -44,7 +44,7 @@ cilium bgp routes available ipv4 mpls_vpn
 
   Example output of the last command is nice:
   ```
-  cisco@berlin:~/SRv6_dCloud_Lab/lab_4/cilium$ kubectl exec -n kube-system cilium-zczvb -- cilium-dbg bpf srv6 policy
+  cisco@xrd03:~/SRv6_dCloud_Lab/lab_4/cilium$ kubectl exec -n kube-system cilium-zczvb -- cilium-dbg bpf srv6 policy
   Defaulted container "cilium-agent" out of: cilium-agent, config (init), mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), wait-for-node-init (init), clean-cilium-state (init), install-cni-binaries (init)
   VRF ID   Destination CIDR   SID
   99       10.9.9.1/32        fc00:0:1111:e008::
