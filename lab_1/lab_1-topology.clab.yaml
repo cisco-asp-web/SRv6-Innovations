@@ -1,6 +1,6 @@
 # Containerlab topology file for Cisco Live EU 2026 Lab 1
 
-name: cleu26
+name: srv6-innovations
 
 mgmt:
   network: mgt-network
@@ -8,8 +8,7 @@ mgmt:
 
 topology:
   nodes:
-
-# XRd Core Network
+    # XRd Core Network
     xrd01:
       kind: cisco_xrd
       image: cisco-xrd-control-plane:24.4.1
@@ -52,7 +51,7 @@ topology:
       startup-config: xrd-config/xrd07.cfg
       mgmt-ipv4: 172.20.6.107
 
-# Container Edge Nodes
+    # Container Edge Nodes
     app-container-07:
       kind: linux
       image: net-tools:latest
@@ -121,7 +120,7 @@ topology:
         - ip -6 route add fc00:0:40::1/64 via fc00:0:101:1::1
         - ip -6 route add fc00:0:50::1/64 via fc00:0:101:1::1
 
-# DC SONiC Network
+    # DC SONiC Network
     sonic-leaf-00:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
@@ -185,19 +184,18 @@ topology:
       kind: bridge
 
   links:
-
     # Core Network Links
-    - endpoints: ["xrd01:Gi0-0-0-0", "app-container-01:eth1"]                      # Link O
-    - endpoints: ["xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0"]                        # Link A
-    - endpoints: ["xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0"]                            # Link B
-    - endpoints: ["xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0"]                        # Link E
-    - endpoints: ["xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1"]                     # Link C
-    - endpoints: ["xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0"]                           # Link F
-    - endpoints: ["xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1"]                             # Link H
-    - endpoints: ["xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2"]                            # Link D
-    - endpoints: ["xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2"]                         # Link G
-    - endpoints: ["xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2"]                          # Link I
-    - endpoints: ["xrd07:Gi0-0-0-0", "app-container-07:eth1"]                          # Link J
+    - endpoints: ["xrd01:Gi0-0-0-0", "app-container-01:eth1"] # Link O
+    - endpoints: ["xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0"] # Link A
+    - endpoints: ["xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0"] # Link B
+    - endpoints: ["xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0"] # Link E
+    - endpoints: ["xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1"] # Link C
+    - endpoints: ["xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0"] # Link F
+    - endpoints: ["xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1"] # Link H
+    - endpoints: ["xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2"] # Link D
+    - endpoints: ["xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2"] # Link G
+    - endpoints: ["xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2"] # Link I
+    - endpoints: ["xrd07:Gi0-0-0-0", "app-container-07:eth1"] # Link J
 
     # DC SONiC Network Links
     - endpoints: ["sonic-leaf-00:eth1", "sonic-spine-00:eth1"]
@@ -219,5 +217,3 @@ topology:
     - endpoints: ["xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01:Gi0-0-0-3"]
     - endpoints: ["xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01:Gi0-0-0-4"]
     - endpoints: ["xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01:Gi0-0-0-5"]
-
-
