@@ -1,4 +1,4 @@
-# Welcome to LTRSPG-2212: Modern AI networks: IOS-XR, SRv6, Cilium, and SONiC
+# Welcome to SRv6 Innovations: Modern AI networks: IOS-XR, SRv6, Cilium, and SONiC
 
 
 ## Introduction: 
