@@ -78,6 +78,15 @@
 - [x] `infrastructure/ansible/cleanup_playbook.yaml`
 - [x] `infrastructure/ansible/files/vm_virsh.yaml`
 
+#### Host Setup & Libvirt VM Services (Applied directly on the Host)
+- [x] Repointed git to clone/pull from `https://github.com/cisco-asp-web/SRv6-Innovations.git` on boot via `update_repo.sh`
+- [x] Created systemd `update-srv6-repo.service` to automatically refresh lab repository upon host startup
+- [x] Cleaned up legacy services and timers (`ciscolive-ltrspg2212-update-lab-repo`, `ciscolive-ltrspg2212-london-bridges`, `start-berlin-vm`, `create-berlin-net`, `srv6-innovations-xrd01-bridges`)
+- [x] Renamed primary KVM domains via `virsh domrename`: `london-vm-00/01/02` → `dc01-vm-00/01/02`
+- [x] Renamed backend KVM disk images: `london-vm-*.qcow2` → `dc01-vm-*.qcow2`
+- [x] Migrated libvirt networks via `virsh net-dumpxml / net-define`: `london-vm-00/01/02-fe/be` → `dc01-vm-*.xml`
+- [x] Created `srv6-innovations-create-dc01-bridges.sh` and `srv6-innovations-dc01-bridges.service` to initialize bridges and boot `dc01` VMs on startup
+
 #### Infrastructure — VM Definitions
 - [x] `london-bridges.sh` → `bridges.sh`
 - [x] `london-bridges.service` → `bridges.service`
