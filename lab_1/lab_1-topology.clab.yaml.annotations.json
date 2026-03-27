@@ -1,0 +1,239 @@
+{
+    "freeTextAnnotations": [],
+    "freeShapeAnnotations": [
+        {
+            "id": "freeShape_1774546560539",
+            "shapeType": "rectangle",
+            "position": {
+                "x": -3.415264674807654,
+                "y": 0.8236913482830204
+            },
+            "width": 32,
+            "height": 38,
+            "fillColor": "#ff00d4",
+            "fillOpacity": 1,
+            "borderColor": "#bbbebf",
+            "borderWidth": 1,
+            "borderStyle": "solid",
+            "rotation": 0,
+            "zIndex": -1
+        },
+        {
+            "id": "freeShape_1774547545557",
+            "shapeType": "rectangle",
+            "position": {
+                "x": -2.3499336388752834,
+                "y": 100.15284124016061
+            },
+            "width": 32,
+            "height": 38,
+            "fillColor": "#ff00d4",
+            "fillOpacity": 1,
+            "borderColor": "#bbbebf",
+            "borderWidth": 1,
+            "borderStyle": "solid",
+            "rotation": 0,
+            "zIndex": -1
+        },
+        {
+            "id": "freeShape_1774547552936",
+            "shapeType": "rectangle",
+            "position": {
+                "x": -2.8817058684558496,
+                "y": -99.13269235572518
+            },
+            "width": 32,
+            "height": 38,
+            "fillColor": "#ff00d4",
+            "fillOpacity": 1,
+            "borderColor": "#bbbebf",
+            "borderWidth": 1,
+            "borderStyle": "solid",
+            "rotation": 0,
+            "zIndex": -1
+        }
+    ],
+    "trafficRateAnnotations": [],
+    "groupStyleAnnotations": [],
+    "networkNodeAnnotations": [],
+    "nodeAnnotations": [
+        {
+            "id": "xrd01",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 300,
+                "y": 0
+            }
+        },
+        {
+            "id": "xrd02",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 440,
+                "y": -100
+            }
+        },
+        {
+            "id": "xrd03",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 580,
+                "y": -100
+            }
+        },
+        {
+            "id": "xrd04",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 720,
+                "y": -100
+            }
+        },
+        {
+            "id": "xrd05",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 440,
+                "y": 100
+            }
+        },
+        {
+            "id": "xrd06",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 720,
+                "y": 100
+            }
+        },
+        {
+            "id": "xrd07",
+            "interfacePattern": "Gi0-0-0-{n}",
+            "position": {
+                "x": 860,
+                "y": 0
+            }
+        },
+        {
+            "id": "app-container-07",
+            "position": {
+                "x": 980,
+                "y": 0
+            }
+        },
+        {
+            "id": "app-container-01",
+            "position": {
+                "x": 300,
+                "y": 100
+            }
+        },
+        {
+            "id": "sonic-leaf-00",
+            "position": {
+                "x": -260,
+                "y": -100
+            }
+        },
+        {
+            "id": "sonic-leaf-01",
+            "position": {
+                "x": -260,
+                "y": 0
+            }
+        },
+        {
+            "id": "sonic-leaf-02",
+            "position": {
+                "x": -260,
+                "y": 100
+            }
+        },
+        {
+            "id": "sonic-spine-00",
+            "position": {
+                "x": -460,
+                "y": -100
+            }
+        },
+        {
+            "id": "sonic-spine-01",
+            "position": {
+                "x": -460,
+                "y": 0
+            }
+        },
+        {
+            "id": "sonic-spine-02",
+            "position": {
+                "x": -460,
+                "y": 100
+            }
+        },
+        {
+            "id": "dc01-vm-00-fe",
+            "position": {
+                "x": 80,
+                "y": -100
+            }
+        },
+        {
+            "id": "dc01-vm-01-fe",
+            "position": {
+                "x": 80,
+                "y": 0
+            }
+        },
+        {
+            "id": "dc01-vm-02-fe",
+            "position": {
+                "x": 80,
+                "y": 100
+            }
+        },
+        {
+            "id": "dc01-vm-00-be",
+            "position": {
+                "x": -100,
+                "y": -100
+            }
+        },
+        {
+            "id": "dc01-vm-01-be",
+            "position": {
+                "x": -100,
+                "y": 0
+            }
+        },
+        {
+            "id": "dc01-vm-02-be",
+            "position": {
+                "x": -100,
+                "y": 100
+            }
+        },
+        {
+            "id": "dc01-vm-00-fe:xrd01:Gi0-0-0-3",
+            "position": {
+                "x": 180,
+                "y": -100
+            }
+        },
+        {
+            "id": "dc01-vm-01-fe:xrd01:Gi0-0-0-4",
+            "position": {
+                "x": 180,
+                "y": 0
+            }
+        },
+        {
+            "id": "dc01-vm-02-fe:xrd01:Gi0-0-0-5",
+            "position": {
+                "x": 180,
+                "y": 100
+            }
+        }
+    ],
+    "edgeAnnotations": [],
+    "aliasEndpointAnnotations": [],
+    "viewerSettings": {}
+}
