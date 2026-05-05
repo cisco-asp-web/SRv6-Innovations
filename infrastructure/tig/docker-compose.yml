@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: lab-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=cisco123
+      - DOCKER_INFLUXDB_INIT_ORG=cisco
+      - DOCKER_INFLUXDB_INIT_BUCKET=telemetry-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=cisco123
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    networks:
+      mgt-network:
+        ipv4_address: 172.20.6.200
+      tig-internal:
+
+  telegraf:
+    image: telegraf:latest
+    container_name: lab-telegraf
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+      - mysql
+    environment:
+      - INFLUX_TOKEN=cisco123
+      - INFLUX_ORG=cisco
+      - INFLUX_BUCKET=telemetry-bucket
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      mgt-network:
+        ipv4_address: 172.20.6.201
+      tig-internal:
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: lab-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=cisco123
+    depends_on:
+      - influxdb
+      - mysql
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      mgt-network:
+        ipv4_address: 172.20.6.202
+      tig-internal:
+
+  mysql:
+    image: mysql:8.0
+    container_name: lab-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=cisco123
+      - MYSQL_DATABASE=lab_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=cisco123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      mgt-network:
+        ipv4_address: 172.20.6.203
+      tig-internal:
+
+volumes:
+  influxdb-data:
+  influxdb-config:
+  grafana-data:
+  mysql-data:
+
+networks:
+  tig-internal:
+    driver: bridge
+  mgt-network:
+    external: true
+    name: mgt-network
+    
