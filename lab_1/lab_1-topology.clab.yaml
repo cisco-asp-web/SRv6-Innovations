@@ -2,6 +2,8 @@
 
 name: srv6-innovations
 
+prefix: ""
+
 mgmt:
   network: mgt-network
   ipv4-subnet: 172.20.6.0/24
