@@ -14,6 +14,7 @@ https://containerlab.dev/
   - [Contents](#contents)
   - [Lab Objectives](#lab-objectives)
   - [Topology](#topology)
+  - [Selecting Student Pod and Connecting to VPN](#selecting-student-pod-and-connecting-to-vpn)
   - [Accessing the routers](#accessing-the-routers)
   - [Lab Repository Update (Required)](#lab-repository-update-required)
   - [Launch and Validate XRD Topology](#launch-and-validate-xrd-topology)
@@ -124,7 +125,7 @@ Launch a terminal to the topology host and use the commands below to reset your 
 
 
 ```bash
-cd ~/LTRSPG-2212
+cd ~/SRv6-Innovations/
 git fetch origin
 git reset --hard origin/main
 ```

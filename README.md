@@ -1,4 +1,4 @@
-# Welcome to SRv6 Innovations: Modern AI networks: IOS-XR, SRv6, Cilium, and SONiC
+# Welcome to SRv6 Innovations: Modern AI networks - IOS-XR, SRv6, Cilium, and SONiC
 
 
 ## Introduction: 
@@ -67,7 +67,7 @@ The following diagram shows the dCloud VM topology that will be used for this la
 
 ![dCloud Topology](./topo_drawings/dcloud-topology.png)
 
-This lab environment consists of three virtual machines, each with a specific role. Here’s what each VM is responsible for:
+This lab environment consists of three virtual machines, each with a specific role:
 
 
 ## 💻 Lab Virtual Machines Summary
