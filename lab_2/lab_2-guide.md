@@ -61,7 +61,7 @@ show run interface GigabitEthernet 0/0/0/0
 We'll start with **xrd07** as it will need a pair of static routes for reachability to the  **app-container-07's** "40" and "50" network prefixes (loopback interfaces). Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
 
 > [!NOTE]
-> All of the below commands are also available in the *`quick config doc.`*. Be aware that the quick config document contains both the L3VPN configuration as well as the L3VPN TE configuration. [HERE](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2_quick_config.md) 
+> All of the below commands are also available in the *`quick config doc.`*. Be aware that the quick config document contains both the L3VPN configuration as well as the L3VPN TE configuration. [HERE](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2_quick_config.md) 
 
    
 1. **xrd07** vrf static route configuration
@@ -495,4 +495,4 @@ The ingress PE, **xrd01**, will then be configured with SRv6 segment-lists and S
 
 ## End of Lab 2
 > [!TIP]
-> If you have time we have a great packet walk including packet captures [Lab 2 - Packet Walk](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2-packet-walk.md) or proceed to [Lab 3](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_3/lab_3-guide.md)
+> If you have time we have a great packet walk including packet captures [Lab 2 - Packet Walk](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2-packet-walk.md) or proceed to [Lab 3](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_3/lab_3-guide.md)

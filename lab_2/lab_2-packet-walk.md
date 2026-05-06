@@ -132,4 +132,4 @@ At xrd07, the SRv6 transport header has been fully processed and removed, and th
     Under normal circumstances, we might expect the packet header to include the microSID sequence *5555:6666:7777*, explicitly steering traffic through **xrd05**, **xrd06**, and finally **xrd07**. However, when the XRd headend router computes the SRv6 Traffic Engineering policy, it determines that the best path from xrd05 to **xrd07** naturally traverses **xrd06** based on the IGP topology. As a result, the headend optimizes the uSID list by omitting 6666, since no additional steering decision is required at that hop. This optimization reduces SID overhead while still enforcing the intended SRv6-TE path, resulting in an outer IPv6 destination address of *fc00:0:5555:7777:e006::*.
 
 ## End of Lab 2 - Packet Walk
-Please proceed to [Lab 3](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_3/lab_3-guide.md)
+Please proceed to [Lab 3](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_3/lab_3-guide.md)

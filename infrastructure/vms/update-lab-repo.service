@@ -8,7 +8,7 @@ Type=oneshot
 ExecStart=/usr/local/bin/ciscolive-ltrspg2212-update-lab-repo.sh
 User=cisco
 Group=cisco
-WorkingDirectory=/home/cisco/LTRSPG-2212
+WorkingDirectory=/home/cisco/SRv6-Innovations
 StandardOutput=journal
 StandardError=journal
 

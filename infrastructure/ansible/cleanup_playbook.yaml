@@ -10,7 +10,7 @@
     - name: clear fabric_graph load
       command: python3 clear-load.py
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_5/jalapeno/backend
+        chdir: /home/cisco/SRv6-Innovations/lab_5/jalapeno/backend
       ignore_errors: yes
 
 - name: cleanup K8s
@@ -21,13 +21,13 @@
     - name: cleanup pytorch pods
       command: kubectl delete -f srv6-pytorch-test.yaml
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_5/srv6-pytorch
+        chdir: /home/cisco/SRv6-Innovations/lab_5/srv6-pytorch
       ignore_errors: no
 
     - name: cleanup cilium
       command: kubectl delete -f 99-cilium-all.yaml
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_3/cilium
+        chdir: /home/cisco/SRv6-Innovations/lab_3/cilium
       ignore_errors: no
 
     - name: verify cilium cleanup
@@ -46,25 +46,25 @@
     - name: cleanup lab 1
       command: ./cleanup-lab_1.sh
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_1
+        chdir: /home/cisco/SRv6-Innovations/lab_1
       ignore_errors: yes
 
     - name: cleanup lab 2
       command: ./cleanup-lab_2.sh
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_2
+        chdir: /home/cisco/SRv6-Innovations/lab_2
       ignore_errors: yes
 
     - name: cleanup lab 3
       command: ./cleanup-lab_3.sh
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_3
+        chdir: /home/cisco/SRv6-Innovations/lab_3
       ignore_errors: yes
 
     - name: cleanup lab 4
       command: ./cleanup-lab_4.sh
       args:
-        chdir: /home/cisco/LTRSPG-2212/lab_4
+        chdir: /home/cisco/SRv6-Innovations/lab_4
       ignore_errors: yes
 
 - name: virsh shutdown VMs

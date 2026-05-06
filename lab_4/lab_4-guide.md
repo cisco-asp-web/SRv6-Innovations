@@ -106,7 +106,7 @@ In addition to normal Linux CLI, SONiC has its own CLI that operates from the Li
     show ipv6 interfaces
     show version
     ```
-    If you would like to explore more we've included a short [SONiC CLI command reference](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/sonic_cli_reference.md)
+    If you would like to explore more we've included a short [SONiC CLI command reference](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic_cli_reference.md)
 
 5. Access **leaf00's** FRR/BGP container via *vtysh*
     ```
@@ -259,14 +259,14 @@ Our SONiC fabric will use IPv6 link local addresses for the BGP underlay, so we 
 
 ## Fabric Config Automation with Ansible 
 
-We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/ansible/sonic-playbook.yaml) to complete the configuration of our SONiC fabric. This playbook performs a number of tasks including:
+We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/ansible/sonic-playbook.yaml) to complete the configuration of our SONiC fabric. This playbook performs a number of tasks including:
 
-* Copy each node's *config_db.json* file to the */etc/sonic/* directory [Example spine00 config_db.json](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/sonic-config/spine00/config_db.json)
+* Copy each node's *config_db.json* file to the */etc/sonic/* directory [Example spine00 config_db.json](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/config_db.json)
 * Load the config to activate the new settings
-* Copy over and run a loopback shell script that we've created for each node [Example spine00 loopback.sh](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/sonic-config/spine00/loopback.sh)
+* Copy over and run a loopback shell script that we've created for each node [Example spine00 loopback.sh](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/loopback.sh)
 * Save the config
 * Create and activate a loopback interface called **sr0** on each node. This loopback is needed for SONiC SRv6 functionality
-* Copy and load FRR configs, which include BGP and SRv6 attributes, to each node; [Example spine00 frr.conf](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/sonic-config/spine00/frr.conf)
+* Copy and load FRR configs, which include BGP and SRv6 attributes, to each node; [Example spine00 frr.conf](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/frr.conf)
 
 
 1. Launch a terminal on the *`topology host`* using the visual code containerlab extension:
@@ -275,7 +275,7 @@ We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco
 
 2. cd into the lab_4 directory and execute the *sonic-playbook.yaml*
     ```
-    cd ~/LTRSPG-2212/lab_4/ansible
+    cd ~/SRv6-Innovations/lab_4/ansible
     ansible-playbook -i hosts sonic-playbook.yaml -e "ansible_user=admin ansible_ssh_pass=admin ansible_sudo_pass=admin" -vv
     ```
 
@@ -513,5 +513,5 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
 
     
 ## End of lab 4
-Please proceed to [Lab 5: Host Based SRv6 and SRv6 for AI Backend Networks](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_5/lab_5-guide.md)
+Please proceed to [Lab 5: Host Based SRv6 and SRv6 for AI Backend Networks](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_5/lab_5-guide.md)
 

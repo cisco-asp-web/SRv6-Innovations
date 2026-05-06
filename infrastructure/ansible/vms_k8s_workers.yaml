@@ -7,7 +7,7 @@
 
     - name: copy k8s-join.yaml for dc01-vm-01
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-01/dc01-vm-01-k8s-join.yaml
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-01/dc01-vm-01-k8s-join.yaml
         dest: /tmp/k8s-join.yaml
       ignore_errors: yes
 
@@ -22,7 +22,7 @@
 
     - name: copy k8s-join.yaml for dc01-vm-02
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-02/dc01-vm-02-k8s-join.yaml
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-02/dc01-vm-02-k8s-join.yaml
         dest: /tmp/k8s-join.yaml
       ignore_errors: yes
 

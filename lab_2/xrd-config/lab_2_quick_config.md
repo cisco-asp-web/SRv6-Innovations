@@ -224,4 +224,4 @@ interface GigabitEthernet0/0/0/3
 ```
 
 ## Back to Lab 2 Guide
-[Back to lab 2 guide](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2-guide.md#validate-srv6-l3vpn)
+[Back to lab 2 guide](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2-guide.md#validate-srv6-l3vpn)

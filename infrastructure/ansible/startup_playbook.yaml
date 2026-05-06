@@ -1,5 +1,5 @@
-# ansible-playbook -e "ansible_user=dcloud ansible_ssh_pass=C1sco12345 ansible_sudo_pass=C1sco12345" /home/dcloud/LTRSPG-2212/ansible/startup_playbook.yaml -vv
-# ansible-playbook -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" /home/cisco/LTRSPG-2212/ansible/startup_playbook.yaml -vv
+# ansible-playbook -e "ansible_user=dcloud ansible_ssh_pass=C1sco12345 ansible_sudo_pass=C1sco12345" /home/dcloud/SRv6-Innovations/ansible/startup_playbook.yaml -vv
+# ansible-playbook -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" /home/cisco/SRv6-Innovations/ansible/startup_playbook.yaml -vv
 
 - name: Update the Git Repo
   hosts: localhost
@@ -9,7 +9,7 @@
     - name: git pull to update repo on localhost
       command: git pull
       args:
-        chdir: /home/cisco/LTRSPG-2212
+        chdir: /home/cisco/SRv6-Innovations
       ignore_errors: yes
 
 - name: berlin-vm1

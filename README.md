@@ -18,11 +18,11 @@ Participants will gain practical skills in deploying flexible, scalable, and pro
 ## Contents
 * Repository Overview [LINK](#github-repository-overview)
 * Lab Topology [LINK](#dCloud-lab-Topology)
-* Lab 1 - XRd Topology Setup and base SRv6 Config [LINK](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_1/lab_1-guide.md)
-* Lab 2 - SRv6 L3VPN and SRv6 TE Configuration [LINK](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2-guide.md)
-* Lab 3 - Kubernetes SRv6 with Cilium [LINK](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_3/lab_3-guide.md)
-* Lab 4 - SONiC DC Fabric Bring Up [LINK](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/lab_4-guide.md)
-* Lab 5 - SONiC and Host Based SRv6 for Intelligent Fabric Load Balancing [LINK](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_5/lab_5-guide.md)
+* Lab 1 - XRd Topology Setup and base SRv6 Config [LINK](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_1/lab_1-guide.md)
+* Lab 2 - SRv6 L3VPN and SRv6 TE Configuration [LINK](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2-guide.md)
+* Lab 3 - Kubernetes SRv6 with Cilium [LINK](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_3/lab_3-guide.md)
+* Lab 4 - SONiC DC Fabric Bring Up [LINK](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/lab_4-guide.md)
+* Lab 5 - SONiC and Host Based SRv6 for Intelligent Fabric Load Balancing [LINK](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_5/lab_5-guide.md)
 
 
 ## Github Repository Overview
@@ -101,4 +101,4 @@ By now, you should be connected to your main Windows workplace for this lab:
 
 ![windows-rdpy](./topo_drawings/windows-rdp.png)
 
-On the Windows virtual machine, please launch firefox you shoud arrive on the github page automatically. Please proceed to [LAB 1](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_1/lab_1-guide.md)
+On the Windows virtual machine, please launch firefox you shoud arrive on the github page automatically. Please proceed to [LAB 1](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_1/lab_1-guide.md)

@@ -8,7 +8,7 @@
     - name: git pull to update repo on localhost
       command: git pull
       args:
-        chdir: /home/cisco/LTRSPG-2212
+        chdir: /home/cisco/SRv6-Innovations
       ignore_errors: yes
 
 - name: dc01-vm-00 setup
@@ -18,7 +18,7 @@
 
     - name: copy hosts file for dc01-vm-00
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-00/hosts
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-00/hosts
         dest: /etc/hosts
       ignore_errors: yes
 
@@ -33,7 +33,7 @@
 
     - name: copy hosts file for dc01-vm-01
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-01/hosts
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-01/hosts
         dest: /etc/hosts
       ignore_errors: yes
 
@@ -48,7 +48,7 @@
 
     - name: copy hosts file for dc01-vm-02
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-02/hosts
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-02/hosts
         dest: /etc/hosts
       ignore_errors: yes
 

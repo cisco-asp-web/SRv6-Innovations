@@ -62,4 +62,4 @@ Cilium debug reference:
 https://docs.cilium.io/en/stable/cmdref/cilium-dbg/
 
 ## Back to Lab 3 Guide
-[Lab 3 Guide](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_3/lab_3-guide.md)
+[Lab 3 Guide](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_3/lab_3-guide.md)

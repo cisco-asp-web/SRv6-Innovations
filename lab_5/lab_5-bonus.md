@@ -54,7 +54,7 @@ At the heart of Jalapeno is the Arango Graph Database, which is used to model ne
     Once logged in the UI will show you its *collections* view. If you like, take a moment to browse around the collections
 
 
-2. Optional or for reference: connect to the DB and try some of the queries in the [lab_5-arango-queries.md doc](https://github.com/cisco-asp-web/LTRSPG-2212/tree/main/lab_5/jalapeno/example-arango-queries.md)
+2. Optional or for reference: connect to the DB and try some of the queries in the [lab_5-arango-queries.md doc](https://github.com/cisco-asp-web/SRv6-Innovations/tree/main/lab_5/jalapeno/example-arango-queries.md)
 
 > [!NOTE]
 > This next step affects later tasks in the bonus lab, so for best results it should be completed.
@@ -68,7 +68,7 @@ At the heart of Jalapeno is the Arango Graph Database, which is used to model ne
 
    Then cd into the lab_5/jalapeno directory and do a *git pull*
    ```
-   cd ~/LTRSPG-2212/lab_5/jalapeno/xrd-network/
+   cd ~/SRv6-Innovations/lab_5/jalapeno/xrd-network/
    git pull
    ```
 
@@ -79,7 +79,7 @@ At the heart of Jalapeno is the Arango Graph Database, which is used to model ne
 
    Expected output:
    ```
-   cisco@jalapeno:~/LTRSPG-2212/lab_5/jalapeno/xrd-network$ python3 add_meta_data.py 
+   cisco@jalapeno:~/SRv6-Innovations/lab_5/jalapeno/xrd-network$ python3 add_meta_data.py 
    adding hosts, addresses, country codes, and synthetic latency data to the graph
    adding location, country codes, latency, and link utilization data
    meta data added

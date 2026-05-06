@@ -238,7 +238,7 @@ Upon deployment the nodes will perform all the PyTorch ML setup steps, including
 1. Return to your ssh session to the **dc01-vm-00** Kubernetes control plane node and cd into the lab_5/srv6-pytorch/ directory
 
    ```
-   cd ~/LTRSPG-2212/lab_5/srv6-pytorch/
+   cd ~/SRv6-Innovations/lab_5/srv6-pytorch/
    ```
 
 2. Use the *kubectl apply* command to deploy the *srv6-plugin* test pods:
@@ -373,10 +373,10 @@ The **SRv6 PyTorch pods** are connected to both the backend SONiC fabric and the
 
 
 
-**Congratulations, you have reached the end of Cisco Live Lab LTRSPG-2212, hurray!!**
+**Congratulations, you have reached the end of Cisco Live Lab SRv6-Innovations, hurray!!**
 
 ## End of lab 5
-If you would like to explore host-based SRv6 some more feel free to try [Lab 5 Bonus Section](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_5/lab_5-bonus.md)
+If you would like to explore host-based SRv6 some more feel free to try [Lab 5 Bonus Section](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_5/lab_5-bonus.md)
 
 
 

@@ -101,4 +101,4 @@ segment-routing
  ```
 
  ## Back to Lab 1 Guide
-[Lab 1 Guide](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_1/lab_1-guide.md#validate-srv6-configuration-and-reachability)
+[Lab 1 Guide](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_1/lab_1-guide.md#validate-srv6-configuration-and-reachability)

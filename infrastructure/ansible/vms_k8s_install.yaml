@@ -171,7 +171,7 @@
 
     - name: copy containerd config
       copy:
-        src: /home/cisco/LTRSPG-2212/lab_3/cilium/containerd-config.toml
+        src: /home/cisco/SRv6-Innovations/lab_3/cilium/containerd-config.toml
         dest: /etc/containerd/config.toml
       ignore_errors: yes
 
@@ -206,7 +206,7 @@
 
     - name: copy k8s-cp-init.yaml for dc01-vm-00
       copy:
-        src: /home/cisco/LTRSPG-2212/infrastructure/vms/dc01-vm-00/k8s/k8s-cp-init.yaml
+        src: /home/cisco/SRv6-Innovations/infrastructure/vms/dc01-vm-00/k8s/k8s-cp-init.yaml
         dest: /tmp/k8s-cp-init.yaml
       ignore_errors: yes
 

@@ -126,7 +126,7 @@ One of the great things about CRDs is you can combine all the configuration elem
 
 On **dc01-vm-00** change to the lab_3/cilium directory and check out the contents
    ```
-   cd ~/LTRSPG-2212/lab_3/cilium/
+   cd ~/SRv6-Innovations/lab_3/cilium/
    ll
    ```
 
@@ -584,8 +584,8 @@ The the K8s VMs are connected to the Containerlab topology via Linux bridge inst
 > In a future version of this lab we hope to add support for Cilium SRv6-TE. 
 
 ## Lab 3 Appendix
-We have provided some additional cilium and kubernetes commands in an appendix: [Lab 3 Appendix](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_3/lab_3-appendix.md)
+We have provided some additional cilium and kubernetes commands in an appendix: [Lab 3 Appendix](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_3/lab_3-appendix.md)
 
 ## End of lab 3
-Please proceed to [Lab 4](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_4/lab_4-guide.md)
+Please proceed to [Lab 4](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/lab_4-guide.md)
 

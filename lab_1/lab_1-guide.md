@@ -56,7 +56,7 @@ Lab 1 focuses exclusively on the XRd frontend network.
 
 <img src="../topo_drawings/lab-assistant-step-1.png" width="800" />
 
-3. Now on the LTRSPG-2212 screen click the **POD** button to bring up the list of available pods and select the pod number you were assigned.
+3. Now on the SRv6-Innovations screen click the **POD** button to bring up the list of available pods and select the pod number you were assigned.
 
 <img src="../topo_drawings/lab-assistant-step-2.png" width="800" />
 <img src="../topo_drawings/lab-assistant-step-3.png" width="800" />
@@ -153,32 +153,32 @@ We can also verify the containerlab logs in the visual code output window. Trunc
  00:13:37 INFO Created link: sonic-leaf-02:eth5 ▪┄┄▪ dc01-vm-02-be:sonic-leaf02-eth5
  00:13:37 INFO Adding host entries path=/etc/hosts
  00:13:37 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-cleu26.conf
- ╭──────────────────────────────────┬─────────────────────────────────────┬────────────────────┬────────────────╮
- │               Name               │              Kind/Image             │        State       │ IPv4/6 Address │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-app-container-01 │ linux                               │ running            │ 172.20.6.108   │
- │                                  │ cl-london-container:latest          │                    │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-app-container-07   │ linux                               │ running            │ 172.20.6.109   │
- │                                  │ cl-rome-container:latest            │                    │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-sonic-leaf-00        │ linux                               │ running            │ 172.20.6.128   │
- │                                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-sonic-leaf-01        │ linux                               │ running            │ 172.20.6.129   │
- │                                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-sonic-spine-00       │ linux                               │ running            │ 172.20.6.192   │
- │                                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-sonic-spine-01       │ linux                               │ running            │ 172.20.6.193   │
- │                                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-xrd02        │ cisco_xrd                           │ running            │ 172.20.6.102   │
- │                                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A            │
- ├──────────────────────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
- │ clab-cleu26-xrd06        │ cisco_xrd                           │ running            │ 172.20.6.106   │
- │                                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A            │
+╭──────────────────────────┬──────────────────┬──────────────────┬─────────────────────────────────────┬────────────────────┬────────────────╮
+│         Topology         │     Lab Name     │       Name       │              Kind/Image             │        State       │ IPv4/6 Address │
+├──────────────────────────┼──────────────────┼──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│ lab_1-topology.clab.yaml │ srv6-innovations │ app-container-01 │ linux                               │ running            │ 172.20.6.108   │
+│                          │                  │                  │ net-tools:latest                    │                    │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ app-container-07 │ linux                               │ running            │ 172.20.6.109   │
+│                          │                  │                  │ net-tools:latest                    │                    │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ sonic-leaf-00    │ linux                               │ running            │ 172.20.6.128   │
+│                          │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ sonic-leaf-01    │ linux                               │ running            │ 172.20.6.129   │
+│                          │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ sonic-spine-00   │ linux                               │ running            │ 172.20.6.192   │
+│                          │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ sonic-spine-01   │ linux                               │ running            │ 172.20.6.193   │
+│                          │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (health: starting) │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ xrd01            │ cisco_xrd                           │ running            │ 172.20.6.101   │
+│                          │                  │                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A            │
+│                          │                  ├──────────────────┼─────────────────────────────────────┼────────────────────┼────────────────┤
+│                          │                  │ xrd02            │ cisco_xrd                           │ running            │ 172.20.6.102   │
+│                          │                  │                  │ cisco-xrd-control-plane:24.4.1      │                    │ N/A    
 
 
 ```
@@ -198,7 +198,7 @@ The entire lab is doable from visual code, you should launch a terminal and it w
 Run a couple commands to verify the docker/router containers are up
 ```
 docker ps -a
-sudo containerlab inspect --all
+clab inspect -a
 ```
 
 ![ssh verification](../topo_drawings/lab1-visual-code-ssh-verification.png)
@@ -302,7 +302,7 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
 
 1. From a *topology-host* terminal session run the `add-latency.sh` script:
    ```
-   ~/LTRSPG-2212/lab_1/add-latency.sh
+   ~/SRv6-Innovations/lab_1/add-latency.sh
    ```
    
 ## Validate BGP Peering
@@ -553,4 +553,4 @@ Clicking on the interface will automatically launch wireshark and starts the cap
 
 ## End of Lab 1
 
-Lab 1 is completed, please proceed to [Lab 2](https://github.com/cisco-asp-web/LTRSPG-2212/blob/main/lab_2/lab_2-guide.md)
+Lab 1 is completed, please proceed to [Lab 2](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2-guide.md)

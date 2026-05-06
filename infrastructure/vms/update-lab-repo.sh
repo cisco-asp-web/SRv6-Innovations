@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="/home/cisco/LTRSPG-2212"
+REPO_DIR="/home/cisco/SRv6-Innovations"
 BRANCH="main"
 
 cd "$REPO_DIR"
