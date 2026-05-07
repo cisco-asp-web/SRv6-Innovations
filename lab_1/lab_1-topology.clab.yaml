@@ -187,35 +187,35 @@ topology:
 
   links:
     # Core Network Links
-    - endpoints: ["xrd01:Gi0-0-0-0", "app-container-01:eth1"] # Link O
-    - endpoints: ["xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0"] # Link A
-    - endpoints: ["xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0"] # Link B
-    - endpoints: ["xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0"] # Link E
-    - endpoints: ["xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1"] # Link C
-    - endpoints: ["xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0"] # Link F
-    - endpoints: ["xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1"] # Link H
-    - endpoints: ["xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2"] # Link D
-    - endpoints: ["xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2"] # Link G
-    - endpoints: ["xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2"] # Link I
-    - endpoints: ["xrd07:Gi0-0-0-0", "app-container-07:eth1"] # Link J
+    - endpoints: [ "xrd01:Gi0-0-0-0", "app-container-01:eth1" ] # Link O
+    - endpoints: [ "xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0" ] # Link A
+    - endpoints: [ "xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0" ] # Link B
+    - endpoints: [ "xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0" ] # Link E
+    - endpoints: [ "xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1" ] # Link C
+    - endpoints: [ "xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0" ] # Link F
+    - endpoints: [ "xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1" ] # Link H
+    - endpoints: [ "xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2" ] # Link D
+    - endpoints: [ "xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2" ] # Link G
+    - endpoints: [ "xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2" ] # Link I
+    - endpoints: [ "xrd07:Gi0-0-0-0", "app-container-07:eth1" ] # Link J
 
     # DC SONiC Network Links
-    - endpoints: ["sonic-leaf-00:eth1", "sonic-spine-00:eth1"]
-    - endpoints: ["sonic-leaf-00:eth2", "sonic-spine-01:eth1"]
-    - endpoints: ["sonic-leaf-00:eth3", "sonic-spine-02:eth1"]
-    - endpoints: ["sonic-leaf-01:eth1", "sonic-spine-00:eth2"]
-    - endpoints: ["sonic-leaf-01:eth2", "sonic-spine-01:eth2"]
-    - endpoints: ["sonic-leaf-01:eth3", "sonic-spine-02:eth2"]
-    - endpoints: ["sonic-leaf-02:eth1", "sonic-spine-00:eth3"]
-    - endpoints: ["sonic-leaf-02:eth2", "sonic-spine-01:eth3"]
-    - endpoints: ["sonic-leaf-02:eth3", "sonic-spine-02:eth3"]
+    - endpoints: [ "sonic-leaf-00:eth1", "sonic-spine-00:eth1" ]
+    - endpoints: [ "sonic-leaf-00:eth2", "sonic-spine-01:eth1" ]
+    - endpoints: [ "sonic-leaf-00:eth3", "sonic-spine-02:eth1" ]
+    - endpoints: [ "sonic-leaf-01:eth1", "sonic-spine-00:eth2" ]
+    - endpoints: [ "sonic-leaf-01:eth2", "sonic-spine-01:eth2" ]
+    - endpoints: [ "sonic-leaf-01:eth3", "sonic-spine-02:eth2" ]
+    - endpoints: [ "sonic-leaf-02:eth1", "sonic-spine-00:eth3" ]
+    - endpoints: [ "sonic-leaf-02:eth2", "sonic-spine-01:eth3" ]
+    - endpoints: [ "sonic-leaf-02:eth3", "sonic-spine-02:eth3" ]
 
     # DC SONiC Network Links to VMs
-    - endpoints: ["sonic-leaf-00:eth5", "dc01-vm-00-be:sonic-leaf00-eth5"]
-    - endpoints: ["sonic-leaf-01:eth5", "dc01-vm-01-be:sonic-leaf01-eth5"]
-    - endpoints: ["sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5"]
+    - endpoints: [ "sonic-leaf-00:eth5", "dc01-vm-00-be:sonic-leaf00-eth5" ]
+    - endpoints: [ "sonic-leaf-01:eth5", "dc01-vm-01-be:sonic-leaf01-eth5" ]
+    - endpoints: [ "sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5" ]
 
     # DC SONiC Front End Network Links between VMs (bridges) and XRd
-    - endpoints: ["xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01:Gi0-0-0-3"]
-    - endpoints: ["xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01:Gi0-0-0-4"]
-    - endpoints: ["xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01:Gi0-0-0-5"]
+    - endpoints: [ "xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01-gi3" ]
+    - endpoints: [ "xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01-gi4" ]
+    - endpoints: [ "xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01-gi5" ]
