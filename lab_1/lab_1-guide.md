@@ -597,8 +597,8 @@ SRv6 uSID locator and source address information for nodes in the lab:
     show isis segment-routing srv6 locator detail 
     ```
     ```diff
-    RP/0/RP0/CPU0:xrd01#show isis segment-routing srv6 locators detail  
-    Fri Jan  9 04:28:37.293 UTC
+    RP/0/RP0/CPU0:xrd01#show isis segment-routing srv6 locator detail 
+    Fri May  8 21:48:01.831 UTC
 
     IS-IS 100 SRv6 Locators
     Name                  ID       Algo  Prefix                    Status
@@ -608,7 +608,7 @@ SRv6 uSID locator and source address information for nodes in the lab:
       Level: level-1      Metric: 1        Administrative Tag: 0         
       Level: level-2-only Metric: 1        Administrative Tag: 0         
       SID behavior: uN (PSP/USD)
-    + SID value:    fc00:0:1111::                                   
+      +SID value:    fc00:0:1111::
       Block Length: 32, Node Length: 16, Func Length: 0, Args Length: 80
     ```
 
