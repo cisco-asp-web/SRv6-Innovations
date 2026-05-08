@@ -216,6 +216,6 @@ topology:
     - endpoints: [ "sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5" ]
 
     # DC SONiC Front End Network Links between VMs (bridges) and XRd
-    - endpoints: [ "xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01-gi3" ]
-    - endpoints: [ "xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01-gi4" ]
-    - endpoints: [ "xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01-gi5" ]
+    - endpoints: [ "xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01-Gi0-0-0-3" ]
+    - endpoints: [ "xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01-Gi0-0-0-4" ]
+    - endpoints: [ "xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01-Gi0-0-0-5" ]
