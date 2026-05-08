@@ -574,7 +574,7 @@ SRv6 uSID locator and source address information for nodes in the lab:
     ```
     ```diff
     RP/0/RP0/CPU0:xrd01#show segment-routing srv6 sid
-    Fri Jan  9 04:18:55.955 UTC
+    Fri May  8 21:45:56.366 UTC
 
     *** Locator: 'MyLocator' *** 
 
