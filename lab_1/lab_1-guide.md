@@ -131,7 +131,12 @@ git reset --hard origin/main
 ```
 This downloads the latest changes from GitHub and updates all tracked files so your local repository exactly matches the current main branch without applying any local modifications.
 
-![git](../topo_drawings/git-fetch.png)
+```
+cisco@topology-host:~/SRv6-Innovations$ cd ~/SRv6-Innovations/
+cisco@topology-host:~/SRv6-Innovations$ git fetch origin
+cisco@topology-host:~/SRv6-Innovations$ git reset --hard origin/main
+HEAD is now at e258922 fix bridges - attempt
+```
 
 
 
