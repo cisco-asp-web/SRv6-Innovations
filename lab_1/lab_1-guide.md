@@ -206,7 +206,82 @@ docker ps -a
 clab inspect -a
 ```
 
-![ssh verification](../topo_drawings/lab1-visual-code-ssh-verification.png)
+```
+cisco@topology-host:~/SRv6-Innovations$ 
+cisco@topology-host:~/SRv6-Innovations$ 
+cisco@topology-host:~/SRv6-Innovations$ docker ps -a
+CONTAINER ID   IMAGE                                 COMMAND                  CREATED              STATUS                        PORTS                                                   NAMES
+bc44433ce0dd   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd04
+36de2e658507   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd01
+7ae0dbfcfac9   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-spine-01
+6a3439915fc4   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd03
+cbd53d8b1f70   net-tools:latest                      "/usr/sbin/sshd -D -e"   About a minute ago   Up About a minute             0.0.0.0:22222->22/tcp, [::]:22222->22/tcp               app-container-01
+cf40e12b15a0   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-leaf-01
+dace78f6fd31   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd06
+bb578b8de1aa   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd02
+38e42994b14a   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-leaf-02
+a1d5fded1582   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd05
+4036f3b417ae   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-leaf-00
+3ca2cc732011   net-tools:latest                      "/usr/sbin/sshd -D -e"   About a minute ago   Up About a minute             0.0.0.0:2222->22/tcp, [::]:2222->22/tcp                 app-container-07
+9de2d751f7ab   cisco-xrd-control-plane:24.4.1        "/usr/sbin/init"         About a minute ago   Up About a minute                                                                     xrd07
+ba927c7f5bfb   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-spine-02
+940c8696e112   vrnetlab/sonic_sonic-vs:vpp20250422   "/launch.py"             About a minute ago   Up About a minute (healthy)   22/tcp, 443/tcp, 5000/tcp, 8080/tcp                     sonic-spine-00
+74382efd967c   ghcr.io/siemens/ghostwire             "/gostwire --http=[:…"   12 months ago        Up 26 hours                                                                           edgeshark-gostwire-1
+1ed85fafdbe1   ghcr.io/siemens/packetflix            "/packetflix --port=…"   12 months ago        Up 26 hours                   5000/tcp, 0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp   edgeshark-edgeshark-1
+
+
+
+cisco@topology-host:~/SRv6-Innovations$ clab inspect -a
+╭────────────────────────────────┬──────────────────┬──────────────────┬─────────────────────────────────────┬───────────┬────────────────╮
+│            Topology            │     Lab Name     │       Name       │              Kind/Image             │   State   │ IPv4/6 Address │
+├────────────────────────────────┼──────────────────┼──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│ lab_1/lab_1-topology.clab.yaml │ srv6-innovations │ app-container-01 │ linux                               │ running   │ 172.20.6.108   │
+│                                │                  │                  │ net-tools:latest                    │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ app-container-07 │ linux                               │ running   │ 172.20.6.109   │
+│                                │                  │                  │ net-tools:latest                    │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-leaf-00    │ linux                               │ running   │ 172.20.6.128   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-leaf-01    │ linux                               │ running   │ 172.20.6.129   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-leaf-02    │ linux                               │ running   │ 172.20.6.130   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-spine-00   │ linux                               │ running   │ 172.20.6.192   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-spine-01   │ linux                               │ running   │ 172.20.6.193   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ sonic-spine-02   │ linux                               │ running   │ 172.20.6.194   │
+│                                │                  │                  │ vrnetlab/sonic_sonic-vs:vpp20250422 │ (healthy) │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd01            │ cisco_xrd                           │ running   │ 172.20.6.101   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd02            │ cisco_xrd                           │ running   │ 172.20.6.102   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd03            │ cisco_xrd                           │ running   │ 172.20.6.103   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd04            │ cisco_xrd                           │ running   │ 172.20.6.104   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd05            │ cisco_xrd                           │ running   │ 172.20.6.105   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd06            │ cisco_xrd                           │ running   │ 172.20.6.106   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+│                                │                  ├──────────────────┼─────────────────────────────────────┼───────────┼────────────────┤
+│                                │                  │ xrd07            │ cisco_xrd                           │ running   │ 172.20.6.107   │
+│                                │                  │                  │ cisco-xrd-control-plane:24.4.1      │           │ N/A            │
+╰────────────────────────────────┴──────────────────┴──────────────────┴─────────────────────────────────────┴───────────┴────────────────╯
+cisco@topology-host:~/SRv6-Innovations$ 
+```
 
 
 
