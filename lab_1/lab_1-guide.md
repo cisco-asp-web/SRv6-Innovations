@@ -342,7 +342,7 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
     You should expect to see an entry for each xrd router xrd01 -> xrd07
     ```
       RP/0/RP0/CPU0:xrd01#show isis topology 
-      Thu Jan  8 04:38:00.817 UTC
+      Fri May  8 21:32:54.605 UTC
 
       IS-IS 100 paths to IPv4 Unicast (Level-1) routers
       System Id          Metric    Next-Hop           Interface       SNPA          
@@ -359,8 +359,6 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
       xrd06              2         xrd02              Gi0/0/0/1       *PtoP*        
       xrd07              3         xrd05              Gi0/0/0/2       *PtoP*        
       xrd07              3         xrd02              Gi0/0/0/1       *PtoP*        
-      RP/0/RP0/CPU0:xrd01#
-
     ```
 
     From xrd01’s perspective, the IS-IS topology shows a Level-2-only network design and reachability achieved through L2 SPF computation. 
