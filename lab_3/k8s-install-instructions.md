@@ -68,20 +68,24 @@ wget https://github.com/opencontainers/runc/releases/download/v1.2.6/runc.amd64
 sudo  install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
 
-8. containerd config [from containerd-config.toml](./cilium/containerd-config.toml)
+8. containerd config [from containerd-config.toml](../infrastructure/vms/dc01-vm-00/k8s/containerd-config.toml)
 ```
 sudo mkdir /etc/containerd
 sudo cp containerd-config.toml /etc/containerd/config.toml
 ```
 
-9.  You may now initialize your k8s cluster with kubeadm init 
+9.  You may now initialize your k8s cluster with kubeadm init. Example [control-plane-init-file](../infrastructure/vms/dc01-vm-00/k8s/k8s-cp-init.yaml)
+
+```
+sudo kubeadm init --config=k8s-cp-init.yaml 
+```
 
 ## Appendix
 
 Kubeadm Join if we want to add a worker node to xrd03 cluster:
 ```
-kubeadm join 198.18.4.2:6443 --token cecn5b.n5m612yx1ou17mvz \
-	--discovery-token-ca-cert-hash sha256:2c0445b6f4f80069221f666677d43273719533073bf19207395ccd7123531ff8
+kubeadm join 10.8.0.2:6443 --token tbwkyi.2mfov6fuswn2e8nj \
+	--discovery-token-ca-cert-hash sha256:fcbfcdbf02772ce13d0b073454c0514e71f146c3f9f13a11ac15cd3fb698d778 
 ```
 
 Untaint control plane
