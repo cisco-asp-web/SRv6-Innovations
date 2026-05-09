@@ -4,5 +4,9 @@
 
 ### Lab 1
 
-- insert *`prefix: ""`* into clab topology file to get rid of the long hostnames
-- update screenshots that have *`LTRSPG`* 
+- update screenshots that have *`LTRSPG`* and old node names
+  
+### Lab 2
+
+- rename nodes/containers in diagram
+- 

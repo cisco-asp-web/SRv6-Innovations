@@ -44,9 +44,9 @@ In this lab a BGP L3VPN SID will be allocated in per-VRF mode and provides End.D
 
 For more details on SRv6 network programming Endpoint Behavior functionality please see RFC 8986 [LINK](https://datatracker.ietf.org/doc/html/rfc8986#name-enddt6-decapsulation-and-sp)
 
-BGP encodes the SRv6 SID in the prefix-SID attribute of the IPv4/6 L3VPN Network Layer Reachability Information (NLRI) and advertises it via it's MP-BGP peers. The Ingress PE (provider edge) router encapsulates the VRF IPv4/6 traffic with the SRv6 VPN SID and sends it over the SRv6 network.
+BGP encodes the SRv6 SID in the prefix-SID attribute of the IPv4/6 L3VPN Network Layer Reachability Information (NLRI) and advertises it to MP-BGP peers. The Ingress PE (Provider Edge) router encapsulates the VRF IPv4/6 traffic with the SRv6 VPN SID and sends it over the SRv6 network.
 
-The *carrots* VRFs is setup on the two edge routers in our SP network: **xrd01** and **xrd07**. Intermediate routers do not need to be VRF aware and are instead forwarding on the SRv6 data plane. *(technically the intermediate routers don't need to be SRv6 aware and could simply perform IPv6 forwarding based on the outer IPv6 header)*.  
+The *carrots* VRF is setup on the two edge routers in our SP network: **xrd01** and **xrd07**. Intermediate routers do not need to be VRF aware and are instead forwarding on the SRv6 data plane. *(technically the intermediate routers don't need to be SRv6 aware and could simply perform IPv6 forwarding based on the outer IPv6 header)*.  
 
 The VRF instances and their interfaces have been preconfigured, allowing us to focus on the SRv6 BGP configuration. 
 
@@ -109,7 +109,7 @@ We'll start with **xrd07** as it will need a pair of static routes for reachabil
    
     Next we add VRF *carrots* into BGP and enable SRv6 to the IPv4 and IPv6 address family with the command *`segment-routing srv6`*. In addition we will tie the VRF to the SRv6 locator *`MyLocator`* configured in Lab 1.
 
-    On **xrd07** we will need to redistribute both the connected and static routes to provide reachability to xrd07 and its additional prefixes (app-container-07). Therefore, we will add *`redistribute static`* for VRF *carrots*.
+    On **xrd07** we will add *`redistribute static`* to provide reachability to *`app-container-07's`* additional prefixes. 
 
     **xrd07**  
     ```yaml
@@ -122,14 +122,12 @@ We'll start with **xrd07** as it will need a pair of static routes for reachabil
           locator MyLocator
           alloc mode per-vrf
           redistribute static
-          redistribute connected
       
         address-family ipv6 unicast
           segment-routing srv6
           locator MyLocator
           alloc mode per-vrf
           redistribute static
-          redistribute connected
       commit
       ```
 ### Configure SRv6 L3VPN on xrd01 and RR xrd05
@@ -240,12 +238,12 @@ We will use the below diagram for reference:
 <img src="../topo_drawings/lab2-l3vpn-policy.png" width="800" />
 
 > [!IMPORTANT]
-> A subsequent section of this lab will validate end-to-end connectivity between the and app-container-07s, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
+> A subsequent section of this lab will validate end-to-end connectivity between **app-copntainer-01** and **app-container-07**, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
 
 ### Create SRv6-TE steering policy
 For our SRv6-TE purposes we'll leverage the on-demand nexthop (ODN) feature set. Here is a nice example and explanation of ODN: [HERE](https://xrdocs.io/design/blogs/latest-converged-sdn-transport-ig)
 
-In our lab we will configure **xrd07** as the egress PE router with the ODN method. This will trigger **xrd07** to advertise its L3VPN routes with *`color extended communities`*. We'll do this by first defining the *`extcomms`*, then setting up route-policies to match on destination prefixes and set the *`extcomm`* values.
+To demonstrate the ODN feature we will configure **xrd07** as the egress PE router. This will trigger **xrd07** to advertise its L3VPN routes with *`color extended communities`*. We'll do this by first defining the *`extcomms`*, then setting up route-policies to match on destination prefixes and set the *`extcomm`* values.
 
 The ingress PE, **xrd01**, will then be configured with SRv6 segment-lists and SRv6 ODN steering policies that match routes with the respective color and apply the appropriate SID stack on outbound traffic.
 
