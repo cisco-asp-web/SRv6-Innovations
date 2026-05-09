@@ -1,10 +1,10 @@
 # Lab 3: SRv6 for Kubernetes with Cilium [30 Min]
 
 ### Description
-Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The the K8s VMs have Kubernetes pre-installed and are running the *Cilium CNI* (Container Network Interface). In this lab we'll review some basic Kubernetes commands (kubectl) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our K8s cluster and join them to the carrots VRF.
+Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The the K8s VMs have Kubernetes pre-installed and are running the [Cilium CNI](https://isovalent.com/products/kubernetes-networking/) (Container Network Interface). In this lab we'll review some basic Kubernetes commands (*`kubectl`*) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our K8s cluster and join them to the carrots VRF.
 
 > [!NOTE]
-> This portion of the lab makes use of Cilium Enterprise as the SRv6 features not available in the open source version. If you are interested in SRv6 on Cilium or other Enterprise features, please contact the relevant Cisco Isovalent sales team.  
+> This portion of the lab makes use of Cilium Enterprise as the SRv6 features are not available in the open source version. If you are interested in SRv6 on Cilium or other Enterprise features, please contact the relevant Cisco Isovalent sales team.  
 
 Isovalent has also published a number of labs covering a range of Cilium, Hubble, Tetragon, and Isovalent Load Balancer products and capabilities here:
 
