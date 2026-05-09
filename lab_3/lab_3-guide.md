@@ -57,11 +57,11 @@ The **dc01-vm-00** is our Kubernetes control plane node.  All of the following s
    
    The ouput should look something like:
    ```yaml
-   $ kubectl get nodes -o wide
-   NAME           STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
-   dc01-vm-00   Ready    control-plane   6d      v1.35.0   10.8.0.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
-   dc01-vm-01   Ready    <none>          2d23h   v1.31.8   10.8.1.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
-   dc01-vm-02   Ready    <none>          2d23h   v1.31.8   10.8.2.2      <none>        Ubuntu 22.04.5 LTS   5.15.0-164-generic   containerd://1.7.27
+   cisco@dc01-vm-00:~$ kubectl get nodes -o wide
+   NAME         STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+   dc01-vm-00   Ready    control-plane   19m   v1.32.4   10.8.0.2      <none>        Ubuntu 24.04.3 LTS   6.8.0-111-generic   containerd://1.7.27
+   dc01-vm-01   Ready    <none>          14m   v1.32.4   10.8.1.2      <none>        Ubuntu 24.04.3 LTS   6.8.0-111-generic   containerd://1.7.27
+   dc01-vm-02   Ready    <none>          50s   v1.32.4   10.8.2.2      <none>        Ubuntu 24.04.3 LTS   6.8.0-111-generic   containerd://1.7.27
    ```
 
    Display Cilium pods:
@@ -541,18 +541,12 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
    Example of partial output:
    ```
    {
-      "destinationCIDRs": [
-        "10.101.1.0/24"
-      ],
-      "destinationSID": "fc00:0:1111:e009::",
-      "vrfID": 99
-   }
-   {
-      "destinationCIDRs": [
-        "10.107.1.0/24"
-      ],
-      "destinationSID": "fc00:0:7777:e006::",
-      "vrfID": 99
+     "destinationCIDRs": [
+       "40.0.0.0/24",
+       "50.0.0.0/24"
+     ],
+     "destinationSID": "fc00:0:7777:e006::",
+     "vrfID": 99
    }
    ```
 
@@ -563,12 +557,13 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
     kubectl exec -it -n veggies carrots0 -- sh
     ```
     ```
-    ping 10.107.1.2 -i .5
+    ping 40.0.0.1 -i .5 -c 4
     ```
     
     or
     ```
-    kubectl exec -it -n veggies carrots0 -- ping 10.107.1.2 -i .5
+    kubectl exec -it -n veggies carrots0 -- ping 40.0.0.1 -i .5 -c 4
+    kubectl exec -it -n veggies carrots0 -- ping 50.0.0.1 -i .5 -c 4
     ```
 
 ### Optional - Traffic capture using Edgeshark
