@@ -1,6 +1,8 @@
-# Containerlab topology file for Cisco Live EU 2026 Lab 1
+# Containerlab topology file for Cisco Live Lab 2
 
-name: cleu26
+name: srv6-innovations
+
+prefix: ""
 
 mgmt:
   network: mgt-network
@@ -8,8 +10,7 @@ mgmt:
 
 topology:
   nodes:
-
-# XRd Core Network
+    # XRd Core Network
     xrd01:
       kind: cisco_xrd
       image: cisco-xrd-control-plane:24.4.1
@@ -52,57 +53,123 @@ topology:
       startup-config: xrd-config/xrd07.cfg
       mgmt-ipv4: 172.20.6.107
 
+    # Container Edge Nodes
     app-container-07:
       kind: linux
-      image: cl-rome-container:latest
+      image: net-tools:latest
       mgmt-ipv4: 172.20.6.109
       cap-add:
         - NET_ADMIN
         - NET_RAW
       ports:
         - 2222:22
+      exec:
+        # System settings
+        - hostname app-container-07
+        - echo "app-container-07" > /etc/hostname
+        - echo "nameserver 8.8.8.8" > /etc/resolv.conf
+        - lldpd
+        # Interface Optimization & Readiness
+        - ip link set eth1 txqueuelen 1000 mtu 1500
+        - ip link set eth1 up
+        - sysctl -w net.ipv6.conf.eth1.accept_dad=0
+        # eth1 IPv4 & IPv6 Addressing
+        - ip addr add 10.107.1.2/24 dev eth1
+        - ip addr add fc00:0:107:1::2/64 dev eth1
+        # Loopbacks
+        - ip addr add 20.0.0.1/32 dev lo
+        - ip addr add 30.0.0.1/32 dev lo
+        - ip addr add 40.0.0.1/32 dev lo
+        - ip addr add 50.0.0.1/32 dev lo
+        - ip addr add fc00:0:40::1/128 dev lo
+        - ip addr add fc00:0:50::1/128 dev lo
+        # Static Routing
+        - ip route add 10.0.0.0/8 via 10.107.1.1
+        - ip route add 10.1.1.0/24 via 10.107.1.1
+        - ip route add 10.8.0.0/16 via 10.107.1.1
+        - ip -6 route add fc00:0::/32 via fc00:0:107:1::1
+        - ip -6 route add fc00:0:101:1::/64 via fc00:0:107:1::1
 
     app-container-01:
       kind: linux
-      image: cl-london-container:latest
+      image: net-tools:latest
       mgmt-ipv4: 172.20.6.108
       cap-add:
         - NET_ADMIN
         - NET_RAW
       ports:
         - 22222:22
+      exec:
+        # System settings
+        - hostname app-container-01
+        - echo "app-container-01" > /etc/hostname
+        - echo "nameserver 8.8.8.8" > /etc/resolv.conf
+        - lldpd
+        # Interface Optimization & Readiness
+        - ip link set eth1 txqueuelen 1000 mtu 1500
+        - ip link set eth1 up
+        - sysctl -w net.ipv6.conf.eth1.accept_dad=0
+        # eth1 IPv4 & IPv6 Addressing
+        - ip addr add 10.101.1.2/24 dev eth1
+        - ip addr add fc00:0:101:1::2/64 dev eth1
+        # Static Routing
+        - ip route add 10.0.0.0/24 via 10.101.1.1
+        - ip route add 10.107.1.0/24 via 10.101.1.1
+        - ip route add 10.1.1.0/24 via 10.101.1.1
+        - ip route add 40.0.0.0/24 via 10.101.1.1
+        - ip route add 50.0.0.0/24 via 10.101.1.1
+        - ip -6 route add fc00:0::/32 via fc00:0:101:1::1
+        - ip -6 route add fc00:0:40::1/64 via fc00:0:101:1::1
+        - ip -6 route add fc00:0:50::1/64 via fc00:0:101:1::1
 
-# DC SONiC Network
+    # DC SONiC Network
     sonic-leaf-00:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.128
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     sonic-leaf-01:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.129
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     sonic-leaf-02:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.130
-
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     sonic-spine-00:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.192
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     sonic-spine-01:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.193
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     sonic-spine-02:
       kind: linux
       image: vrnetlab/sonic_sonic-vs:vpp20250422
       mgmt-ipv4: 172.20.6.194
+      env:
+        USERNAME: cisco
+        PASSWORD: cisco123
 
     dc01-vm-00-fe:
       kind: bridge
@@ -118,45 +185,37 @@ topology:
     dc01-vm-02-be:
       kind: bridge
 
-
   links:
-
     # Core Network Links
-    - endpoints: ["xrd01:Gi0-0-0-0", "app-container-01:eth1"]                      # Link O
-    - endpoints: ["xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0"]                        # Link A
-    - endpoints: ["xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0"]                            # Link B
-    - endpoints: ["xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0"]                        # Link E
-    - endpoints: ["xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1"]                     # Link C
-    - endpoints: ["xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0"]                           # Link F
-    - endpoints: ["xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1"]                             # Link H
-    - endpoints: ["xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2"]                            # Link D
-    - endpoints: ["xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2"]                         # Link G
-    - endpoints: ["xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2"]                          # Link I
-    - endpoints: ["xrd07:Gi0-0-0-0", "app-container-07:eth1"]                          # Link J
-    - endpoints: ["xrd07:Gi0-0-0-3", "app-container-07:eth2"]                          # Link K
+    - endpoints: [ "xrd01:Gi0-0-0-0", "app-container-01:eth1" ] # Link O
+    - endpoints: [ "xrd01:Gi0-0-0-1", "xrd02:Gi0-0-0-0" ] # Link A
+    - endpoints: [ "xrd01:Gi0-0-0-2", "xrd05:Gi0-0-0-0" ] # Link B
+    - endpoints: [ "xrd02:Gi0-0-0-1", "xrd03:Gi0-0-0-0" ] # Link E
+    - endpoints: [ "xrd02:Gi0-0-0-2", "xrd06:Gi0-0-0-1" ] # Link C
+    - endpoints: [ "xrd03:Gi0-0-0-1", "xrd04:Gi0-0-0-0" ] # Link F
+    - endpoints: [ "xrd04:Gi0-0-0-1", "xrd07:Gi0-0-0-1" ] # Link H
+    - endpoints: [ "xrd05:Gi0-0-0-1", "xrd04:Gi0-0-0-2" ] # Link D
+    - endpoints: [ "xrd05:Gi0-0-0-2", "xrd06:Gi0-0-0-2" ] # Link G
+    - endpoints: [ "xrd06:Gi0-0-0-0", "xrd07:Gi0-0-0-2" ] # Link I
+    - endpoints: [ "xrd07:Gi0-0-0-0", "app-container-07:eth1" ] # Link J
 
     # DC SONiC Network Links
-    - endpoints: ["sonic-leaf-00:eth1", "sonic-spine-00:eth1"]
-    - endpoints: ["sonic-leaf-00:eth2", "sonic-spine-01:eth1"]
-    - endpoints: ["sonic-leaf-00:eth3", "sonic-spine-02:eth1"]
-    - endpoints: ["sonic-leaf-01:eth1", "sonic-spine-00:eth2"]
-    - endpoints: ["sonic-leaf-01:eth2", "sonic-spine-01:eth2"]
-    - endpoints: ["sonic-leaf-01:eth3", "sonic-spine-02:eth2"]
-    - endpoints: ["sonic-leaf-02:eth1", "sonic-spine-00:eth3"]
-    - endpoints: ["sonic-leaf-02:eth2", "sonic-spine-01:eth3"]
-    - endpoints: ["sonic-leaf-02:eth3", "sonic-spine-02:eth3"]
-
+    - endpoints: [ "sonic-leaf-00:eth1", "sonic-spine-00:eth1" ]
+    - endpoints: [ "sonic-leaf-00:eth2", "sonic-spine-01:eth1" ]
+    - endpoints: [ "sonic-leaf-00:eth3", "sonic-spine-02:eth1" ]
+    - endpoints: [ "sonic-leaf-01:eth1", "sonic-spine-00:eth2" ]
+    - endpoints: [ "sonic-leaf-01:eth2", "sonic-spine-01:eth2" ]
+    - endpoints: [ "sonic-leaf-01:eth3", "sonic-spine-02:eth2" ]
+    - endpoints: [ "sonic-leaf-02:eth1", "sonic-spine-00:eth3" ]
+    - endpoints: [ "sonic-leaf-02:eth2", "sonic-spine-01:eth3" ]
+    - endpoints: [ "sonic-leaf-02:eth3", "sonic-spine-02:eth3" ]
 
     # DC SONiC Network Links to VMs
-    - endpoints: ["sonic-leaf-00:eth5", "dc01-vm-00-be:sonic-leaf00-eth5"]
-    - endpoints: ["sonic-leaf-01:eth5", "dc01-vm-01-be:sonic-leaf01-eth5"]
-    - endpoints: ["sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5"]
-
+    - endpoints: [ "sonic-leaf-00:eth5", "dc01-vm-00-be:sonic-leaf00-eth5" ]
+    - endpoints: [ "sonic-leaf-01:eth5", "dc01-vm-01-be:sonic-leaf01-eth5" ]
+    - endpoints: [ "sonic-leaf-02:eth5", "dc01-vm-02-be:sonic-leaf02-eth5" ]
 
     # DC SONiC Front End Network Links between VMs (bridges) and XRd
-    - endpoints: ["xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01:Gi0-0-0-3"]
-    - endpoints: ["xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01:Gi0-0-0-4"]
-    - endpoints: ["xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01:Gi0-0-0-5"]
-
-
-
+    - endpoints: [ "xrd01:Gi0-0-0-3", "dc01-vm-00-fe:xrd01-Gi0-0-0-3" ]
+    - endpoints: [ "xrd01:Gi0-0-0-4", "dc01-vm-01-fe:xrd01-Gi0-0-0-4" ]
+    - endpoints: [ "xrd01:Gi0-0-0-5", "dc01-vm-02-fe:xrd01-Gi0-0-0-5" ]
