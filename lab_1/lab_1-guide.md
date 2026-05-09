@@ -334,7 +334,9 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
 
 1. SSH into any router and verify that ISIS is up and running and all seven nodes are accounted for in the topology database
 
-
+    ```
+    ssh cisco@xrd01
+    ```
     ```
     show isis topology
     ```
@@ -608,7 +610,7 @@ SRv6 uSID locator and source address information for nodes in the lab:
       Level: level-1      Metric: 1        Administrative Tag: 0         
       Level: level-2-only Metric: 1        Administrative Tag: 0         
       SID behavior: uN (PSP/USD)
-      +SID value:    fc00:0:1111::
+    +  SID value:    fc00:0:1111::
       Block Length: 32, Node Length: 16, Func Length: 0, Args Length: 80
     ```
 
