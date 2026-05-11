@@ -10,6 +10,3 @@
 
 - rename nodes/containers in diagram
 
-### Lab 3
-
-- rename nodes in k8s: means reset cluster
