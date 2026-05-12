@@ -56,8 +56,7 @@ show run vrf
 show run interface GigabitEthernet 0/0/0/0
 ```
 
-### Configure SRv6 L3V
-PN on xrd07
+### Configure SRv6 L3VPN on xrd07
 
 We'll start with **xrd07** as it will need a pair of static routes for reachability to the  **app-container-07's** "40" and "50" network prefixes (loopback interfaces). Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
 
