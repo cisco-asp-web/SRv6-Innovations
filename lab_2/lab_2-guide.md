@@ -203,7 +203,7 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
    ```diff
     RP/0/RP0/CPU0:xrd01#show bgp vrf carrots 40.0.0.0/24 
     Tue May 12 17:40:19.447 UTC
-    BGP routing table entry for 40.0.0.0/24, Route Distinguisher: 10.0.0.1:0  <--- WE HAVE A ROUTE. YAH
+   +  BGP routing table entry for 40.0.0.0/24, Route Distinguisher: 10.0.0.1:0  <--- WE HAVE A ROUTE. YAY
     Versions:
       Process           bRIB/RIB   SendTblVer
       Speaker                 10           10
