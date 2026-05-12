@@ -335,9 +335,6 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
 1. SSH into any router and verify that ISIS is up and running and all seven nodes are accounted for in the topology database
 
     ```
-    ssh cisco@xrd01
-    ```
-    ```
     show isis topology
     ```
 
@@ -384,6 +381,27 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
    ```
    ~/SRv6-Innovations/lab_1/add-latency.sh
    ```
+   Example output:
+   ```
+   cisco@topology-host:~/SRv6-Innovations$ ~/SRv6-Innovations/lab_1/add-latency.sh
+  Latencies added. The following output applies in both directions, Ex: xrd01 -> xrd02 and xrd02 -> xrd01
+  xrd01 link latency: 
+  qdisc netem 800a: dev Gi0-0-0-1 root refcnt 33 limit 1000 delay 10ms
+  qdisc netem 800b: dev Gi0-0-0-2 root refcnt 33 limit 1000 delay 5ms
+  xrd02 link latency: 
+  qdisc netem 800c: dev Gi0-0-0-1 root refcnt 33 limit 1000 delay 30ms
+  qdisc netem 800d: dev Gi0-0-0-2 root refcnt 33 limit 1000 delay 20ms
+  xrd03 link latency: 
+  qdisc netem 800e: dev Gi0-0-0-1 root refcnt 33 limit 1000 delay 40ms
+  xrd04 link latency: 
+  qdisc netem 800f: dev Gi0-0-0-1 root refcnt 33 limit 1000 delay 30ms
+  qdisc netem 8010: dev Gi0-0-0-2 root refcnt 33 limit 1000 delay 30ms
+  xrd05 link latency: 
+  qdisc netem 8011: dev Gi0-0-0-2 root refcnt 33 limit 1000 delay 5ms
+  xrd06 link latency: 
+  qdisc netem 8012: dev Gi0-0-0-0 root refcnt 33 limit 1000 delay 30ms
+  
+ ```
    
 ## Validate BGP Peering
 
