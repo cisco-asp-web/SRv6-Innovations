@@ -1,5 +1,5 @@
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPClusterConfig
 metadata:
   name: cilium-bgp
@@ -36,7 +36,7 @@ spec:
       configRef: carrots-config
 
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPPeerConfig
 metadata:
   name: cilium-peer
@@ -51,7 +51,7 @@ spec:
       safi: mpls_vpn
 
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
   name: dc01-vm-00
@@ -66,7 +66,7 @@ spec:
           localAddress: fc00:0:800::2
 
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
   name: dc01-vm-01
@@ -81,7 +81,7 @@ spec:
           localAddress: fc00:0:800:1::2
 
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPNodeConfigOverride
 metadata:
   name: dc01-vm-02
@@ -96,7 +96,7 @@ spec:
           localAddress: fc00:0:800:2::2
 
 ---
-apiVersion: isovalent.com/v1alpha1
+apiVersion: isovalent.com/v1
 kind: IsovalentBGPAdvertisement
 metadata:
   name: bgp-ipv6-unicast
