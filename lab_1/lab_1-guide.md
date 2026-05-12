@@ -400,8 +400,7 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
   qdisc netem 8011: dev Gi0-0-0-2 root refcnt 33 limit 1000 delay 5ms
   xrd06 link latency: 
   qdisc netem 8012: dev Gi0-0-0-0 root refcnt 33 limit 1000 delay 30ms
-  
- ```
+  ```
    
 ## Validate BGP Peering
 
