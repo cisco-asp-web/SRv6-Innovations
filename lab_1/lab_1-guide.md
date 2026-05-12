@@ -384,7 +384,7 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
    
    Example output:
    
-   ```
+   ```bash
    cisco@topology-host:~/SRv6-Innovations$ ~/SRv6-Innovations/lab_1/add-latency.sh
     Latencies added. The following output applies in both directions, Ex: xrd01 -> xrd02 and xrd02 -> xrd01
     xrd01 link latency: 
@@ -403,7 +403,7 @@ For full size image see [LINK](../topo_drawings/isis-topology-large.png)
     xrd06 link latency: 
     qdisc netem 8012: dev Gi0-0-0-0 root refcnt 33 limit 1000 delay 30ms
     ```
-    
+
 ## Validate BGP Peering
 
 In the XRd network we are running a single BGP ASN 65000. Routers **xrd05** and **xrd06** are functioning as route reflectors and **xrd01** and **xrd07** are RR clients. 
