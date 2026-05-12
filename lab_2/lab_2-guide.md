@@ -214,7 +214,7 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
       Not advertised to any peer
       Local
    +     fc00:0:7777::1 (metric 3) from fc00:0:5555::1 (10.0.0.7) <-------------- SOURCE xrd07 
-   +       Received Label 0xe0060                                 <-------- (SRv6 Function "e006")[https://datatracker.ietf.org/doc/html/draft-filsfils-spring-srv6-network-programming-04#page-16]
+   +       Received Label 0xe0060                                 <-------- [SRv6 Function "e006"](https://datatracker.ietf.org/doc/html/draft-filsfils-spring-srv6-network-programming-04#page-16)
           Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, imported
           Received Path ID 0, Local Path ID 1, version 10
           Extended community: RT:9:9 
