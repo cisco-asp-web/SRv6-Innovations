@@ -312,7 +312,7 @@ The three **K8s VMs** have been preconfigured as a Kubernetes cluster running th
    
 2. Optional: check IPv6 connectivity from **dc01-vm-00** to **xrd01**
 
-    ![xrd01](../topo_drawings/lab1-xrd01.png)
+    
 
     ```
     ping fc00:0:800::1 -c 2
