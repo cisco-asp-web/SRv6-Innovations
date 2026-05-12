@@ -145,7 +145,7 @@ Our Cilium BGP configuration is broken into four CRDs:
    
    Here is a portion of the BGP Cluster Config CRD with notes:
    ```yaml
-   apiVersion: isovalent.com/v1alpha1
+   apiVersion: isovalent.com/v1
    kind: IsovalentBGPClusterConfig  # the BGP cluster configuration CRD  
    metadata:
      name: cilium-bgp 
