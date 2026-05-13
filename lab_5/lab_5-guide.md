@@ -1,7 +1,7 @@
 # Lab 5: SRv6 for Intelligent Load Balancing of AI Workloads [20 Min]
 
 ### Description
-In recent months a few Hyperscalers have expressed interest in running SRv6 over their AI training fabrics. The idea would be to offer their customers the ability to do intelligent and deterministic load balancing of large, long-lived flows, by pinning them to specific paths thru the fabric. The goal is to perform SRv6 encapsulation right at the host stack or RDMA NIC: *`host-based SRv6!`*
+In recent months a few Hyperscalers have expressed interest in running SRv6 over their AI training fabrics. The idea would be to offer their customers the ability to do intelligent and deterministic load balancing of large, long-lived flows, by pinning them to specific paths, or spraying them across groups of paths thru the fabric. The goal is to perform SRv6 encapsulation right at the host stack or RDMA NIC: *`host-based SRv6!`*
 
 In Lab 5 we will explore this use case with our SONiC backend fabric and the attached *`the K8s VMs`* simulating an AI Training infrastructure. 
 
@@ -27,7 +27,6 @@ In Lab 5 we will explore this use case with our SONiC backend fabric and the att
 ## Lab Objectives
 The student should have achieved the following objectives upon completion of Lab 5:
 
-* Understand the SRv6 Fabric Load Balancing use case
 * Familiarity with the SRv6 stack available in Linux
 * Understanding of SONiC's SRv6 uSID shift-and-forward capabilities
 * Familiarity with the idea of exposing SRv6 steering services to AI training frameworks and schedulers
@@ -45,7 +44,7 @@ The key problem to solve:
  - With AI training this can lead to delays or even job failures. 
  - Given the cost of running large GPU pools, delay or failure becomes very costly.
 
-The solution: *coordination of all senders source routing their traffic over disjoint paths through the fabric.*
+The solution: *coordination of all senders source routing their traffic through the fabric.*
 
 Cisco doesn't currently have a controller product for host-based SRv6 and the Hyperscalers build their own SDN control infrastructure. So to simulate this capability in the lab we've built a *`demo SRv6 PyTorch plugin`* which programs SRv6 routes in the Linux kernel, and which leverages the open-source *`project Jalapeno`* as its backend data repository.
 

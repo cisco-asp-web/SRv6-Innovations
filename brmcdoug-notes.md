@@ -10,3 +10,6 @@
 
 - rename nodes/containers in diagram
 
+### Lab 5
+
+- deploy multus CRDs into master dcloud dc01-vm-00

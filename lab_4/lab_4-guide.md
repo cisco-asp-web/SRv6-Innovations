@@ -263,8 +263,6 @@ We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco
 
 * Copy each node's *config_db.json* file to the */etc/sonic/* directory [Example spine00 config_db.json](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/config_db.json)
 * Load the config to activate the new settings
-* Copy over and run a loopback shell script that we've created for each node [Example spine00 loopback.sh](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/loopback.sh)
-* Save the config
 * Create and activate a loopback interface called **sr0** on each node. This loopback is needed for SONiC SRv6 functionality
 * Copy and load FRR configs, which include BGP and SRv6 attributes, to each node; [Example spine00 frr.conf](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic-config/spine00/frr.conf)
 
