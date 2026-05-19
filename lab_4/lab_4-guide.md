@@ -319,7 +319,6 @@ With our backend DC fabric now configured we will check to make sure that BGP pe
 
 1. Using the visual code containerlab extension, ssh to one or more SONiC nodes and spot check BGP peering . You can SSH into any SONiC container.  (user: admin, pw: admin)
 
-   <img src="../topo_drawings/lab4-ssh-sonic.png" width="400" />
 
     ```
     vtysh
