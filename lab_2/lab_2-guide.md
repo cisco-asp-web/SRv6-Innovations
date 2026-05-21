@@ -3,9 +3,9 @@
 > Tip: Attention to detail matters—sometimes the data plane hides more than just packets.
 
 ### Description
-In Lab 2 we will establish an SRv6 Layer-3 VPN named *`carrots`*.  The *carrots* vrf will include the *xrd01 "storage"* and *xrd07* containers connected to **xrd01** and **xrd07**.  
+In Lab 2 we will establish an SRv6 Layer-3 VPN named *`carrots`*.  The *carrots* vrf will include **app-container-01** connected to **xrd01** and **app-container-07** connected to **xrd07**.  
 
-Once the L3VPN is established we will then setup SRv6-TE traffic steering from *xrd01* such that traffic to *xrd07* prefix *`40.0.0.0/24`* will take a different path than traffic to xrd07 prefix *`50.0.0.0/24`*.
+Once the L3VPN is established we will then setup SRv6-TE traffic steering from **xrd01** such that traffic to **app-container-d07** prefix *`40.0.0.0/24`* will take a different path than traffic to **app-container-07** prefix *`50.0.0.0/24`*.
 
 ## Contents
 - [Lab 2: Configure SRv6 L3VPN and SRv6-TE \[20 Min\]](#lab-2-configure-srv6-l3vpn-and-srv6-te-20-min)
@@ -31,7 +31,7 @@ We will have achieved the following objectives upon completion of Lab 2:
 
 
 ## Configure SRv6 L3VPN
-The SRv6-based IPv4/IPv6 L3VPN featureset enables operation of IPv4/IPv6 L3VPN over a SRv6 data plane. Traditionally L3VPN has been operated over MPLS or SR-MPLS. SRv6 L3VPN uses the locator/function aspect of SRv6 Segment IDs (SIDs) instead of PE + VPN labels. 
+The SRv6-based IPv4/IPv6 L3VPN featureset enables operation of L3VPN over a SRv6 data plane. Traditionally L3VPN has been operated over MPLS or SR-MPLS. SRv6 L3VPN uses the locator/function aspect of SRv6 Segment IDs (SIDs) instead of PE + VPN labels. 
 
 Example: 
 
@@ -58,10 +58,10 @@ show run interface GigabitEthernet 0/0/0/0
 
 ### Configure SRv6 L3VPN on xrd07
 
-We'll start with **xrd07** as it will need a pair of static routes for reachability to the  **app-container-07's** "40" and "50" network prefixes (loopback interfaces). Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
+We'll start with **xrd07** as it will need a pair of static routes for reachability to the  **app-container-07's** "40" and "50" network prefixes. Later we'll create SRv6-TE steering policies for traffic to the "40" and "50" prefixes:  
 
 > [!NOTE]
-> All of the below commands are also available in the *`quick config doc.`*. Be aware that the quick config document contains both the L3VPN configuration as well as the L3VPN TE configuration. [HERE](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_2/lab_2_quick_config.md) 
+> All of the below commands are also available in the [quick config doc](./xrd-config/lab_2_quick_config.md). Be aware that the quick config document contains both the L3VPN configuration as well as the L3VPN TE configuration.  
 
    
 1. **xrd07** vrf static route configuration
@@ -105,7 +105,7 @@ We'll start with **xrd07** as it will need a pair of static routes for reachabil
       commit
     ```
 
-4. Enable SRv6 for VRF carrots and redistribute connected/static
+4. Enable SRv6 for VRF carrots and `redistribute connected/static`
    
     Next we add VRF *carrots* into BGP and enable SRv6 to the IPv4 and IPv6 address family with the command *`segment-routing srv6`*. In addition we will tie the VRF to the SRv6 locator *`MyLocator`* configured in Lab 1.
 
