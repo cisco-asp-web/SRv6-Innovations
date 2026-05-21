@@ -258,7 +258,7 @@ Our Cilium BGP configuration is broken into four CRDs:
    ```bash
    $ cilium bgp peers
    Node          Local AS  Peer AS  Peer Address     Session State  Uptime  Family          Received  Advertised
-   dc01-vm-00  65000     65000    fc00:0:5555::1   established    25s     ipv6/unicast    6         1    
+   dc01-vm-00    65000     65000    fc00:0:5555::1   established    25s     ipv6/unicast    6         1    
                                                                             ipv4/mpls_vpn   4         0    
                  65000     65000    fc00:0:6666::1   established    30s     ipv6/unicast    6         1    
                                                                             ipv4/mpls_vpn   4         0
@@ -285,7 +285,7 @@ Our Cilium BGP configuration is broken into four CRDs:
    cilium bgp routes advertised ipv6 unicast
    ```
 
-   Example partial output showing **dc01-vm-00's** network-facing interface as the BGP NextHop
+   Example partial output showing **dc01-vm-00's** *network-facing interface as the BGP NextHop*
    ```yaml
    Node         VRouter  Peer            Prefix            NextHop        Age       Attrs
    dc01-vm-00  65000    fc00:0:5555::1  2001:db8:42::/64  fc00:0:800::2  3h22m34s  [{Origin: i} {AsPath: } {LocalPref: 100} {MpReach(ipv6-unicast): {Nexthop: fc00:0:800::2, NLRIs: [2001:db8:42::/64]}}]       
@@ -401,7 +401,7 @@ First though lets look at the BGP VRF configuration section contained in *03-car
       - advertisementType: "PodCIDR"   # we're going to advertise the k8s pod CIDR or subnet
   ```
 
-Now lets dive deeper into the  *carrots* VRF and the Alpine linux container in the VRF. The goal is to create a forwarding policy so that packets from the container get placed into the *carrots* vrf and then encapsulated in an SRv6 L3VPN header as detailed in the below diagram.
+Now lets dive deeper into the  *carrots* VRF and the Alpine linux container/pod we'll create and add to the VRF. The goal is to create a forwarding policy so that packets from the container get placed into the *carrots* vrf and then encapsulated in an SRv6 L3VPN header as detailed in the below diagram.
 
 ![Cilium SRv6 L3VPN](/topo_drawings/cilium-packet-forwarding.png)
 
@@ -505,16 +505,18 @@ You'll note that the pod is in the *carrots VRF* and the K8s namespace *veggies*
    ```
    show bgp vpnv4 unicast | include 10.200.
    ```
-   ```
-   show bgp vpnv4 unicast rd 9:9 10.200.2.0/24
-   ```
 
-   In the output of the first command we expect to find the Cilium advertised L3VPN prefixes, example:
+   In the output we expect to find the Cilium advertised L3VPN prefixes, example:
    ```
    *>i10.200.2.0/24      fc00:0:800:2::2                100      0 ?
    ```
 
-   In the output of the second command we expect to see detailed information for the prefix. Below is truncated output. Note, due to Cilium's dynamic allocation, your *Received Label* and *Sid* values will most likely differ from this example:
+   Next up:
+   ```
+   show bgp vpnv4 unicast rd 9:9 10.200.2.0/24
+   ```
+
+   In the output we expect to see detailed information for the prefix. Below is truncated output. Note, due to Cilium's dynamic allocation, your *Received Label* and *Sid* values will most likely differ from this example:
    ```diff
     fc00:0:800:2::2 (metric 4) from fc00:0:6666::1 (10.8.2.2)
    +   Received Label 0x15300
