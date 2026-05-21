@@ -105,6 +105,7 @@ In addition to normal Linux CLI, SONiC has its own CLI that operates from the Li
     show ip interfaces
     show ipv6 interfaces
     show version
+    show platform summary
     ```
     If you would like to explore more we've included a short [SONiC CLI command reference](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_4/sonic_cli_reference.md)
 
@@ -113,7 +114,7 @@ In addition to normal Linux CLI, SONiC has its own CLI that operates from the Li
     vtysh
     ```
 
-    Expected output:
+    Expected output (*you can ignore the message about FD limit being stupidly large...but feel free to score your surveys stupidly high!*):
     ```
     admin@sonic:~$ vtysh
 
@@ -256,6 +257,10 @@ Our SONiC fabric will use IPv6 link local addresses for the BGP underlay, so we 
    +Loopback0              fc00:0:1004::1/128                       up/up         N/A             N/A
    ```
 
+7. Ping **dc01-vm-00's** backend interface attached to **leaf00** `Ethernet16`
+   ```
+   ping fcbb:0:800::2 -i .5 -c 4
+   ```
 
 ## Fabric Config Automation with Ansible 
 
@@ -508,6 +513,7 @@ If your *vtysh* session is on **leaf00** keep it open. If not, ssh to **leaf00**
     rtt min/avg/max/mdev = 1.744/1.988/2.131/0.173 ms
     ```
 
+Backend fabric reachability has been established!
     
 ## End of lab 4
 Please proceed to [Lab 5: Host Based SRv6 and SRv6 for AI Backend Networks](https://github.com/cisco-asp-web/SRv6-Innovations/blob/main/lab_5/lab_5-guide.md)
