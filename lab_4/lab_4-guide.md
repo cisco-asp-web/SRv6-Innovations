@@ -269,9 +269,9 @@ We'll use Ansible and execute the [sonic-playbook.yaml](https://github.com/cisco
 
 1. Launch a terminal on the *`topology host`* using the visual code containerlab extension:
 
-<img src="../topo_drawings/lab4-terminal.png" width="800" />
+<img src="../topo_drawings/topology-host-ssh.png" width="800" />
 
-2. cd into the lab_4 directory and execute the *sonic-playbook.yaml*
+1. cd into the lab_4 directory and execute the *sonic-playbook.yaml*
     ```
     cd ~/SRv6-Innovations/lab_4/ansible
     ansible-playbook -i hosts sonic-playbook.yaml -e "ansible_user=admin ansible_ssh_pass=admin ansible_sudo_pass=admin" -vv
@@ -319,7 +319,6 @@ With our backend DC fabric now configured we will check to make sure that BGP pe
 
 1. Using the visual code containerlab extension, ssh to one or more SONiC nodes and spot check BGP peering . You can SSH into any SONiC container.  (user: admin, pw: admin)
 
-   <img src="../topo_drawings/lab4-ssh-sonic.png" width="400" />
 
     ```
     vtysh
