@@ -1,7 +1,7 @@
 # Lab 3: SRv6 for Kubernetes with Cilium [30 Min]
 
 ### Description
-Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The the K8s VMs have Kubernetes pre-installed and are running the [Cilium CNI](https://isovalent.com/products/kubernetes-networking/) (Container Network Interface). In this lab we'll review some basic Kubernetes commands (*`kubectl`*) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our K8s cluster and join them to the carrots VRF.
+Now that we've established SRv6 L3VPNs across our network, we're going to transition from **router-based SRv6** to **host-based SRv6**. Our first step will be to enable *SRv6 L3VPN for Kubernetes*. The VMs attached to *xrd01* have Kubernetes pre-installed and are running the [Cilium CNI](https://isovalent.com/products/kubernetes-networking/) (Container Network Interface). In this lab we'll review some basic Kubernetes commands (*`kubectl`*) and then we'll setup Cilium BGP peering with our XRd route reflectors. After that we'll configure Cilium's SRv6 SID manager and Locator pool. Finally we'll add a couple containers to our K8s cluster and join them to the carrots VRF.
 
 > [!NOTE]
 > This portion of the lab makes use of Cilium Enterprise as the SRv6 features are not available in the open source version. If you are interested in SRv6 on Cilium or other Enterprise features, please contact the relevant Cisco Isovalent sales team.  
@@ -116,21 +116,22 @@ Said another way, CRDs enable us to add, update, or delete Kubernetes cluster el
 
 A CRD applied to a single element in the K8s cluster would be analogous to configuring BGP on a router. A CRD applied to multiple elements or cluster-wide would be analogous to adding BGP route-reflection to a network. 
 
-CRDs come in YAML file format and in the next several sections of this lab we'll apply CRDs to the K8s cluster to setup Cilium BGP peering, establish Cilium SRv6 locator ranges, create VRFs, etc.
+CRDs come in YAML file format and in the next several sections of this lab we'll apply CRDs to the K8s cluster to setup Cilium SRv6.
 
 One of the great things about CRDs is you can combine all the configuration elements into a single file, or you can break it up into multiple files by configuration element. We've grouped roughly 10 CRDs into three yaml files:
 
    * [01-cilium-bgp.yaml](cilium/01-cilium-bgp.yaml) - Full Cilium BGP config including ASN, peers, address-families, node-override/update-source, and prefix advertisement
    * [02-cilium-srv6.yaml](cilium/02-cilium-srv6.yaml) - Cilium SRv6 SID manager and Locator pool configuration
-   * [03-carrots-vrf.yaml](cilium/07-vrf-carrots.yaml) - Cilium BGP and K8s VRF 'carrots' configuration and deployment of test pod
+   * [03-carrots-vrf.yaml](cilium/07-vrf-carrots.yaml) - K8s VRF 'carrots' configuration and deployment of test pod
 
-On **dc01-vm-00** change to the lab_3/cilium directory and check out the contents
+On **dc01-vm-00** change to the `lab_3/cilium` directory and check out the contents
    ```
    cd ~/SRv6-Innovations/lab_3/cilium/
    ll
    ```
 
-The directory also contains [99-cilium-all.yaml](./cilium/99-cilium-all.yaml) which has all CRDs used in this lab. This file can be used to deploy all elements in a single shot, or to clean out all Cilium BGP/SRv6/VRF config.
+> [!NOTE]
+> The directory also contains [99-cilium-all.yaml](./cilium/99-cilium-all.yaml) which has all CRDs used in this lab. This file can be used to deploy all elements in a single shot, or to clean out all Cilium BGP/SRv6/VRF config.
   
 
 ## Cilium BGP
@@ -242,7 +243,7 @@ Our Cilium BGP configuration is broken into four CRDs:
 ### Verify Cilium BGP peering and prefix advertisement
 
 > [!NOTE]
-> the xrd05 and xrd06 route-reflectors were preconfigured to peer with the Cilium nodes and inherited the vpnv4 address family configuration during Lab 2, so we don't need to update their configs. 
+> The xrd05 and xrd06 route-reflectors were preconfigured to peer with the Cilium nodes and inherited the vpnv4 address family configuration during Lab 2, so we don't need to update their configs. 
 
 
 1. Use the *`cilium bgp peers`* command to verify established peering sessions with **xrd05** and **xrd06**. Note, it may take a few seconds to a minute for the peering sessions and bgp table sync.
@@ -254,7 +255,7 @@ Our Cilium BGP configuration is broken into four CRDs:
    We expect each K8s VM to have two IPv6 BGP peering sessions established and receiving BGP NLRIs for IPv6 and IPv4/mpls_vpn (aka, SRv6 L3VPN). We also expect to be advertising an IPv6 unicast prefix, but not advertise VPN prefixes yet.
 
    Partial output:
-   ```yaml
+   ```bash
    $ cilium bgp peers
    Node          Local AS  Peer AS  Peer Address     Session State  Uptime  Family          Received  Advertised
    dc01-vm-00  65000     65000    fc00:0:5555::1   established    25s     ipv6/unicast    6         1    
