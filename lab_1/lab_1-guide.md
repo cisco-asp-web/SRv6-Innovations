@@ -22,10 +22,6 @@ https://containerlab.dev/
     - [Accessing the K8s Control Plane VM](#accessing-the-k8s-control-plane-vm)
   - [Validate ISIS Topology](#validate-isis-topology)
     - [Add Synthetic Latency to the Links](#add-synthetic-latency-to-the-links)
-  - [Validate BGP Peering](#validate-bgp-peering)
-  - [Configure and Validate SRv6](#configure-and-validate-srv6)
-    - [Configure SRv6 on xrd01](#configure-srv6-on-xrd01)
-    - [Configure SRv6 on xrd07](#configure-srv6-on-xrd07)
     - [Validate SRv6 configuration and reachability](#validate-srv6-configuration-and-reachability)
   - [Edgeshark introduction](#edgeshark-introduction)
   - [End of Lab 1](#end-of-lab-1)
@@ -103,7 +99,7 @@ Visual code will connect to the topology host and lab attendees should enter the
 
 ![connect using visual code](../topo_drawings/lab1-visual-code-connect.png)
 
-You are now connected to the topology host and can start topologies and inspect traffic. At the moment, no topology is started. Make sure you click on the containerlab extension before you can start a topology.
+You are now connected to the `topology-host` and can start topologies and inspect traffic. At the moment, no topology is started. Make sure you click on the containerlab extension before you can start a topology.
 
 ![connected visual code](../topo_drawings/lab1-visual-code-connected.png)
 
@@ -191,7 +187,7 @@ We can also verify the containerlab logs in the visual code output window. Trunc
 > [!NOTE]
 > All *containerlab* commands can be abbreviated to *clab*. Example: *sudo clab deploy -t lab_1-topology.clab.yaml*
 
-If the terminal is not visible in VScode, please launch a new terminal using the terminal / New terminal tabs. that way, you will be directly connected to the topology host using SSH.
+If the terminal is not visible in VScode, please launch a new terminal using the *`terminal / New terminal`* tabs. that way, you will be directly connected to the topology host using SSH.
 
 
 ### Connect to the Topology Host and SSH to Containers.
