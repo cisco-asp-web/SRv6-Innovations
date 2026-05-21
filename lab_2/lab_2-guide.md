@@ -105,7 +105,7 @@ We'll start with **xrd07** as it will need a pair of static routes for reachabil
       commit
     ```
 
-4. Enable SRv6 for VRF carrots and `redistribute connected/static`
+4. Enable SRv6 for VRF carrots
    
     Next we add VRF *carrots* into BGP and enable SRv6 to the IPv4 and IPv6 address family with the command *`segment-routing srv6`*. In addition we will tie the VRF to the SRv6 locator *`MyLocator`* configured in Lab 1.
 
@@ -130,7 +130,7 @@ We'll start with **xrd07** as it will need a pair of static routes for reachabil
           redistribute static
       commit
       ```
-### Configure SRv6 L3VPN on xrd01 and RR xrd05
+### Configure SRv6 L3VPN on xrd01 
 
 1. Using the visual code extension, ssh to **xrd01** and apply the configuration in a single step:
 
@@ -232,14 +232,14 @@ Validation command output examples can be found at this [LINK](/lab_2/validation
 
 * The **"40"** destination (40.0.0.0/24) is bulk transport destination (content replication or data backups) and thus latency and loss tolerant. 
   
-* The **"50"** destination (50.0.0.0/24) is for real time traffic (live video, etc.) and thus require the lowest latency path available.
+* The **"50"** destination (50.0.0.0/24) is for real time traffic (live video, etc.) and thus requires the lowest latency path available.
 
 We will use the below diagram for reference:
 
 <img src="../topo_drawings/lab2-l3vpn-policy.png" width="800" />
 
 > [!IMPORTANT]
-> A subsequent section of this lab will validate end-to-end connectivity between **app-copntainer-01** and **app-container-07**, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
+> A subsequent section of this lab will validate end-to-end connectivity between **app-container-01** and **app-container-07**, providing a detailed, step-by-step walkthrough of traffic forwarding across the network from ingress to egress.
 
 ### Create SRv6-TE steering policy
 For our SRv6-TE purposes we'll leverage the on-demand nexthop (ODN) feature set. Here is a nice example and explanation of ODN: [HERE](https://xrdocs.io/design/blogs/latest-converged-sdn-transport-ig)
@@ -272,7 +272,7 @@ The ingress PE, **xrd01**, will then be configured with SRv6 segment-lists and S
          Source AFI: VPNv4 Unicast, Source VRF: default, Source Route Distinguisher: 10.0.0.7:1
    ```
       
-2. On **xrd07** configure ext-comms, route-policies, and BGP such that *xrd07* advertises xrd07's "40" and "50" prefixes with their respective color extended communities:
+2. On **xrd07** configure ext-comms, route-policies, and BGP such that *xrd07* advertises *app-container-07's* "40" and "50" prefixes with their respective color extended communities:
 
    Using the visual code extension, SSH into *xrd07* and paste the following commands:
 
