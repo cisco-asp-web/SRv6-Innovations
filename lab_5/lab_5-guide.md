@@ -101,7 +101,7 @@ Before we get into PyTorch and AI Backend fabrics, let's manually add a Linux ro
 > [!NOTE]
 > To inspect specific parts of the configuration, you can also run the following command from the shell (outside of vtysh mode):
 >
-> vtysh -c "show running-config" | grep -A 10 "segment-routing"
+> *vtysh -c "show running-config" | grep -A 10 "segment-routing"*
 >
 > This filters and displays the Segment Routing configuration along with the 10 lines that follow.
 ```
@@ -179,7 +179,7 @@ After completing **Lab 5** feel free to checkout the [Lab 5 Bonus Section](./lab
 
 ### AI/ML Workloads and Kubernetes
 
-Its very common for operators to use Kubernetes to orchestrate ML workloads and have them communicate over dedicated backend networks. We have our Kubernetes cluster with the **the K8s VMs**, which all happen to have a 2nd interface **ens5** plugged into our SRv6 enabled SONiC backend fabric.
+Its very common for operators to use Kubernetes to orchestrate ML workloads and have them communicate over dedicated backend networks. We have our Kubernetes cluster with the **K8s VMs**, which all happen to have a 2nd interface **ens5** plugged into our SRv6 enabled SONiC backend fabric.
 
 ### PyTorch Distributed Training
 
@@ -354,16 +354,16 @@ The **SRv6 PyTorch pods** are connected to both the backend SONiC fabric and the
 <img src="../topo_drawings/lab5-backend-frontend.png" width="800" />
 
 
-1. Run a *frontend* ping from the *`srv6-pytorch-0`* worker pod to the remote **xrd07** container in *VRF carrots*
+1. Run a *frontend* ping from the *`srv6-pytorch-0`* worker pod to the remote **app-container-07** container in *VRF carrots*
    
-   If your terminal session is still *exec'd* into the pod run the ping directly
+   If your terminal session is still *exec'd* into the pod run the ping directly:
    ```
-   ping 10.107.1.2 -i .5
+   ping 40.0.0.1 -i .5
    ```
 
    If you had exited the pod and are at the **dc01-vm-00** shell you can run the ping from there:
    ```
-   kubectl exec -it srv6-pytorch-0 -- ping 10.107.1.2 -i .5
+   kubectl exec -it srv6-pytorch-0 -- ping 40.0.0.1 -i .5
    ```
 
 2. While the ping is running start an Edgeshark capture on **xrd01** Gi0-0-0-3. The capture should show the pings as SRv6 encapsulated packets with the uSID stack programmed by the SRv6 PyTorch plugin. 
