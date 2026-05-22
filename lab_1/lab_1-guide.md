@@ -38,7 +38,7 @@ We will have achieved the following objectives upon completion of Lab 1:
 
 ## Topology 
 
-Our network consists of a frontend/WAN with 7 XRd routers providing SRv6 transport services and a 6-node SONiC fabric to simulate an AI/ML backend network. We have a pair of Ubuntu containers (app-container-01 and app-container-07) connected to the XRd network, and three Ubuntu VMs running as a Kubernetes cluster and connected to both XRd frontend and SONiC backend networks.
+Our network consists of a frontend/WAN with 7 XRd routers providing SRv6 transport services and a 6-node SONiC fabric to simulate an AI/ML backend network. We have a pair of Ubuntu containers (app-container-xrd01 and app-container-xrd07) connected to the XRd network, and three Ubuntu VMs running as a Kubernetes cluster and connected to both XRd frontend and SONiC backend networks.
 
 ![Lab Topology](../topo_drawings/overview-topology-large.png)
 
