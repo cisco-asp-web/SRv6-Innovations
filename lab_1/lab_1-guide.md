@@ -46,6 +46,9 @@ Lab 1 focuses exclusively on the XRd frontend network.
 
 ## Selecting Student Pod and Connecting to VPN
 1. You will be using the web based ILT Assistant tool for student pod assignment and connecting your VPN. First, you should have been assigned a lab **POD #** from 1 to 30 by the proctor and been given the six digit **Access Code** for today's lab.
+
+> [!IMPORTANT] 
+> 🔑🔑🔑🔑🔑 Access Code for today: **`259857`** 🔑🔑🔑🔑🔑
    
 2. Open a browser on your desktop and go the ILT Assistant tool at the following URL https://lab-assistant.com/ and
    enter your lab **Access Code** as shown in the below screenshot.
