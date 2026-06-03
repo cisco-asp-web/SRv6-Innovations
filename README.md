@@ -97,7 +97,7 @@ This lab environment consists of three virtual machines, each with a specific ro
 2. Open a browser on your desktop and go the ILT Assistant tool at the following URL https://lab-assistant.com/ and
    enter your lab **Access Code** as shown in the below screenshot.
 
-<img src="../topo_drawings/lab-assistant-step-1.png" width="800" />
+<img src="topo_drawings/lab-assistant-step-1.png" width="800" />
 
 3. Now on the SRv6-Innovations screen click the **POD** button to bring up the list of available pods and select the pod number you were assigned.
 
