@@ -1,0 +1,170 @@
+# SRv6-Innovations Lab QA configuration
+#
+# Default connection path (running from Mac or any external host):
+#
+#   Mac ──SSH──▶ topology-host (198.18.133.100)     [L0, L1, L2, L3, L6 checks run here]
+#                     └──SSH──▶ dc01-vm-00 (192.168.122.100)  [L5 cert check, L8 VM pings]
+#                     └──SSH──▶ sonic-leaf-XX (172.20.6.128+)  [L4 SONiC checks]
+#   Mac ──SSH──▶ jalapeno-host (198.18.128.101)     [L7 Jalapeno checks]
+
+hosts:
+  topology_host:
+    ip: "198.18.133.100"
+    user: "cisco"
+    password: "cisco123"
+  jalapeno_host:
+    ip: "198.18.128.101"
+    user: "cisco"
+    password: "cisco123"
+
+kubernetes:
+  control_plane:
+    ip: "192.168.122.100"
+    user: "cisco"
+    password: "cisco123"
+  jump_host:
+    ip: "198.18.133.100"
+    user: "cisco"
+    password: "cisco123"
+
+# Docker images that must be present on topology-host for containerlab to work
+docker_images:
+  - "cisco-xrd-control-plane:24.4.1"
+  - "vrnetlab/sonic_sonic-vs:vpp20250422"
+
+# All containers expected to be running after clab deploy
+containers:
+  - xrd01
+  - xrd02
+  - xrd03
+  - xrd04
+  - xrd05
+  - xrd06
+  - xrd07
+  - sonic-leaf-00
+  - sonic-leaf-01
+  - sonic-leaf-02
+  - sonic-spine-00
+  - sonic-spine-01
+  - sonic-spine-02
+  - app-container-01
+  - app-container-07
+
+# ── L3 — XRd routing protocols ───────────────────────────────────────────────
+# Checks are run via 'docker exec' on topology-host.
+# role: rr   → also checks BGP session count (route reflectors xrd05/xrd06)
+xrd_nodes:
+  - name: xrd01
+    container: xrd01
+    locator: "fc00:0:1111::/48"
+    min_isis_neighbors: 1
+  - name: xrd02
+    container: xrd02
+    locator: "fc00:0:2222::/48"
+    min_isis_neighbors: 1
+  - name: xrd03
+    container: xrd03
+    locator: "fc00:0:3333::/48"
+    min_isis_neighbors: 1
+  - name: xrd04
+    container: xrd04
+    locator: "fc00:0:4444::/48"
+    min_isis_neighbors: 1
+  - name: xrd05
+    container: xrd05
+    locator: "fc00:0:5555::/48"
+    role: rr
+    min_isis_neighbors: 1
+    min_bgp_sessions: 4
+  - name: xrd06
+    container: xrd06
+    locator: "fc00:0:6666::/48"
+    role: rr
+    min_isis_neighbors: 1
+    min_bgp_sessions: 4
+  - name: xrd07
+    container: xrd07
+    locator: "fc00:0:7777::/48"
+    min_isis_neighbors: 1
+
+# ── L4 — SONiC DC fabric ─────────────────────────────────────────────────────
+# Checks are run via SSH (jump through topology-host → SONiC management IP).
+# Leaves peer with 3 spines; spines peer with 3 leaves.
+sonic_nodes:
+  - name: sonic-leaf-00
+    container: sonic-leaf-00
+    mgmt_ip: "172.20.6.128"
+    role: leaf
+    min_bgp_sessions: 3
+  - name: sonic-leaf-01
+    container: sonic-leaf-01
+    mgmt_ip: "172.20.6.129"
+    role: leaf
+    min_bgp_sessions: 3
+  - name: sonic-leaf-02
+    container: sonic-leaf-02
+    mgmt_ip: "172.20.6.130"
+    role: leaf
+    min_bgp_sessions: 3
+  - name: sonic-spine-00
+    container: sonic-spine-00
+    mgmt_ip: "172.20.6.192"
+    role: spine
+    min_bgp_sessions: 3
+  - name: sonic-spine-01
+    container: sonic-spine-01
+    mgmt_ip: "172.20.6.193"
+    role: spine
+    min_bgp_sessions: 3
+  - name: sonic-spine-02
+    container: sonic-spine-02
+    mgmt_ip: "172.20.6.194"
+    role: spine
+    min_bgp_sessions: 3
+
+# ── L6 — TIG observability stack ─────────────────────────────────────────────
+# TIG containers run on topology-host, on the mgt-network (172.20.6.0/24).
+# HTTP checks are run from topology-host because those IPs are not routable from Mac.
+tig:
+  containers:
+    - lab-influxdb
+    - lab-telegraf
+    - lab-grafana
+    - lab-mysql
+  influxdb_url: "http://172.20.6.200:8086"
+  grafana_url: "http://172.20.6.202:3000"
+
+# ── L7 — Jalapeno SDN stack ──────────────────────────────────────────────────
+# Runs on jalapeno-host. Fill in 'containers' by running:
+#   ssh cisco@198.18.128.101 'docker ps --format "{{.Names}}"'
+jalapeno:
+  containers: []
+  arango_url: "http://198.18.128.101:8529"
+  kafka_port: 9092
+  grpc_port: 32400
+
+# ── L8 — End-to-end data plane ───────────────────────────────────────────────
+e2e:
+  # WAN pings run via docker exec on topology-host
+  wan_tests:
+    - from_container: app-container-01
+      to_ip: "20.0.0.1"
+      description: "WAN IPv4: app-container-01 → app-container-07"
+    - from_container: app-container-01
+      to_ip6: "fc00:0:40::1"
+      description: "WAN IPv6: app-container-01 → app-container-07"
+  # VM pings SSH via topology-host as jump host → dc01-vm-00
+  vm_pings:
+    - from_vm_ip: "192.168.122.100"
+      to_ip: "10.8.0.1"
+      description: "VM-00 frontend → xrd01 gateway (10.8.0.1)"
+    - from_vm_ip: "192.168.122.100"
+      to_ip6: "fcbb:0:0800::1"
+      interface: "ens5"
+      description: "VM-00 backend → leaf-00 loopback (fcbb:0:0800::1)"
+
+thresholds:
+  cert_warning_days: 30
+  cert_critical_days: 7
+  min_disk_gb: 20
+  max_container_restarts: 3
